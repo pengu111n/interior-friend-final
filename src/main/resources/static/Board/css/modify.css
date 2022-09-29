@@ -1,0 +1,81 @@
+@charset "UTF-8";
+
+.footer-area {
+    width: 100%;
+    height: 110px; /* 내용물에 따라 알맞는 값 설정 */
+    position: absolute;
+}
+.expert-calculate__content {
+    text-align: center;
+}
+.text-center padding-b-50 {
+    margin-top: 50px;
+}
+.notice {
+    margin: 0 auto;
+    width: 60%;
+    left: 30%;
+    background-color: #f7f8fa;
+    padding-left: 1%;
+    padding-right: 1%;
+    padding-bottom: 1%;
+    padding-top: 1%;
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
+.form-group {
+    margin: 0 auto;
+    width: 35%;
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
+.area {
+    margin: 0 auto;
+    width: 30%;
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
+.range-slider-input__content {
+    position: relative;
+    top: 7px;
+    left: 12px;
+    right: 12px;
+    height: 10px;
+}
+.input-group {
+    margin: 0 auto;
+    width: 40%;
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
+.cancel_btn {
+    position: relative;
+    width: 150px;
+    height: 60px;
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-bottom: 100px;
+    margin-left: 50px;
+    background-color: #C2C2C2;
+}
+.submit_btn {
+    position: relative;
+    width: 150px;
+    height: 60px;
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-bottom: 100px;
+    background-color: #FDC600;
+}
+.box-title {
+    text-align: center;
+}
+.box {
+    width: 70%;
+    margin: auto;
+    text-align: center;
+}
+.form-group {
+    text-align-last: center;
+    text-align: center;
+}

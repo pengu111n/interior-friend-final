@@ -1,0 +1,72 @@
+.nickNameCK {
+  display: none;
+  color: red;
+}
+
+#dupId {
+  display: none;
+  color: red;
+}
+
+.regexId {
+  display: none;
+  color: red;
+}
+
+.successId {
+  display: none;
+  color: green;
+}
+
+.email-form span {
+  display: flex;
+}
+
+.empty {
+  display: none;
+  color: red;
+}
+
+.regexPW {
+  display: none;
+  color: red;
+}
+
+.samePW {
+  display: none;
+  color: red;
+}
+
+.emptyMail {
+  font-weight: 300;
+}
+
+#birth {
+  display: flex;
+}
+
+#birth input:nth-child(1),
+#birth select {
+  margin-right: 10px;
+}
+
+#birth .emptyBirth {
+    display: none;
+    color: red;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.lengthCK{
+    display: none;
+    color: red;
+}
+
+.regPhone{
+    display: none;
+    color: red;
+}

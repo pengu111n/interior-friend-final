@@ -1,0 +1,79 @@
+.ArticleContentBox .container{
+	padding: 20px 40px;
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	color: black;
+	
+	border-radius: 10px;
+}
+
+
+.container .header .header__title{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.container .header .header__title h2{
+	margin: 0px;
+}
+
+.content {
+	position : relative;
+}
+
+.content .answerContent .answerContent__title{
+	position : absolute;
+	top: 50%;
+	left: 0px;
+}
+
+.content .answerContent{
+	margin-top : 50px;	
+	margin-left: 200px;
+	
+}
+
+.content .answerContent .answerContent__Content{	
+	
+}
+
+.container .header .header__title .status{
+	margin-left : 30px;
+}
+
+.ArticleContentBox .container .header{
+	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+	padding-bottom: 15px;
+	
+}
+
+.ArticleContentBox .container .header .header__date{
+	display: flex;
+	justify-content: space-between;
+}
+
+.header__date span input{
+	width: 20px;
+	height: 20px;
+	text-align: center;
+	align-items: center;
+	padding: 0px;
+	margin-left: 10px;
+	
+	
+}
+
+.ArticleContentBox .container .header .header__nickname{
+	font-weight: 500;
+}
+
+h6{
+	font-size: x-small;
+	font-weight: 400;
+	opacity: 0.4;
+}
+
+.ArticleContentBox .container .content{
+	padding-top: 30px;
+	
+}
