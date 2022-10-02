@@ -14,7 +14,7 @@ public interface NoticeService {
 
     default Notice dtoToEntity(NoticeDTO dto) {
 
-        Member member = Member.builder().memNo(Long.valueOf(dto.getWriterMemNo())).build();
+        Member member = Member.builder().memNo(dto.getWriterMemNo()).build();
 
         Notice notice = Notice.builder()
                 .noticeNo(dto.getNoticeNo())

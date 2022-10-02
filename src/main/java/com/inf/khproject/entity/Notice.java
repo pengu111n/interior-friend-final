@@ -20,7 +20,7 @@ public class Notice extends BaseEntity {
 
     private String content;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Member writer;
 
 }
