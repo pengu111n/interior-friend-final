@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.function.Function;
 
 @Service
@@ -31,6 +32,15 @@ public class NoticeServiceImpl implements NoticeService {
         noticeRepository.save(notice);
 
         return notice.getNoticeNo();
+
+    }
+
+    @Override
+    public NoticeDTO read(Long noticeNo) {
+
+        Optional<Notice> result = noticeRepository.findById(noticeNo);
+
+        return result.isPresent() ? entityToDTO(result.get()) : null;
 
     }
 

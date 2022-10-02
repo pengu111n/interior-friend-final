@@ -10,6 +10,8 @@ public interface NoticeService {
 
     Long register(NoticeDTO dto);
 
+    NoticeDTO read(Long noticeNo);
+
     PageResultDTO<NoticeDTO, Notice> getList(PageRequestDTO pageRequestDTO);
 
     default Notice dtoToEntity(NoticeDTO dto) {

@@ -42,7 +42,7 @@
         <!-- board list area -->
         <div id="board-list">
             <div class="container">
-                <table class="board-table">
+                <table class="board-table" style="margin-top:10px;">
                     <thead>
                     <tr>
                         <th scope="col" class="th-num">번호</th>
@@ -52,7 +52,7 @@
 
                         <!--<c:if test="${login.rank == 3}">-->
                         <div class="collapse navbar-collapse yamm" id="navigation">
-                            <div class="button navbar-right">
+                            <div class="button navbar-right" style="margin-top: 10px;">
                                 <a th:href="@{/service-center/notice/register}"
                                    class="navbar-btn nav-button wow fadeInRight"
                                    data-wow-delay="0.48s">공지사항 작성</a>
@@ -65,7 +65,11 @@
                     <tbody>
                     <tr th:each="dto : ${result.dtoList}">
                         <th scope="row">[[${dto.noticeNo}]]</th>
-                        <td>[[${dto.title}]]</td>
+                        <td>
+                            <a th:href="@{/service-center/notice/read(noticeNo=${dto.noticeNo}, page=${result.page})}">
+                                [[${dto.title}]]
+                            </a>
+                        </td>
                         <td>[[${#temporals.format(dto.regDate, 'yyyy/MM/dd')}]]</td>
                     </tr>
                     </tbody>

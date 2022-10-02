@@ -16,11 +16,14 @@ public class Notice extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long noticeNo;
 
+    @Column(nullable = false)
     private String title;
 
+    @Column(length = 1500, nullable = false)
     private String content;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(nullable = false)
     private Member writer;
 
 }
