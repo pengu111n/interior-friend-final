@@ -136,7 +136,7 @@
                 <c:if test="${login != null}">
                     <button class="navbar-btn nav-button wow fadeInRight"
                             onclick=" window.open('#', '_self')"
-                            data-wow-delay="0.48s">${login.nickName}</button>
+                            data-wow-delay="0.48s">${login.nickname}</button>
                     <button class="navbar-btn nav-button wow bounceInRight login"
                             onclick=" window.open('${pageContext.request.contextPath}/member/logout', '_self')"
                             data-wow-delay="0.45s">로그아웃</button>

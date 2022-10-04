@@ -63,7 +63,7 @@
                                 <div class="row p-b-15  ">
                                     <input type="hidden" id="memNo" name="memNo" value="${login.memNo}">
                                     <input type="hidden" id="id" name="id" value="${login.id}">
-                                    <input type="hidden" id="nickName" name="nickName" value="${login.nickName}">
+                                    <input type="hidden" id="nickname" name="nickname" value="${login.nickname}">
 
                                 <%--                                    <h4 class="info-text"> 인테리어 견적 신청</h4>--%>
                                     <div class="col-sm-12">

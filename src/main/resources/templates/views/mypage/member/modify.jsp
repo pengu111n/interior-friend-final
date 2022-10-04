@@ -38,8 +38,8 @@
                         </div>
                         <div class="form-group">
                             <label for="nickname">닉네임</label>
-                            <input type="text" class="form-control" id="nickName" name="nickName"
-                                   value="${login.nickName}">
+                            <input type="text" class="form-control" id="nickname" name="nickname"
+                                   value="${login.nickname}">
                         </div>
                         <div class="form-group">
                             <label for="pw">비밀번호</label>

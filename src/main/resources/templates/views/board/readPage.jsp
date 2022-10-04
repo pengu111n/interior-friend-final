@@ -353,7 +353,7 @@
                                             </label>
                                             <textarea class="form-control" id="comment" rows="4"></textarea>
                                             <input class="form-control" type="text" placeholder="USER ID"
-                                                   id="newReplyWriter" value="${login.nickName}" style= "display: none;">
+                                                   id="newReplyWriter" value="${login.nickname}" style= "display: none;">
 
                                         </div>
                                     </div>
@@ -409,7 +409,7 @@
 
                         <div class="box-footer">
 
-                            <c:if test="${login.nickName == boardVO.nickName}">
+                            <c:if test="${login.nickname == boardVO.nickname}">
                                 <button type="submit" class="btn btn-warning">Modify</button>
                                 <button type="submit" class="btn btn-danger">REMOVE</button>
                             </c:if>
@@ -435,7 +435,7 @@
                                     </div>
                                     <div class="col-xs-8 col-sm-8 ">
                                         <h3 class="dealer-name">
-                                            <span>${boardVO.nickName}</span>
+                                            <span>${boardVO.nickname}</span>
                                         </h3>
                                         <div class="dealer-social-media">
                                             <a class="twitter" target="_blank" href="">
