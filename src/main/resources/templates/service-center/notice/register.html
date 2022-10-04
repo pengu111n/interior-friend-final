@@ -34,13 +34,31 @@
                             <span class="right"><textarea class="form-control" rows="10" name="content" placeholder="내용을 입력하세요."></textarea></span>
                         </div>
                         <div class="qnaform__submit">
-                            <button class="navbar-btn nav-button wow fadeInRight" data-wow-delay="0.48s" type="submit">업로드</button>
+                            <button class="navbar-btn nav-button wow fadeInRight registerBtn" data-wow-delay="0.48s" type="submit">등록</button>
                         </div>
                     </form>
                 </div>
             </div>
         </section>
 
+        <script th:inline="javascript">
+
+            var actionForm = $("form");
+
+            $(".registerBtn").click(function () {
+
+                if (!confirm("등록하시겠습니까?")) {
+                    return;
+                }
+
+                actionForm
+                    .attr("action", "/service-center/notice/register")
+                    .attr("method", "post")
+                    .submit();
+
+            });
+
+        </script>
 
     </th:block>
 

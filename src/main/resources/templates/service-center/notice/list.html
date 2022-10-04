@@ -9,7 +9,6 @@
 
     <th:block th:fragment="content">
 
-
         <div class="page-head">
             <div class="container">
                 <div class="row">
@@ -21,24 +20,6 @@
         </div>
         <!-- End page header -->
 
-        <!-- board search area -->
-        <!--
-        <div id="board-search">
-            <div class="container">
-                <div class="search-window">
-                    <form action="">
-                        <div class="search-wrap">
-                            <label for="search" class="blind">공지사항 내용 검색</label> <input
-                                id="search" type="search" name="" placeholder="검색어를 입력해주세요."
-                                value="">
-                            <button type="submit" class="btn btn-dark">검색</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        -->
-
         <!-- board list area -->
         <div id="board-list">
             <div class="container">
@@ -49,8 +30,6 @@
                         <th scope="col" class="th-title">제목</th>
                         <th scope="col" class="th-date">등록일</th>
 
-
-                        <!--<c:if test="${login.rank == 3}">-->
                         <div class="collapse navbar-collapse yamm" id="navigation">
                             <div class="button navbar-right" style="margin-top: 10px;">
                                 <a th:href="@{/service-center/notice/register}"
@@ -58,7 +37,6 @@
                                    data-wow-delay="0.48s">공지사항 작성</a>
                             </div>
                         </div>
-                        <!--</c:if>-->
                     </tr>
                     </thead>
 
@@ -83,7 +61,8 @@
             <div class="pagination">
                 <ul>
                     <li class="page-item" th:if="${result.prev}">
-                        <a class="page-link" th:href="@{/service-center/notice/list(page=${result.start -1})}" tabindex="-1">&laquo;</a>
+                        <a class="page-link" th:href="@{/service-center/notice/list(page=${result.start -1})}"
+                           tabindex="-1">&laquo;</a>
                     </li>
 
                     <li th:class="'page-item' + ${result.page == page?'active':''}"
@@ -97,48 +76,6 @@
                 </ul>
             </div>
         </div>
-
-        <div class="modal" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">공지사항 등록 완료</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>공지사항 등록이 성공적으로 완료되었습니다.</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <script th:inline="javascript">
-            var msg = [[${msg}]];
-            console.log(msg);
-
-            if (msg) {
-                $(".modal").modal();
-            }
-        </script>
-
-        <style>
-            body{
-                width:100%;
-                height:100vh;
-            }
-            .modal{
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-            }
-        </style>
-
 
     </th:block>
 

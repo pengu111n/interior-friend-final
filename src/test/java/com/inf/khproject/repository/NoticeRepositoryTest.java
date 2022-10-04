@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Optional;
 import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -32,6 +33,24 @@ class NoticeRepositoryTest {
             noticeRepository.save(notice);
 
         });
+
+    }
+
+    @Test
+    public void updateTest() {
+
+        Optional<Notice> result = noticeRepository.findById(130L);
+
+        if (result.isPresent()) {
+
+            Notice notice = result.get();
+
+            notice.changeTitle("Changed Title...");
+            notice.changeContent("Changed Content...");
+
+            noticeRepository.save(notice);
+
+        }
 
     }
 

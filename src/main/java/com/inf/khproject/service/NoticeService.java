@@ -12,6 +12,10 @@ public interface NoticeService {
 
     NoticeDTO read(Long noticeNo);
 
+    void modify(NoticeDTO dto);
+
+    void remove(Long noticeNo);
+
     PageResultDTO<NoticeDTO, Notice> getList(PageRequestDTO pageRequestDTO);
 
     default Notice dtoToEntity(NoticeDTO dto) {

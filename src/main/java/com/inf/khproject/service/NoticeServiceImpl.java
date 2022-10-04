@@ -45,6 +45,31 @@ public class NoticeServiceImpl implements NoticeService {
     }
 
     @Override
+    public void modify(NoticeDTO dto) {
+
+        Optional<Notice> result = noticeRepository.findById(dto.getNoticeNo());
+
+        if (result.isPresent()) {
+
+            Notice entity = result.get();
+
+            entity.changeTitle(dto.getTitle());
+            entity.changeContent(dto.getContent());
+
+            noticeRepository.save(entity);
+
+        }
+
+    }
+
+    @Override
+    public void remove(Long noticeNo) {
+
+        noticeRepository.deleteById(noticeNo);
+
+    }
+
+    @Override
     public PageResultDTO<NoticeDTO, Notice> getList(PageRequestDTO pageRequestDTO) {
 
         Pageable pageable = pageRequestDTO.getPageable(Sort.by("noticeNo").descending());
