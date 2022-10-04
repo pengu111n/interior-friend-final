@@ -33,6 +33,21 @@ public class MemberController {
         return "redirect:/";
     }
 
+    @PostMapping("/idCheck")
+    @ResponseBody
+    public int idCheck(String id) throws Exception {
+        int result = service.idCheck(id);
+        System.out.println(result);
+        return result;
+    }
+
+    @PostMapping("/nicknameCheck")
+    @ResponseBody
+    public int nicknameCheck(String nickname) throws Exception{
+        int result = service.nicknameCheck(nickname);
+        return result;
+    }
+
 }
 
 

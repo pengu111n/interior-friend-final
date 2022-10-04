@@ -13,10 +13,13 @@ public interface MemberService {
 
 	public void regist(MemberDTO dto, String local) throws Exception;
 
+	public int idCheck(String id) throws Exception;
+
+	public int nicknameCheck(String nickname) throws Exception;
 	default Member dtoToEntity(MemberDTO dto){
 		Member entity = Member.builder()
 				.memNo(dto.getMemNo())
-				.nickName(dto.getNickName())
+				.nickname(dto.getNickname())
 				.id(dto.getId())
 				.pw(dto.getPw())
 				.phoneNum(dto.getPhoneNum())
@@ -35,7 +38,7 @@ public interface MemberService {
 	default MemberDTO entityToDTO(Member entity){
 		MemberDTO dto = MemberDTO.builder()
 				.memNo(entity.getMemNo())
-				.nickName(entity.getNickName())
+				.nickname(entity.getNickname())
 				.id(entity.getId())
 				.pw(entity.getPw())
 				.phoneNum(entity.getPhoneNum())

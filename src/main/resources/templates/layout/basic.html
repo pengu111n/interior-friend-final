@@ -126,7 +126,7 @@
           <!--<th:block th:if="${login != null}">
               <button class="navbar-btn nav-button wow fadeInRight"
                       onclick=" window.open('#', '_self')"
-                      data-wow-delay="0.48s">${login.nickName}
+                      data-wow-delay="0.48s">${login.nickname}
               </button>
               <button class="navbar-btn nav-button wow bounceInRight login"
                       onclick=" window.open('${pageContext.request.contextPath}/member/logout', '_self')"
@@ -299,8 +299,8 @@
 
 
   <script th:src="@{/assets/js/modernizr-2.6.2.min.js}"></script>
-  <script th:src="@{/assets/js/jquery-1.10.2.min.js}"></script>
-  <!--    <script src="http://code.jquery.com/jquery-latest.min.js"></script>-->
+<!--  <script th:src="@{/assets/js/jquery-1.10.2.min.js}"></script>-->
+  <script th:src="@{https://code.jquery.com/jquery-3.6.1.min.js}" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
   <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js}"
           integrity="sha512-Y2IiVZeaBwXG1wSV7f13plqlmFOx8MdjuHyYFVoYzhyRr3nH/NMDjTBSswijzADdNzMyWNetbLMfOpIPl6Cv9g=="
           crossorigin="anonymous" referrerpolicy="no-referrer"></script>

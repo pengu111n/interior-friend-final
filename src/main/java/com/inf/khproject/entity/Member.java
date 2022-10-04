@@ -10,7 +10,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name="member")
+@Table(name="Member")
 @ToString
 public class Member {
 
@@ -18,7 +18,7 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer memNo;
 
-    private String nickName;
+    private String nickname;
     private String id;
     private String pw;
     private String phoneNum;

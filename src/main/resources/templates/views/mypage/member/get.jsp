@@ -39,9 +39,9 @@
                                value="${login.id}" readonly="readonly">
                     </div>
                     <div class="form-group">
-                        <label for="nickName">닉네임</label>
-                        <input type="text" class="form-control" id="nickName" name="nickName"
-                               value="${login.nickName}" readonly="readonly">
+                        <label for="nickname">닉네임</label>
+                        <input type="text" class="form-control" id="nickname" name="nickname"
+                               value="${login.nickname}" readonly="readonly">
                     </div>
                     <div class="form-group">
                         <label for="pw">비밀번호</label>

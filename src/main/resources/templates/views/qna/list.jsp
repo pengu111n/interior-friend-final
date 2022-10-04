@@ -74,7 +74,7 @@
 
 
             <c:forEach items="${list}" var="item">
-                <c:if test="${login.nickName == item.nickName || login.rank == 3}">
+                <c:if test="${login.nickname == item.nickname || login.rank == 3}">
 
                     <tr>
                         <td>${item.qnaNo}</td>
@@ -83,7 +83,7 @@
                             <a href='/qna/read?qnaNo=${item.qnaNo}'>${item.qnaTitle}
                         </th>
                         <td class="nickname">
-                            <c:out value="${item.nickName}"/>
+                            <c:out value="${item.nickname}"/>
                         </td>
                         <td class="date td-100">
                             <fmt:formatDate pattern="yy-MM-dd" value="${item.qnaDate}"/>

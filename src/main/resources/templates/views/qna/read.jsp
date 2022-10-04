@@ -29,7 +29,7 @@
             <div class="header__title">
 
                 <!-- 추가 -->
-                <c:if test="${login.nickName == QNAVO.nickName || login.rank == 3}">
+                <c:if test="${login.nickname == QNAVO.nickname || login.rank == 3}">
 
                 <td>${QNAVO.qnaTitle}</td>
                 <span>처리상태
@@ -43,7 +43,7 @@
     </span>
             </div>
             <div class="header__nickname">
-                <span>${QNAVO.nickName}</span>
+                <span>${QNAVO.nickname}</span>
             </div>
             <div class="header__date">
                 <span><h6><fmt:formatDate pattern="yyyy-MM-dd hh:mm" value="${QNAVO.qnaDate}"/></h6></span>

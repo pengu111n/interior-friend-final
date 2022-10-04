@@ -4,7 +4,7 @@
 
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
     <th:block th:fragment="content">
-<link rel="stylesheet" th:href="@{/resources/css/member.css}">
+<link rel="stylesheet" th:href="@{/css/member.css}">
 
 
 
@@ -30,8 +30,7 @@
                         	<label for="rank">회원분류</label> 
                         		<select id="rank" name ="rank" class="selectpicker show-tick form-control" onchange="changeRank()">
        								<option value="1">1:일반회원</option> 
-       								<option value="2">2:기업회원</option> 
-       								<option value="3">3:관리자</option> 
+       								<option value="2">2:기업회원</option>
        							</select>
                         </div>
                         <div class="form-group" id="compInput">
@@ -47,22 +46,24 @@
                             <input type="hidden" id="idCheck_YN" name="idCheck_YN" value="N" />
                         </div>
                         <div class="form-group">
-                            <label for="nickName">닉네임</label>
-                            <input type="text" class="form-control" id="nickName" name="nickName" placeholder="닉네임" onblur="nicknameCheck()">
-                            <span class="nickNameCK">중복된 닉네임 입니다.</span>
-                            <span class="empty emptyNickName">필수 정보입니다.</span>
+                            <label for="nickname" id="nickname__label">닉네임</label>
+                            <input type="text" class="form-control" id="nickname" name="nickname" placeholder="닉네임" onblur="nicknameCheck()">
+                            <span class="nicknameCK">중복된 닉네임 입니다.</span>
+                            <span class="empty emptynickname">필수 정보입니다.</span>
                         </div>
                         <div class="form-group">
                             <label for="pw">비밀번호</label>
                             <input type="password" class="form-control" id="pw" name="pw" placeholder="비밀번호" onblur="regexPW()">
                             <span class= regexPW>8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.</span>
                             <span class="empty emptyPW">필수 정보입니다.</span>
+                            <span class="successPW">✅</span>
                         </div>
                         <div class="form-group">
                             <label for="pw">비밀번호 확인</label>
                             <input type="password" class="form-control" id="confirmPw" name="confirmPw" placeholder="비밀번호 확인" onblur="confirmPW()">
                             <span class="samePW">비밀번호가 일치하지 않습니다.</span>
                             <span class="empty emptyPW1">필수 정보입니다.</span>
+                            <span class="successPW1">✅</span>
                         </div>
                         <div class="form-group form-name">
                             <label for="name" id="label_name">이름</label>
@@ -146,18 +147,18 @@
         border: 2px dotted #0b58a2;
     }
 </style>
+<script th:src="@{https://code.jquery.com/jquery-3.6.1.min.js}" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+<script type="text/javascript" th:src="@{//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js}"></script>
+<script type="text/javascript" th:src="@{/js/address.js}"></script>
 
-<script th:src="@{//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js}"></script>
-<script th:src="@{/js/address.js}"></script>
-
-<script th:src="@{/js/memberUpload.js}"></script>
-<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js}"></script>
+<script type="text/javascript" th:src="@{/js/memberUpload.js}"></script>
+<script type="text/javascript" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js}"></script>
 
 
 <!-- End page header -->
-<script th:src="@{http://code.jquery.com/jquery-latest.min.js}"></script>
 
-<script th:src="@{/js/member.js}"></script>
+
+<script type="text/javascript" th:src="@{/js/member.js}"></script>
 
     </th:block>
 </th:block>

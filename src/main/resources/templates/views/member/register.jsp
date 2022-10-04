@@ -46,10 +46,10 @@
                             <input type="hidden" id="idCheck_YN" name="idCheck_YN" value="N" />
                         </div>
                         <div class="form-group">
-                            <label for="nickName">닉네임</label>
-                            <input type="text" class="form-control" id="nickName" name="nickName" placeholder="닉네임" onblur="nicknameCheck()">
-                            <span class="nickNameCK">중복된 닉네임 입니다.</span>
-                            <span class="empty emptyNickName">필수 정보입니다.</span>
+                            <label for="nickname">닉네임</label>
+                            <input type="text" class="form-control" id="nickname" name="nickname" placeholder="닉네임" onblur="nicknameCheck()">
+                            <span class="nicknameCK">중복된 닉네임 입니다.</span>
+                            <span class="empty emptynickname">필수 정보입니다.</span>
                         </div>
                         <div class="form-group">
                             <label for="pw">비밀번호</label>

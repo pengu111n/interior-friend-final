@@ -62,14 +62,15 @@ function changeRank(){
     document.getElementById("compInput").innerHTML =
       '<label for="companyNo">사업자번호</label><input type="text" class="form-control" id="companyNo" name="companyNo" placeholder="사업자번호" onblur="emptyCompanyNo()"><span class="empty emptyCN">필수 정보입니다.</span>';
 
-    document.getElementById("label_name").innerHTML = "기업명";
+    document.getElementById("nickname__label").innerHTML = "기업명";
     $("#name").attr("placeholder", "기업명");
+
 
   } else {
     document.getElementById("compInput").innerHTML = "";
 
-    document.getElementById("label_name").innerHTML = "이름"
-    $("#name").attr("placeholder", "이름");
+    document.getElementById("nickname__label").innerHTML = "닉네임"
+    $("#name").attr("placeholder", "닉네임");
   }
 }
 
@@ -104,22 +105,23 @@ function checkNumber(event) {
 }
 
 var idPass;
-var idRegex = /^[a-z]+[a-z0-9]{5,19}$/;
+
 
 function idCheck() {
+  var idRegex = /^[a-z]+[a-z0-9]{5,19}$/;
   var id = $("#id").val();
   $.ajax({
     url: "/member/idCheck",
     type: "post",
     dataType: "json",
-    data: { id: id },
+    data:  id,
     success: function (data) {
+      console.log(idRegex.test("asdamkxcle"))
       if (data == 1) {
         $("#dupId").show();
         $(".regexId").hide();
         $(".emptyID").hide();
         $(".successId").hide();
-        return false;
       } else if (id == "") {
         $(".successId").hide();
         $("#dupId").hide();
@@ -141,23 +143,23 @@ function idCheck() {
 }
 
 function nicknameCheck() {
-  var nickName = $("#nickName").val();
+  var nickname = $("#nickname").val();
   $.ajax({
-    url: "/member/nickNameCheck",
+    url: "/member/nicknameCheck",
     type: "post",
     dataType: "json",
-    data: { nickName: nickName },
+    data: { nickname: nickname },
     success: function (data) {
       if (data == 1) {
-        $(".nickNameCK").show();
-        $(".emptyNickName").hide();
+        $(".nicknameCK").show();
+        $(".emptynickname").hide();
         return false;
-      } else if (nickName == "") {
-        $(".emptyNickName").show();
-        $(".nickNameCK").hide();
+      } else if (nickname == "") {
+        $(".emptynickname").show();
+        $(".nicknameCK").hide();
       } else {
-        $(".nickNameCK").hide();
-        $(".emptyNickName").hide();
+        $(".nicknameCK").hide();
+        $(".emptynickname").hide();
       }
     },
   });
@@ -170,7 +172,7 @@ function fnSubmit() {
     return false;
   }
 
-  if ($("#nickName").val() == null || $("#nickName").val() == "") {
+  if ($("#nickname").val() == null || $("#nickName").val() == "") {
     alert("닉네임을 입력해주세요.");
     $("#nickName").focus();
     return false;
@@ -245,16 +247,18 @@ function regexPW() {
   var regExp =
     /^(?!((?:[A-Za-z]+)|(?:[~!@#$%^&*()_+=]+)|(?=[0-9]+))$)[A-Za-z\d~!@#$%^&*()_+=]{8,}$/;
   var pw = $("#pw").val();
-
   if (pw == "") {
     $(".emptyPW").show();
     $(".regexPW").hide();
+    $(".successPW").hide();
   } else if (!regExp.test($("#pw").val())) {
     $(".regexPW").show();
     $(".emptyPW").hide();
+    $(".successPW").hide();
   } else {
     $(".emptyPW").hide();
     $(".regexPW").hide();
+    $(".successPW").show();
   }
 }
 
@@ -266,12 +270,15 @@ function regexPhone(){
       if (phoneNum == "") {
         $(".emptyPhone").show();
         $(".regPhone").hide();
+
       }else if(!regExp.test(phoneNum)){
         $(".emptyPhone").hide();
         $(".regPhone").show();
+
       } else {
         $(".emptyPhone").hide();
         $(".regPhone").hide();
+
       }
 
 
@@ -285,12 +292,15 @@ function confirmPW() {
   if (pw != confirmPw) {
     $(".samePW").show();
     $(".emptyPW1").hide();
+    $(".successPW1").hide();
   } else if (confirmPw == "") {
     $(".emptyPW1").show();
     $(".samePW").hide();
+    $(".successPW1").hide();
   } else {
     $(".samePW").hide();
     $(".emptyPW1").hide();
+    $(".successPW1").show();
   }
 }
 

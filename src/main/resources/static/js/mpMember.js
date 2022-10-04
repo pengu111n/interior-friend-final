@@ -143,23 +143,23 @@ function idCheck() {
 }
 
 function nicknameCheck() {
-  var nickName = $("#nickName").val();
+  var nickname = $("#nickname").val();
   $.ajax({
-    url: "/member/nickNameCheck",
+    url: "/member/nicknameCheck",
     type: "post",
     dataType: "json",
-    data: { nickName: nickName },
+    data: { nickname: nickname },
     success: function (data) {
       if (data == 1) {
-        $(".nickNameCK").show();
-        $(".emptyNickName").hide();
+        $(".nicknameCK").show();
+        $(".emptynickname").hide();
         return false;
-      } else if (nickName == "") {
-        $(".emptyNickName").show();
-        $(".nickNameCK").hide();
+      } else if (nickname == "") {
+        $(".emptynickname").show();
+        $(".nicknameCK").hide();
       } else {
-        $(".nickNameCK").hide();
-        $(".emptyNickName").hide();
+        $(".nicknameCK").hide();
+        $(".emptynickname").hide();
       }
     },
   });
