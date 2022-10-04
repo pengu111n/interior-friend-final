@@ -141,8 +141,8 @@
           <li class="dropdown ymm-sw " data-wow-delay="0.1s">
             <a href="index.jsp" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="200">견적<b class="caret"></b></a>
             <ul class="dropdown-menu navbar-nav">
-              <li><a href="${pageContext.request.contextPath}/board/register">견적 신청</a></li>
-              <li><a href="${pageContext.request.contextPath}/board/listPage">신청 목록</a></li>
+              <li><a th:href="@{/applicationboard/register}">견적 신청</a></li>
+              <li><a th:href="@{/applicationboard/list}">견적 목록</a></li>
             </ul>
           </li>
           <li class="dropdown ymm-sw " data-wow-delay="0.1s">
