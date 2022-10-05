@@ -3,7 +3,7 @@ $('document').ready(function() {
     var area1 = ["강남구","강동구","강북구","강서구","관악구","광진구","구로구","금천구","노원구","도봉구","동대문구","동작구","마포구","서대문구","서초구","성동구","성북구","송파구","양천구","영등포구","용산구","은평구","종로구","중구","중랑구"];
     var area2 = ["계양구","남구","남동구","동구","부평구","서구","연수구","중구","강화군","옹진군"];
     var area3 = ["대덕구","동구","서구","유성구","중구"];
-    var area4 = ["광산구","남구","동구",     "북구","서구"];
+    var area4 = ["광산구","남구","동구",    "북구","서구"];
     var area5 = ["남구","달서구","동구","북구","서구","수성구","중구","달성군"];
     var area6 = ["남구","동구","북구","중구","울주군"];
     var area7 = ["강서구","금정구","남구","동구","동래구","부산진구","북구","사상구","사하구","서구","수영구","연제구","영도구","중구","해운대구","기장군"];
@@ -17,91 +17,42 @@ $('document').ready(function() {
     var area15 = ["거제시","김해시","마산시","밀양시","사천시","양산시","진주시","진해시","창원시","통영시","거창군","고성군","남해군","산청군","의령군","창녕군","하동군","함안군","함양군","합천군"];
     var area16 = ["서귀포시","제주시","남제주군","북제주군"];
 
-    //alert("${modReq.address}");
-    var address = $("#aaa"). val().split(" ");
+    $.each(area0,function(){
+        $("#address_1").append("<option value='"+this+"'>"+this+"</option>");
+    });
+    $("#address_2").append("<option value=''>구/군 선택</option>");
 
-
-    // 시/도 선택 박스 초기화
-
-    $("select[name^=sido]")
-        .each(
-            function() {
-                $selsido = $(this);
-                $
-                    .each(
-                        eval(area0),
-                        function(index,
-                                 value) {
-                            $selsido
-                                .append("<option value='"+this+"'>"
-                                    + value
-                                    + "</option>");
-                        });
-                $selsido
-                    .next()
-                    .append(
-                        "<option value=''>구/군 선택</option>");
+    $("#address_1").change(function(){
+        var idx = $('option:selected',$(this)).index();
+        $("option",$("#address_2")).remove();
+        if(idx==0){
+            $("#address_2").append("<option value=''>구/군 선택</option>");
+        }else{
+            $.each(eval("area"+idx),function(){
+                $("#address_2").append("<option value='"+this+"'>"+this+"</option>");
             });
-
-    // 시/도 선택시 구/군 설정
-    $selsido.val(address[0]).prop("selected", true);
-    var num = area0.indexOf(address[0]);
-
-    var $gugun = $selsido.next();
-    var area = "area" + num;
-    //alert(area);
-    $.each(eval(area), function() {
-        $gugun.append("<option value='"+this+"'>" + this
-            + "</option>");
-    });
-    $gugun.val(address[1]).prop("selected", true);
-    //alert(address[1]);
-
-    $("select[name^=sido]")
-        .change(
-            function() {
-                var area = "area"
-                    + $("option", $(this))
-                        .index(
-                            $(
-                                "option:selected",
-                                $(this))); // 선택지역의 구군 Array
-                var $gugun = $(this).next(); // 선택영역 군구 객체
-                $("option", $gugun).remove(); // 구군 초기화
-
-                if (area == "area0")
-                    $gugun
-                        .append("<option value=''>구/군 선택</option>");
-                else {
-                    $
-                        .each(
-                            eval(area),
-                            function() {
-                                $gugun
-                                    .append("<option value='"+this+"'>"
-                                        + this
-                                        + "</option>");
-                            });
-                }
-            });
-
-    $("#sido1").blur(function(){
-        address_total();
+        }
     });
 
-    $("#gugun1").blur(function(){
-        address_total();
+    $("#address_1").blur(function(){
+        address();
     });
 
-    function address_total() {
-        const sido1 = $("#sido1").val();
-        const gugun1 = $("#gugun1").val();
-        if(sido1 != "" && gugun1 != "") {
-            $("#address").val(sido1+" "+gugun1);
+    $("#address_2").blur(function(){
+        address();
+    });
+
+    function address() {
+        const address_1 = $("#address_1").val();
+        const address_2 = $("#address_2").val();
+        if(address_1 != "" && address_2 != "") {
+            $("#address").val(address_1+" "+address_2);
         }
     }
 
+
 });
+
 $(document).ready(
     $("form").submit(
         budget_check = function () {
@@ -132,75 +83,5 @@ $(document).ready(
 );
 
 
-$(document).ready(
-    $("form").submit(input_check = function () {
-        var rv = true;
-        if ($("#title").val() == "") {
-            alert("시공내용을 간략히 입력해주세요");
-            $("#title").focus();
-            return rv = false;
-        }
-        else if ($("#category").val() == null) {
-            alert("주거유형을 선택해주세요");
-            $("#category").focus();
-            return rv = false;
-        }
-        else if ($("#sido1").val() == "") {
-            alert("주소를 선택해주세요");
-            $("#title").focus();
-            return rv =false;
-        }
-        else if ($("#gugun1").val() == "") {
-            alert("주소를 선택해주세요");
-            $("#gugun1").focus();
-            return rv =false;
-        }
-        else if (!$.isNumeric($(
-            'input[type=number][name=area]')
-            .val())) {
-            alert("면적을 입력해주세요(면적은 숫자만 입력 가능합니다)");
-            $("#area").focus();
-            return rv =false;
-        }
-        else if ($("#startDate").val() == ""
-            && $("#undefined_start").is(
-                ":checked") == false) {
-            alert("시공 시작일을 입력해주세요");
-            $("#startDate").focus();
-            return rv =false;
-        }
-        else if ($("#endDate").val() == ""
-            && $("#undefined_end").is(
-                ":checked") == false) {
-            alert("시공 종료일을 입력해주세요");
-            $("#endDate").focus();
-            return rv =false;
-        }
-        else if (!$.isNumeric($(
-                'input[type=number][name=budget_defined]').val())
-            && $("#budget_undefined").is(
-                ":checked") == false) {
-            alert("예산을 입력해주세요");
-            $("#budget").focus();
-            return rv =false;
-        }
-        else if ($("#part").val() == null) {
-            alert("인테리어 분야를 선택해주세요");
-            $("#part").focus();
-            return rv =false;
-        }
-        else if ($("#require").val() == "undefined") {
-            alert("상세 요청사항을 입력해주세요");
-            $("#require").focus();
-            return rv =false;
-        } else if ($("#agree_policy").is(":checked") == false){
-            alert("이용약관에 동의하지 않으면 본 서비스를 이용하실 수 없습니다.");
-            return rv =false;
-        }else if ($("#disagree_policy").is(":checked") == true) {
-            alert("이용약관에 동의하지 않으면 본 서비스를 이용하실 수 없습니다.");
-            return rv =false;
-        } else{
-            return true;
-        }
-    }) // submit() end
-); // ready() end
+
+

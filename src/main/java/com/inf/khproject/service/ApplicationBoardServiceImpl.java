@@ -106,6 +106,42 @@ public class ApplicationBoardServiceImpl implements ApplicationBoardService {
 
         applicationBoardRepository.deleteById(boardNo);
     }
+    @Transactional
+    @Override
+    public void modify(ApplicationBoardDTO dto) {
 
+        log.info("dto.getBoardNo: " + dto.getBoardNo());
+        Optional<ApplicationBoard> result = applicationBoardRepository.findById(dto.getBoardNo());
+
+        if (result.isPresent()) {
+
+            ApplicationBoard entity = result.get();
+
+            entity.setTitle(dto.getTitle());
+            entity.setCategory(dto.getCategory());
+            entity.setAddress(dto.getAddress());
+            entity.setArea(dto.getArea());
+            entity.setStartDate(dto.getStartDate());
+            entity.setEndDate(dto.getEndDate());
+            entity.setBudget(dto.getBudget());
+            entity.setPart(dto.getPart());
+            entity.setRequired(dto.getRequired());
+            entity.setImage(dto.getImage());
+
+            applicationBoardRepository.save(entity);
+
+            imageRepository.deleteByApplicationBoard(dto.getBoardNo());
+
+
+            Map<String, Object> entityMap = dtoToEntity(dto);
+
+            List<ApplicationBoardImage> applicationBoardImageList = (List<ApplicationBoardImage>) entityMap.get("imgList");
+
+            applicationBoardImageList.forEach(applicationBoardImage -> {
+                imageRepository.save(applicationBoardImage);
+            });
+
+        }
+    }
 
 }

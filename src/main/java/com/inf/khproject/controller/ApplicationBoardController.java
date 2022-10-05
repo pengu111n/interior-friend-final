@@ -69,6 +69,28 @@ public class ApplicationBoardController {
         return "redirect:/applicationboard/list";
 
     }
+
+    @PostMapping("/modify")
+    public String modify(ApplicationBoardDTO dto,
+                         @ModelAttribute("requestDTO") PageRequestDTO requestDTO,
+                         RedirectAttributes redirectAttributes){
+
+
+        log.info("post modify.........................................");
+        log.info("dto: " + dto);
+
+        applicationBoardService.modify(dto);
+
+        redirectAttributes.addAttribute("page",requestDTO.getPage());
+        redirectAttributes.addAttribute("type",requestDTO.getType());
+        redirectAttributes.addAttribute("keyword",requestDTO.getKeyword());
+
+        redirectAttributes.addAttribute("boardNo",dto.getBoardNo());
+
+
+        return "redirect:/applicationboard/read";
+
+    }
    
 
 }
