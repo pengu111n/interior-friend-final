@@ -3,7 +3,7 @@ section {
 }
 
 .qnaform__category {
-    border-top: 2px solid black;
+    display: flex;
 }
 
 textarea {
@@ -26,7 +26,7 @@ pre {
 }
 
 .qnaform input {
-    border: 1px solid black;
+    border: 1px solid rgba(0, 0, 0, 0.2);
     width: 400px;
     height: 40px;
     border-radius: 5px;
@@ -59,8 +59,6 @@ pre {
 .left {
     padding-left: 30px;
     padding-right: 20px;
-
-
 }
 
 .qnaform__submit {
@@ -77,4 +75,10 @@ pre {
     width: 800px;
     height: 800px;
     display: flex;
+}
+
+.selectbox {
+    width: 800px;
+    height: 40px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
 }

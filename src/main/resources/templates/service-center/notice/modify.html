@@ -26,11 +26,11 @@
           <form th:action="@{/service-center/notice/modify}" th:method="post">
             <div class="qnaform__title outside form-group">
               <span class="left">제목</span>
-              <span class="right"><input type="text" class="form-control" name="title" placeholder="제목을 입력하세요."></span>
+              <span class="right"><input type="text" class="form-control" name="title" th:value="${dto.title}"></span>
             </div>
             <div class="qnaform__content outside form-group">
               <span class="left">내용</span>
-              <span class="right"><textarea class="form-control" rows="10" name="content" placeholder="내용을 입력하세요."></textarea></span>
+              <span class="right"><textarea class="form-control" rows="10" name="content" th:text="${dto.content}"></textarea></span>
             </div>
             <div class="qnaform__submit">
               <button class="navbar-btn nav-button wow fadeInRight modifyBtn" data-wow-delay="0.48s" type="submit">등록</button>

@@ -1,10 +1,109 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-</body>
+<link rel="stylesheet" th:href="@{/assets/css/infoBoard.css}">
+<link rel="stylesheet" th:href="@{/assets/css/FAQ.css}">
+<link rel="stylesheet" th:href="@{/assets/css/QNAForm.css}">
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
+
+    <th:block th:fragment="content">
+
+        <div class="page-head">
+            <div class="container">
+                <div class="row">
+                    <div class="page-head-content">
+                        <h1 class="page-title">1:1문의</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End page header -->
+
+        <!-- board search area -->
+        <div id="board-search">
+            <div class="container">
+                <div class="search-window">
+                    <form action="">
+                        <div class="search-wrap">
+                            <label for="search" class="blind">공지사항 내용 검색</label>
+                            <input id="search" type="search" name="" placeholder="검색어를 입력해주세요." value="">
+                            <button type="submit" class="btn btn-dark">검색</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- board list area -->
+        <div id="board-list">
+            <div class="container">
+                <table class="board-table" style="margin-top:10px;">
+                    <thead>
+                    <tr>
+                        <th scope="col" class="th-num">번호</th>
+                        <th scope="col" class="th-100">카테고리</th>
+                        <th scope="col" class="th-title">제목</th>
+                        <th scope="col" class="th-100">닉네임</th>
+                        <th scope="col" class="th-100">등록일</th>
+                        <th scope="col" class="th-100">상태</th>
+
+                        <div class="collapse navbar-collapse yamm" id="navigation">
+                            <div class="button navbar-right" style="margin-top: 10px;">
+                                <a th:href="@{/service-center/qna/register}"
+                                   class="navbar-btn nav-button wow fadeInRight"
+                                   data-wow-delay="0.48s">1:1문의 하기</a>
+                            </div>
+                        </div>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <!--<c:if test="${qnaPage.hasNoArticles()}">
+                        <tr>
+                            <td colspan="6">게시글이 없습니다.</td>
+                        </tr>
+                    </c:if>-->
+                    <tr th:each="dto : ${result.dtoList}">
+                        <th scope="row">[[${dto.qnaNo}]]</th>
+                        <td>[[${dto.category}]]</td>
+                        <td>
+                            <a th:href="@{/service-center/qna/read(qnaNo=${dto.qnaNo}, page=${result.page})}">
+                                [[${dto.title}]]
+                            </a>
+                        </td>
+                        <td>[[${dto.writerNickname}]]</td>
+                        <td>[[${#temporals.format(dto.regDate, 'yyyy/MM/dd')}]]</td>
+                        <td th:if="${dto.status == 0}">답변대기</td>
+                        <td th:unless="${dto.status == 0}">답변완료</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- /.box-body -->
+
+        <div class="text-center">
+            <div class="pagination">
+                <ul>
+                    <li class="page-item" th:if="${result.prev}">
+                        <a class="page-link" th:href="@{/service-center/qna/list(page=${result.start -1})}"
+                           tabindex="-1">&laquo;</a>
+                    </li>
+
+                    <li th:class="'page-item' + ${result.page == page?'active':''}"
+                        th:each="page: ${result.pageList}">
+                        <a class="page-link" th:href="@{/service-center/qna/list(page=${page})}">[[${page}]]</a>
+                    </li>
+
+                    <li class="page-item" th:if="${result.next}">
+                        <a class="page-link" th:href="@{/service-center/qna/list(page=${result.end +1})}">&raquo;</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </th:block>
+
+</th:block>
 </html>
