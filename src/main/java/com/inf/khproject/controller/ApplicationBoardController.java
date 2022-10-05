@@ -23,7 +23,23 @@ public class ApplicationBoardController {
             return "redirect:/applicationboard/list";
     }
 
+    @GetMapping("/register")
+    public void register()  {
+        log.info("regiser get...");
+    }
 
+    @PostMapping("/register")
+    public String registerPost(ApplicationBoardDTO dto, RedirectAttributes redirectAttributes){
+
+        log.info("dto..." + dto);
+
+        //새로 추가된 엔티티의 번호
+        Long boardNo = applicationBoardService.register(dto);
+
+        redirectAttributes.addFlashAttribute("msg", boardNo);
+
+        return "redirect:/applicationboard/list";
+    }
     @GetMapping(value = "/list")
     public void list(PageRequestDTO pageRequestDTO, Model model) {
         log.info("Listing application");

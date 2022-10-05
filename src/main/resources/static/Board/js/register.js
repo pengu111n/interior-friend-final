@@ -54,32 +54,34 @@ $('document').ready(function() {
 });
 
 $(document).ready(
-        $("form").submit(
-           budget_check = function () {
-                const budget = $('input[type=number][name=budget_defined]').val();
-                if ($("input:checked[Name='budget_undefined']").is(":checked")){
-                    $("#budget").val(-1);
-                }else{
-                    $("#budget").val(budget);
-                }
-            })
+    $("form").submit(
+        budget_check = function () {
+            const budget = $('input[type=number][name=budget_defined]').val();
+            if ($("input:checked[Name='budget_undefined']").is(":checked")){
+                $("#budget").val(-1);
+            }else{
+                $("#budget").val(budget);
+            }
+        })
 );
 
 
-    $(document).ready(
-            $("form").submit(endDate_check = function () {
-                if ($("input:checked[Name='undefined_end']").is(":checked"))
-                    $("#endDate").val("0001-01-01");
+$(document).ready(
+    $("form").submit(endDate_check = function () {
+        if ($("input:checked[Name='undefined_end']").is(":checked"))
+            $("#endDate").val("0001-01-01");
 
-            })
-        );
+    })
+);
 
 $(document).ready(
-        $("form").submit(startDate_check = function () {
-            if ($("input:checked[Name='undefined_start']").is(":checked"))
-                $("#startDate").val("0001-01-01");
+    $("form").submit(startDate_check = function () {
+        if ($("input:checked[Name='undefined_start']").is(":checked"))
+            $("#startDate").val("0001-01-01");
 
-        })
-    );
+    })
+);
+
+
 
 

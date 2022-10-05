@@ -33,7 +33,23 @@ public class ApplicationBoardServiceImpl implements ApplicationBoardService {
     @Autowired
     private final ApplicationBoardImageRepository imageRepository; //final
 
+    @Transactional
+    @Override
+    public Long register(ApplicationBoardDTO applicationBoardDTO) {
+        Map<String, Object> entityMap = dtoToEntity(applicationBoardDTO);
+        ApplicationBoard applicationBoard = (ApplicationBoard) entityMap.get("applicationBoard");
 
+
+        List<ApplicationBoardImage> applicationBoardImageList = (List<ApplicationBoardImage>) entityMap.get("imgList");
+
+        applicationBoardRepository.save(applicationBoard);
+        applicationBoardImageList.forEach(applicationBoardImage -> {
+            imageRepository.save(applicationBoardImage);
+        });
+
+
+        return applicationBoard.getBoardNo();
+    }
     @Transactional
     @Override
     public PageResultDTO<ApplicationBoardDTO, Object[]> getList(PageRequestDTO requestDTO) {

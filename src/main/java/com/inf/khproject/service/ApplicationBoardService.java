@@ -18,6 +18,7 @@ public interface ApplicationBoardService {
     PageResultDTO<ApplicationBoardDTO, Object[]> getList(PageRequestDTO requestDTO);
 
     ApplicationBoardDTO read(Long boardNo);
+    Long register(ApplicationBoardDTO applicationBoardDTO);
 
 
     default ApplicationBoardDTO entitiesToDto(ApplicationBoard applicationBoard, List<ApplicationBoardImage> applicationBoardImages) {
