@@ -19,6 +19,7 @@ public interface ApplicationBoardService {
 
     ApplicationBoardDTO read(Long boardNo);
     Long register(ApplicationBoardDTO applicationBoardDTO);
+    void remove(Long boardNo);
 
 
     default ApplicationBoardDTO entitiesToDto(ApplicationBoard applicationBoard, List<ApplicationBoardImage> applicationBoardImages) {

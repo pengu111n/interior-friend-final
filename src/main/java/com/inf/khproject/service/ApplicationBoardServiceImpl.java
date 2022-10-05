@@ -98,5 +98,14 @@ public class ApplicationBoardServiceImpl implements ApplicationBoardService {
         return entitiesToDto(applicationBoard, applicationBoardImageList);
     }
 
+    @Transactional
+    @Override
+    public void remove(Long boardNo) {
+
+        imageRepository.deleteByApplicationBoard(boardNo);
+
+        applicationBoardRepository.deleteById(boardNo);
+    }
+
 
 }

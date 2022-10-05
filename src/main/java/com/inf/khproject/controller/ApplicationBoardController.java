@@ -56,6 +56,19 @@ public class ApplicationBoardController {
         model.addAttribute("dto", dto);
 
     }
+
+    @RequestMapping(value="/remove", method = {RequestMethod.GET, RequestMethod.POST})
+    public String remove(long boardNo, RedirectAttributes redirectAttributes){
+
+
+        log.info("boardNo: " + boardNo);
+        applicationBoardService.remove(boardNo);
+
+        redirectAttributes.addFlashAttribute("msg", boardNo);
+
+        return "redirect:/applicationboard/list";
+
+    }
    
 
 }
