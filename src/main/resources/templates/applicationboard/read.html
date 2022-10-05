@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
+
+    <th:block th:fragment="content">
+
+
+        <div class="page-head">
+            <div class="container">
+                <div class="row">
+                    <div class="page-head-content">
+                        <h1 class="page-title">인테리어 견적</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-area single-property" style="background-color: #FCFCFC;">&nbsp;
+            <div class="container">
+                <div class="clearfix padding-top-40">
+
+                    <div class="col-md-8 single-property-content prp-style-1 ">
+
+
+                        <div class="single-property-wrapper">
+                            <div class="single-property-header">
+                                <h1 class="property-title pull-left">[[${dto.title}]]</h1>
+
+                            </div>
+
+                            <!-- End description area  -->
+
+                            <div class="section additional-details">
+
+                                <h4 class="s-property-title">견적 상세정보 </h4>
+
+                                <ul class="additional-details-list clearfix">
+                                    <li>
+                                        <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">게시글 번호</span>
+                                        <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">[[${dto.boardNo}]] 번</span>
+                                    </li>
+                                    <li>
+                                        <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">주거 유형</span>
+                                        <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">[[${dto.category}]]</span>
+                                    </li>
+
+                                    <li>
+                                        <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">시공 분야</span>
+                                        <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">[[${dto.part}]]</span>
+                                    </li>
+                                    <li>
+                                        <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">주소</span>
+                                        <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">[[${dto.address}]] </span>
+                                    </li>
+
+                                    <li>
+                                        <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">면적</span>
+                                        <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">[[${dto.area}]] 평</span>
+                                    </li>
+                                    <li>
+                                        <div th:if="${dto.startDate == '0001-01-01'}">
+                                            <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">시공 시작일</span>
+                                            <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">시작일 협의</span>
+                                        </div>
+
+                                        <div th:unless="${dto.startDate == '0001-01-01'}">
+                                            <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">시공 시작일</span>
+                                            <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">[[${dto.startDate}]]</span>
+
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <div th:if="${dto.endDate == '0001-01-01'}">
+                                            <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">시공 마감일</span>
+                                            <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">마감일 협의</span>
+                                        </div>
+
+                                        <div th:unless="${dto.endDate == '0001-01-01'}">
+                                            <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">시공 마감일</span>
+                                            <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">[[${dto.endDate}]]</span>
+
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">조회수</span>
+                                        <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">[[${dto.view_count}]]</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- End additional-details area  -->
+                            <div class="section">
+                                <h4 class="s-property-title">상세 요청사항</h4>
+                                <div class="s-property-content">
+                                    <p>[[${dto.required}]]</p>
+                                </div>
+                            </div>
+
+                            <div class="section property-features">
+
+                                <h4 class="s-property-title">특이 사항</h4>
+                                <ul>
+                                    <li><a href="properties.html">2017년 신축 건물</a></li>
+                                    <li><a href="properties.html">전세 임대</a></li>
+                                    <li><a href="properties.html">대학가</a></li>
+                                    <li><a href="properties.html">주차공간 협소</a></li>
+                                    <li><a href="properties.html">층고 낮음</a></li>
+                                    <li><a href="properties.html">앨리베이터 사용가능</a></li>
+                                </ul>
+
+                            </div>
+                            <!-- End features area  -->
+
+                            <div class="section property-video">
+                                <h4 class="s-property-title">참고 자료</h4>
+                                <div class="video-thumb">
+
+                                    <span th:data-file="${applicationBoardImage.getThumbnailURL()}" th:each="applicationBoardImage: ${dto.imageDTOList}">
+                                         <img style="width : 960px; " th:if="${applicationBoardImage.path != null}" th:src="|/display?fileName=${applicationBoardImage.getImageURL()}|">
+                                    </span>
+                                </div>
+                            </div>
+                                <!-- End video area  -->
+
+                                    <section id="comment-form" class="add-comments" style="padding-left: 0px; list-style: none; ">
+                                        <h4 class="s-property-title">댓글 </h4>
+                                        <h4 class="text-uppercase wow fadeInLeft animated">Leave comment</h4>
+                                        <form>
+                                            <div class="row wow fadeInLeft animated">
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <label for="comment">Comment <span class="required">*</span>
+                                                        </label>
+                                                        <textarea class="form-control" id="comment" rows="4"></textarea>
+                                                        <input class="form-control" type="text" placeholder="USER ID"
+                                                               id="newReplyWriter" value="${login.nickName}" style= "display: none;">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row wow fadeInLeft animated">
+                                                <div class="col-sm-12 text-right">
+                                                    <button type="button" class="btn" id="replyAddBtn"
+                                                            style=" color: #FFF; background-color: #FDC600; border-color: #FDC600;
+                                             border-radius: 1px; padding: 10px 20px; font-weight: 600;">
+                                                        <i class="fa fa-comment-o"></i> Post comment
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </section>
+                                         <!--
+                                    <section id="comment-form" class="add-comments" style="padding-left: 0px; list-style: none; ">
+                                        <h4 class="s-property-title">댓글 </h4>
+                                        <h4 class="text-uppercase wow fadeInLeft animated" style="padding-bottom: 50px;">로그인 후 댓글을 작성하실
+                                            수 있습니다.</h4>
+                                            -->
+
+                                <ul style="padding-left: 0px; list-style: none;">
+                                    <li class="time-label" id="repliesDiv">
+                                        <h4 class="text-uppercase wow fadeInLeft animated">Comments</h4>
+                                    </li>
+                                </ul>
+
+
+                                <div class="section property-share">
+                                    <h4 class="s-property-title">공유 </h4>
+                                    <div class="roperty-social">
+                                        <ul>
+                                            <li><a title="Share this on dribbble " href="#"> <img
+                                                    th:src="@{/assets/img/social_big/dribbble_grey.png}"></a></li>
+                                            <li><a title="Share this on facebok " href="#"><img
+                                                    th:src="@{/assets/img/social_big/facebook_grey.png}"></a></li>
+                                            <li><a title="Share this on delicious " href="#"><img
+                                                    th:src="@{/assets/img/social_big/delicious_grey.png}"></a></li>
+                                            <li><a title="Share this on tumblr " href="#"><img
+                                                    th:src="@{/assets/img/social_big/tumblr_grey.png}"></a></li>
+                                            <li><a title="Share this on digg " href="#"><img
+                                                    th:src="@{/assets/img/social_big/digg_grey.png}"></a></li>
+                                            <li><a title="Share this on twitter " href="#"><img
+                                                    th:src="@{/assets/img/social_big/twitter_grey.png}"></a></li>
+                                            <li><a title="Share this on linkedin " href="#"><img
+                                                    th:src="@{/assets/img/social_big/linkedin_grey.png}"></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="box-footer">
+
+                                    <a th:href="@{/applicationboard/modify(boardNo = ${dto.boardNo})}">
+                                        <button type="submit" class="btn btn-warning">Modify</button>
+                                    </a>
+
+                                        <a th:href="@{/applicationboard/remove(boardNo = ${dto.boardNo})}">
+                                            <button type="button" class="btn btn-primary removeBtn">REMOVE</button>
+                                        </a>
+                                        <a th:href="@{/applicationboard/list}">
+                                        <button  type="submit" class="btn btn-primary">LIST ALL</button>
+                                        </a>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-4 p0">
+                            <aside class="sidebar sidebar-property blog-asside-right">
+                                <div class="dealer-widget">
+                                    <div class="dealer-content">
+                                        <div class="inner-wrapper">
+
+                                            <div class="clear">
+                                                <div class="col-xs-4 col-sm-4 dealer-face">
+                                                    <a href="">
+                                                        <img th:src="@{/assets/img/client-face1.png}"
+                                                             class="img-circle">
+                                                    </a>
+                                                </div>
+                                                <div class="col-xs-8 col-sm-8 ">
+                                                    <h3 class="dealer-name">
+                                                        <span>[[${dto.nickName}]]</span>
+                                                    </h3>
+                                                    <div class="dealer-social-media">
+                                                        <a class="twitter" target="_blank" href="">
+                                                            <i class="fa fa-twitter"></i>
+                                                        </a>
+                                                        <a class="facebook" target="_blank" href="">
+                                                            <i class="fa fa-facebook"></i>
+                                                        </a>
+                                                        <a class="gplus" target="_blank" href="">
+                                                            <i class="fa fa-google-plus"></i>
+                                                        </a>
+                                                        <a class="linkedin" target="_blank" href="">
+                                                            <i class="fa fa-linkedin"></i>
+                                                        </a>
+                                                        <a class="instagram" target="_blank" href="">
+                                                            <i class="fa fa-instagram"></i>
+                                                        </a>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="clear">
+                                                <ul class="dealer-contacts">
+                                                    <li><i class="pe-7s-map-marker strong"> </i> 서울특별시 강남구 테헤란로14길</li>
+                                                    <li><i class="pe-7s-mail strong"> </i>interiorfriend@gmail.com</li>
+                                                    <li><i class="pe-7s-call strong"> </i> 1577 - 1010</li>
+                                                </ul>
+                                                <p>안녕하세요 항상 최고의 서비스를 제공하겠습니다.</p>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </aside>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        <script th:inline="javascript">
+
+            var actionForm = $("form"); //form 태그 객체
+
+            $(".removeBtn").click(function(){
+
+                actionForm
+                    .attr("action", "/applicationboard/remove")
+                    .attr("method","post");
+
+                actionForm.submit();
+
+            });
+
+            $(".modifyBtn").click(function() {
+
+                if(!confirm("수정하시겠습니까?")){
+                    return ;
+                }
+
+                actionForm
+                    .attr("action", "/applicationboard/modify")
+                    .attr("method","post")
+                    .submit();
+            });
+
+            $(".listBtn").click(function() {
+
+                //var pageInfo = $("input[name='page']");
+                var page = $("input[name='page']");
+                var type = $("input[name='type']");
+                var keyword = $("input[name='keyword']");
+
+                actionForm.empty(); //form 태그의 모든 내용을 지우고
+
+                actionForm.append(page);
+                actionForm.append(type);
+                actionForm.append(keyword);
+
+
+                actionForm
+                    .attr("action", "/applicationboard/list")
+                    .attr("method","get");
+
+                actionForm.submit();
+
+            })
+
+        </script>
+    </th:block>
+
+</th:block>
+
+</html>

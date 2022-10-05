@@ -13,6 +13,11 @@ public interface ApplicationBoardRepository extends JpaRepository<ApplicationBoa
             "left outer join ApplicationBoardImage ai on ai.applicationBoard = m group by m ")
     Page<Object[]> getListPage(Pageable pageable);
 
+    @Query("select m, mi " +
+            " from ApplicationBoard m left outer join ApplicationBoardImage mi on mi.applicationBoard = m " +
+            " where m.boardNo = :boardNo group by mi")
+    List<Object[]> getApplicationboardWithAll(Long boardNo);
+
 
 
 }

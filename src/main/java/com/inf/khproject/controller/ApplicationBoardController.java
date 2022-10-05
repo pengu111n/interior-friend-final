@@ -30,7 +30,16 @@ public class ApplicationBoardController {
         model.addAttribute("result",applicationBoardService.getList(pageRequestDTO));
     }
 
+    @GetMapping({"/read", "/modify"})
+    public void read(long boardNo, @ModelAttribute("requestDTO") PageRequestDTO requestDTO, Model model ){
 
+        log.info("boardNo: " + boardNo);
+
+        ApplicationBoardDTO dto = applicationBoardService.read(boardNo);
+
+        model.addAttribute("dto", dto);
+
+    }
    
 
 }

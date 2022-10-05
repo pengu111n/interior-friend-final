@@ -65,5 +65,22 @@ public class ApplicationBoardServiceImpl implements ApplicationBoardService {
 
     }
 
+    @Override
+    public ApplicationBoardDTO read(Long boardNo) {
+
+        List<Object[]> result = applicationBoardRepository.getApplicationboardWithAll(boardNo);
+
+        ApplicationBoard applicationBoard = (ApplicationBoard) result.get(0)[0];
+
+        List<ApplicationBoardImage> applicationBoardImageList = new ArrayList<>();
+
+        result.forEach(arr -> {
+            ApplicationBoardImage  applicationBoardImage = (ApplicationBoardImage)arr[1];
+            applicationBoardImageList.add(applicationBoardImage);
+        });
+        //return entityToDto(applicationBoard);
+        return entitiesToDto(applicationBoard, applicationBoardImageList);
+    }
+
 
 }
