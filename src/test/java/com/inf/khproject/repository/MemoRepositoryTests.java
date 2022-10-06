@@ -1,6 +1,5 @@
 package com.inf.khproject.repository;
 
-import com.inf.khproject.entity.Memo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
