@@ -17,7 +17,7 @@ public interface InteriorBoardService {
 
     InteriorPageResultDTO<InteriorBoardDTO, Object[]> getList(InteriorPageRequestDTO requestDTO);
 
-
+    Long register(InteriorBoardDTO interiorBoardDTO);
 
     default InteriorBoardDTO entitiesToDto(InteriorBoard interiorBoard, List<InteriorBoardImage> interiorBoardImages) {
         InteriorBoardDTO dto = InteriorBoardDTO.builder()
@@ -30,8 +30,7 @@ public interface InteriorBoardService {
                 .part(interiorBoard.getPart())
                 .area(interiorBoard.getArea())
                 .cost(interiorBoard.getCost())
-                .startDate(interiorBoard.getStartDate())
-                .endDate(interiorBoard.getEndDate())
+                .period(interiorBoard.getPeriod())
                 .regDate(interiorBoard.getRegDate())
                 .modDate(interiorBoard.getModDate())
                 .phonenum(interiorBoard.getPhonenum())
@@ -64,8 +63,7 @@ public interface InteriorBoardService {
                 .part(interiorBoard.getPart())
                 .area(interiorBoard.getArea())
                 .cost(interiorBoard.getCost())
-                .startDate(interiorBoard.getStartDate())
-                .endDate(interiorBoard.getEndDate())
+                .period(interiorBoard.getPeriod())
                 .regDate(interiorBoard.getRegDate())
                 .modDate(interiorBoard.getModDate())
                 .phonenum(interiorBoard.getPhonenum())
@@ -91,8 +89,7 @@ public interface InteriorBoardService {
                 .part(dto.getPart())
                 .area(dto.getArea())
                 .cost(dto.getCost())
-                .startDate(dto.getStartDate())
-                .endDate(dto.getEndDate())
+                .period(dto.getPeriod())
                 .phonenum(dto.getPhonenum())
                 .email(dto.getEmail())
                 .address(dto.getAddress())

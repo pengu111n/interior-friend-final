@@ -25,17 +25,16 @@ public class InteriorBoardDTO {
 	private String part;
 	private int area;
 	private int cost;
-	private String startDate;
+	private int period;
 
-	private String endDate;
-	private LocalDateTime regDate;
-	private LocalDateTime modDate;
+
 	private String phonenum;
 	private String email;
-
 	private String address;
 	private int view_count;
 
+	private LocalDateTime regDate;
+	private LocalDateTime modDate;
 	@Builder.Default
 	private List<InteriorBoardImageDTO> imageDTOList = new ArrayList<>();
 

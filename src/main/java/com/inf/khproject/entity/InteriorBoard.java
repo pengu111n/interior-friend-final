@@ -44,13 +44,9 @@ public class InteriorBoard extends BaseEntity {
     @Column
     private int cost;
 
-    @Column(length = 50)
-    private String startDate;
+    @Column
+    private int period;
 
-
-
-    @Column(length = 50)
-    private String endDate;
 
     @Column(length = 20)
     private String address;

@@ -16,7 +16,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 
 @Service
@@ -30,6 +32,23 @@ public class InteriorBoardServiceImpl implements InteriorBoardService {
     @Autowired
     private final InteriorBoardImageRepository imageRepository; //final
 
+    @Transactional
+    @Override
+    public Long register(InteriorBoardDTO interiorBoardDTO) {
+        Map<String, Object> entityMap = dtoToEntity(interiorBoardDTO);
+        InteriorBoard interiorBoard = (InteriorBoard) entityMap.get("interiorBoard");
+
+
+        List<InteriorBoardImage> interiorBoardImageList = (List<InteriorBoardImage>) entityMap.get("imgList");
+
+        interiorBoardRepository.save(interiorBoard);
+        interiorBoardImageList.forEach(interiorBoardImage -> {
+            imageRepository.save(interiorBoardImage);
+        });
+
+
+        return interiorBoard.getBoardNo();
+    }
 
     @Transactional
     @Override
@@ -45,14 +64,13 @@ public class InteriorBoardServiceImpl implements InteriorBoardService {
         });
 
 
-
-            Function<Object[], InteriorBoardDTO> fn = (arr -> entitiesToDto(
-                    (InteriorBoard) arr[0]
-                    ,(List<InteriorBoardImage>) (Arrays.asList((InteriorBoardImage) arr[1]))
-            ));
+        Function<Object[], InteriorBoardDTO> fn = (arr -> entitiesToDto(
+                (InteriorBoard) arr[0]
+                , (List<InteriorBoardImage>) (Arrays.asList((InteriorBoardImage) arr[1]))
+        ));
           /*
-        Function<Object[], ApplicationBoardDTO> fn = (arr -> entityToDto(
-                (ApplicationBoard) arr[0]
+        Function<Object[], InteriorBoardDTO> fn = (arr -> entityToDto(
+                (InteriorBoard) arr[0]
         ));
         */
 
@@ -61,7 +79,6 @@ public class InteriorBoardServiceImpl implements InteriorBoardService {
 
 
     }
-
 
 
 }
