@@ -9,5 +9,5 @@ public interface InteriorBoardImageRepository extends JpaRepository<InteriorBoar
 
     @Modifying
     @Query("delete from InteriorBoardImage ai where ai.interiorBoard.boardNo = :boardNo")
-    void deleteByApplicationBoard(long boardNo);
+    void deleteByInteriorBoard(long boardNo);
 }

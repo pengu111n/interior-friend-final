@@ -97,4 +97,13 @@ public class InteriorBoardServiceImpl implements InteriorBoardService {
         return entitiesToDto(interiorBoard, interiorBoardImageList);
     }
 
+    @Transactional
+    @Override
+    public void remove(Long boardNo) {
+
+        imageRepository.deleteByInteriorBoard(boardNo);
+
+        interiorBoardRepository.deleteById(boardNo);
+    }
+
 }

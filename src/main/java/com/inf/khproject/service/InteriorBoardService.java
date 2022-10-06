@@ -18,6 +18,7 @@ public interface InteriorBoardService {
     InteriorPageResultDTO<InteriorBoardDTO, Object[]> getList(InteriorPageRequestDTO requestDTO);
     InteriorBoardDTO read(Long boardNo);
     Long register(InteriorBoardDTO interiorBoardDTO);
+    void remove(Long boardNo);
 
     default InteriorBoardDTO entitiesToDto(InteriorBoard interiorBoard, List<InteriorBoardImage> interiorBoardImages) {
         InteriorBoardDTO dto = InteriorBoardDTO.builder()

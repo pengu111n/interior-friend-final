@@ -56,6 +56,18 @@ public class InteriorBoardController {
 
     }
 
-   
+    @RequestMapping(value="/remove", method = {RequestMethod.GET, RequestMethod.POST})
+    public String remove(long boardNo, RedirectAttributes redirectAttributes){
+
+
+        log.info("boardNo: " + boardNo);
+        interiorBoardService.remove(boardNo);
+
+        redirectAttributes.addFlashAttribute("msg", boardNo);
+
+        return "redirect:/interiorboard/list";
+
+    }
+
 
 }
