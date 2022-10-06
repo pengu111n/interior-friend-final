@@ -16,10 +16,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 
 @Service
@@ -106,4 +103,38 @@ public class InteriorBoardServiceImpl implements InteriorBoardService {
         interiorBoardRepository.deleteById(boardNo);
     }
 
+    @Transactional
+    @Override
+    public void modify(InteriorBoardDTO dto) {
+
+        Optional<InteriorBoard> result = interiorBoardRepository.findById(dto.getBoardNo());
+
+        if (result.isPresent()) {
+
+            InteriorBoard entity = result.get();
+
+            entity.setTitle(dto.getTitle());
+            entity.setCategory(dto.getCategory());
+            entity.setAddress(dto.getAddress());
+            entity.setArea(dto.getArea());
+            entity.setPeriod(dto.getPeriod());
+            entity.setCost(dto.getCost());
+            entity.setPart(dto.getPart());
+            entity.setContent(dto.getContent());
+
+
+            interiorBoardRepository.save(entity);
+
+            imageRepository.deleteByInteriorBoard(dto.getBoardNo());
+
+            Map<String, Object> entityMap = dtoToEntity(dto);
+
+            List<InteriorBoardImage> interiorBoardImageList = (List<InteriorBoardImage>) entityMap.get("imgList");
+
+            interiorBoardImageList.forEach(interiorBoardImage -> {
+                imageRepository.save(interiorBoardImage);
+            });
+
+        }
+    }
 }

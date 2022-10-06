@@ -69,5 +69,26 @@ public class InteriorBoardController {
 
     }
 
+    @PostMapping("/modify")
+    public String modify(InteriorBoardDTO dto,
+                         @ModelAttribute("requestDTO") InteriorPageRequestDTO requestDTO,
+                         RedirectAttributes redirectAttributes){
+
+
+        log.info("post modify.........................................");
+        log.info("dto: " + dto);
+
+        interiorBoardService.modify(dto);
+
+        redirectAttributes.addAttribute("page",requestDTO.getPage());
+        redirectAttributes.addAttribute("type",requestDTO.getType());
+        redirectAttributes.addAttribute("keyword",requestDTO.getKeyword());
+
+        redirectAttributes.addAttribute("boardNo",dto.getBoardNo());
+
+
+        return "redirect:/interiorboard/read";
+
+    }
 
 }
