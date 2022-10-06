@@ -51,7 +51,8 @@
                     <div class="wizard-container">
 
                         <div class="wizard-card ct-wizard-orange" id="wizardProperty">
-                            <form th:action="@{/applicationboard/register}" th:method="post">
+                            <form th:action="@{/applicationboard/modify}" th:method="post">
+                                <input type="hidden"  name="boardNo" th:value="${dto.boardNo}">
                                 <div class="wizard-header">
                                     <h3>
                                         인테리어 견적 수정 <br/>
