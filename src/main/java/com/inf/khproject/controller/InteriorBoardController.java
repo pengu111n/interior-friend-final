@@ -1,0 +1,37 @@
+package com.inf.khproject.controller;
+
+import com.inf.khproject.dto.InteriorBoardDTO;
+import com.inf.khproject.dto.InteriorPageRequestDTO;
+import com.inf.khproject.service.InteriorBoardService;
+import com.inf.khproject.service.InteriorBoardService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+@Controller
+@RequestMapping("/interiorboard")
+@Log4j2
+@RequiredArgsConstructor
+public class InteriorBoardController {
+
+    private final InteriorBoardService interiorBoardService;
+
+    @GetMapping("/")
+    public String index() {
+            return "redirect:/interiorboard/list";
+    }
+
+
+    @GetMapping(value = "/list")
+    public void list(InteriorPageRequestDTO pageRequestDTO, Model model) {
+        log.info("Listing interior");
+        model.addAttribute("result",interiorBoardService.getList(pageRequestDTO));
+    }
+
+
+   
+
+}

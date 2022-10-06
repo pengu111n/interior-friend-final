@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
+
+    <th:block th:fragment="content">
+
+        <div class="page-head">
+            <div class="container">
+                <div class="row">
+                    <div class="page-head-content">
+                        <h1 class="page-title">인테리어 사례</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="properties-area recent-property" style="background-color: #FFF;">
+            <div class="container">
+                <div class="row  pr0 padding-top-20 properties-page">
+                    <div class="col-md-12  clear">
+                        <div class="col-xs-10 page-subheader sorting pl0">
+                            <ul class="sort-by-list">
+                                <li class="">
+                                    <a class="order_by_date" data-order="ASC" data-orderby="property_date"
+                                       href="javascript:void(0);">
+                                        최신순 <i class="fa fa-sort-amount-asc"></i>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-xs-2 layout-switcher">
+                            <a class="layout-list" href="javascript:void(0);"> <i class="fa fa-th-list"></i> </a>
+                            <a class="layout-grid active" href="javascript:void(0);"> <i class="fa fa-th"></i> </a>
+                        </div>
+                        >
+                    </div>
+
+                    <div class="col-md-12 clear ">
+                        <div class="proerty-th" id="list-type">
+
+                            <span th:each="dto : ${result.dtoList}">
+                    <div class="col-sm-6 col-md-4 p0">
+                        <div class="box-two proerty-item">
+
+                            <div class="item-thumb">
+                               <a th:href="@{/interiorboard/read(boardNo = ${dto.boardNo},
+                                    page= ${result.page},
+                                    type=${pageRequestDTO.type} ,
+                                    keyword = ${pageRequestDTO.keyword})}">
+
+                                   <img style="height: 150px;" th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].path != null }"
+                                        th:src="|/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|" >
+                                   <img th:unless="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].path != null }"
+                                        th:src="@{/assets/img/logo.png}" >
+
+                               </a>
+
+                            </div>
+
+                            <div class="item-entry overflow">
+                                <h5 style="font-size: 14px; clear:both">
+                                    <a th:href="@{/interiorboard/read(boardNo = ${dto.boardNo},
+                                    page= ${result.page},
+                                    type=${pageRequestDTO.type} ,
+                                    keyword = ${pageRequestDTO.keyword})}">
+                                     [[${dto.title}]]</a>
+                                <div class="dot-hr"></div>
+                                <span class="pull-left"><b> [[${dto.address}]] </b></span>
+                                <span class="proerty-price pull-right"> ￦ [[${dto.cost}]] </span>
+
+                                <div class="property-icon">
+                                        [[${dto.category}]] |
+                                    [[${dto.part}]] |
+                                    [[${dto.area}]]평
+                                </div>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </span>
+                        </div>
+                    </div>
+
+
+                    <div class="text-center">
+                        <div class="pagination">
+                            <ul>
+                                <li class="page-item" th:if="${result.prev}">
+                                    <a class="page-link"
+                                       tabindex="-1"
+                                       th:href="@{/interiorboard/list(page=${result.start -1})}">&laquo;</a>
+                                </li>
+
+                                <li th:class="'page-item' + ${result.page == page?'active':''}"
+                                    th:each="page: ${result.pageList}">
+                                    <a class="page-link" th:href="@{/interiorboard/list(page=${page})}">[[${page}]]</a>
+                                </li>
+
+                                <li class="page-item" th:if="${result.next}">
+                                    <a class="page-link"
+                                       th:href="@{/interiorboard/list(page=${result.end +1})}">&raquo;</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </th:block>
+
+</th:block>
+
+</html>
