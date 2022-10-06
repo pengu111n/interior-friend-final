@@ -16,6 +16,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -79,6 +80,21 @@ public class InteriorBoardServiceImpl implements InteriorBoardService {
 
 
     }
+    @Override
+    public InteriorBoardDTO read(Long boardNo) {
+        interiorBoardRepository.updateView_count(boardNo);
+        List<Object[]> result = interiorBoardRepository.getInteriorBoardWithAll(boardNo);
 
+        InteriorBoard interiorBoard = (InteriorBoard) result.get(0)[0];
+
+        List<InteriorBoardImage> interiorBoardImageList = new ArrayList<>();
+
+        result.forEach(arr -> {
+            InteriorBoardImage interiorBoardImage = (InteriorBoardImage) arr[1];
+            interiorBoardImageList.add(interiorBoardImage);
+        });
+        //return entityToDto(applicationBoard);
+        return entitiesToDto(interiorBoard, interiorBoardImageList);
+    }
 
 }

@@ -45,7 +45,16 @@ public class InteriorBoardController {
         log.info("Listing interior");
         model.addAttribute("result",interiorBoardService.getList(pageRequestDTO));
     }
+    @GetMapping({"/read", "/modify"})
+    public void read(long boardNo, @ModelAttribute("requestDTO") InteriorPageRequestDTO requestDTO, Model model ){
 
+        log.info("boardNo: " + boardNo);
+
+        InteriorBoardDTO dto = interiorBoardService.read(boardNo);
+
+        model.addAttribute("dto", dto);
+
+    }
 
    
 
