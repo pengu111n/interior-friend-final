@@ -5,13 +5,17 @@ package com.inf.khproject.controller;
 
 import com.inf.khproject.dto.MemberDTO;
 import com.inf.khproject.service.MemberService;
+import jdk.jfr.ContentType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 @Controller
@@ -27,8 +31,9 @@ public class MemberController {
         log.info("register");
     }
 
-    @PostMapping("/register")
-    public String regist(MemberDTO dto, Model model) throws Exception {
+    @PostMapping(value = "/register", produces = "application/json; charset=utf-8")
+    public String regist(MemberDTO dto, HttpServletResponse res, HttpServletRequest req) throws Exception {
+
         service.regist(dto, "sss");
         return "redirect:/";
     }
@@ -46,6 +51,11 @@ public class MemberController {
     public int nicknameCheck(String nickname) throws Exception{
         int result = service.nicknameCheck(nickname);
         return result;
+    }
+
+    @GetMapping("/login")
+    public void login(Model model) throws Exception{
+        log.info("login");
     }
 
 }

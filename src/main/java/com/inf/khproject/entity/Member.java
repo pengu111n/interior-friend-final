@@ -3,6 +3,9 @@ package com.inf.khproject.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.persistence.criteria.Fetch;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -26,10 +29,17 @@ public class Member {
     private String address;
     private String companyNo;
     private String birth;
-    private Integer rank;
     private String name;
     private Integer auth;
     private String fileName;
+    private boolean isSocial;
 
+    @ElementCollection(fetch  = FetchType.LAZY)
+    @Builder.Default
+    private Set<MemberRole> roleSet = new HashSet<>();
+
+    public void addMemberRole(MemberRole role){
+        roleSet.add(role);
+    }
 }
 

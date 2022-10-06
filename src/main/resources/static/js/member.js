@@ -114,9 +114,9 @@ function idCheck() {
     url: "/member/idCheck",
     type: "post",
     dataType: "json",
-    data:  id,
+    data:  { id : id },
     success: function (data) {
-      console.log(idRegex.test("asdamkxcle"))
+      console.log(data)
       if (data == 1) {
         $("#dupId").show();
         $(".regexId").hide();
@@ -150,6 +150,7 @@ function nicknameCheck() {
     dataType: "json",
     data: { nickname: nickname },
     success: function (data) {
+        console.log(data)
       if (data == 1) {
         $(".nicknameCK").show();
         $(".emptynickname").hide();
@@ -356,9 +357,10 @@ function emptyCompanyNo() {
   }
 }
 
-
+$(function(){
 for (var i = 1; i <= 12; i++) {
   var mm = i > 9 ? i : "0" + i;
   $(".month").append('<option value="' + mm + '">' + mm + "월</option>");
 }
+});
 

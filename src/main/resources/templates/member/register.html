@@ -25,7 +25,7 @@
             <div class="box-for overflow">
                 <div class="col-md-12 col-xs-12 register-blocks">
                     <h2>새 계정 :</h2>
-                    <form name="insForm" action="register" method="post" onsubmit="return fnSubmit(); SUMaddress();">
+                    <form name="insForm" action="register" method="post" onsubmit="return fnSubmit(); SUMaddress();" content>
                         <div class="form-group">
                         	<label for="rank">회원분류</label> 
                         		<select id="rank" name ="rank" class="selectpicker show-tick form-control" onchange="changeRank()">
@@ -147,7 +147,7 @@
         border: 2px dotted #0b58a2;
     }
 </style>
-<script th:src="@{https://code.jquery.com/jquery-3.6.1.min.js}" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
 <script type="text/javascript" th:src="@{//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js}"></script>
 <script type="text/javascript" th:src="@{/js/address.js}"></script>
 
@@ -156,8 +156,14 @@
 
 
 <!-- End page header -->
-
-
+<script th:inline="javascript">
+$(function(){
+for (var i = 1; i <= 12; i++) {
+  var mm = i > 9 ? i : "0" + i;
+  $(".month").append('<option value="' + mm + '">' + mm + "월</option>");
+}
+});
+</script>
 <script type="text/javascript" th:src="@{/js/member.js}"></script>
 
     </th:block>

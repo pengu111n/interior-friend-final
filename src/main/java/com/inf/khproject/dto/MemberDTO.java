@@ -17,7 +17,6 @@ public class MemberDTO {
     private String address;
     private String companyNo;
     private String birth;
-    private Integer rank;
     private String name;
     private Integer auth;
     private String fileName;
