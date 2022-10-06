@@ -16,7 +16,6 @@ public interface ApplicationBoardService {
 
 
     PageResultDTO<ApplicationBoardDTO, Object[]> getList(PageRequestDTO requestDTO);
-
     ApplicationBoardDTO read(Long boardNo);
     Long register(ApplicationBoardDTO applicationBoardDTO);
     void remove(Long boardNo);

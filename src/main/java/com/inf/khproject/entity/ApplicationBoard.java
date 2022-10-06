@@ -1,6 +1,7 @@
 package com.inf.khproject.entity;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 
@@ -63,6 +64,7 @@ public class ApplicationBoard extends BaseEntity {
     private String image;
 
     @Column
+    @ColumnDefault("1")
     private int view_count;
 
 }

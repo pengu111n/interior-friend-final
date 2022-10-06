@@ -84,6 +84,7 @@ public class ApplicationBoardServiceImpl implements ApplicationBoardService {
     @Override
     public ApplicationBoardDTO read(Long boardNo) {
 
+        applicationBoardRepository.updateview_count(boardNo);
         List<Object[]> result = applicationBoardRepository.getApplicationboardWithAll(boardNo);
 
         ApplicationBoard applicationBoard = (ApplicationBoard) result.get(0)[0];

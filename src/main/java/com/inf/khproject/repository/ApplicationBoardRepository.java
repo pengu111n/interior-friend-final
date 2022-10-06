@@ -4,8 +4,10 @@ import com.inf.khproject.entity.ApplicationBoard;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 public interface ApplicationBoardRepository extends JpaRepository<ApplicationBoard, Long> {
@@ -18,6 +20,11 @@ public interface ApplicationBoardRepository extends JpaRepository<ApplicationBoa
             " where m.boardNo = :boardNo group by mi")
     List<Object[]> getApplicationboardWithAll(Long boardNo);
 
+
+    @Query("update ApplicationBoard m set m.view_count = m.view_count + 1 where m.boardNo = :boardNo")
+    @Modifying
+    @Transactional
+    void updateview_count(long boardNo);
 
 
 }
