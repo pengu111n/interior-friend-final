@@ -2,7 +2,7 @@ package com.inf.khproject.service;
 
 import com.inf.khproject.dto.ApplicationBoardDTO;
 import com.inf.khproject.dto.ApplicationBoardImageDTO;
-import com.inf.khproject.dto.PageRequestDTO;
+import com.inf.khproject.dto.ApplicationPageRequestDTO;
 import com.inf.khproject.dto.PageResultDTO;
 import com.inf.khproject.entity.ApplicationBoard;
 import com.inf.khproject.entity.ApplicationBoardImage;
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public interface ApplicationBoardService {
 
 
-    PageResultDTO<ApplicationBoardDTO, Object[]> getList(PageRequestDTO requestDTO);
+    PageResultDTO<ApplicationBoardDTO, Object[]> getList(ApplicationPageRequestDTO requestDTO);
     ApplicationBoardDTO read(Long boardNo);
     Long register(ApplicationBoardDTO applicationBoardDTO);
     void remove(Long boardNo);

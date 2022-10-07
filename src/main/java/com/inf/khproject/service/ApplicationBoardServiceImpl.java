@@ -1,15 +1,12 @@
 package com.inf.khproject.service;
 
 import com.inf.khproject.dto.ApplicationBoardDTO;
-import com.inf.khproject.dto.PageRequestDTO;
+import com.inf.khproject.dto.ApplicationPageRequestDTO;
 import com.inf.khproject.dto.PageResultDTO;
 import com.inf.khproject.entity.ApplicationBoard;
 import com.inf.khproject.entity.ApplicationBoardImage;
-import com.inf.khproject.entity.QApplicationBoard;
 import com.inf.khproject.repository.ApplicationBoardImageRepository;
 import com.inf.khproject.repository.ApplicationBoardRepository;
-import com.querydsl.core.BooleanBuilder;
-import com.querydsl.core.types.dsl.BooleanExpression;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +49,7 @@ public class ApplicationBoardServiceImpl implements ApplicationBoardService {
     }
     @Transactional
     @Override
-    public PageResultDTO<ApplicationBoardDTO, Object[]> getList(PageRequestDTO requestDTO) {
+    public PageResultDTO<ApplicationBoardDTO, Object[]> getList(ApplicationPageRequestDTO requestDTO) {
 
         Pageable pageable = requestDTO.getPageable(Sort.by("boardNo").descending());
 

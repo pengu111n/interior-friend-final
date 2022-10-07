@@ -1,7 +1,7 @@
 package com.inf.khproject.controller;
 
 import com.inf.khproject.dto.ApplicationBoardDTO;
-import com.inf.khproject.dto.PageRequestDTO;
+import com.inf.khproject.dto.ApplicationPageRequestDTO;
 import com.inf.khproject.service.ApplicationBoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -41,13 +41,13 @@ public class ApplicationBoardController {
         return "redirect:/applicationboard/list";
     }
     @GetMapping(value = "/list")
-    public void list(PageRequestDTO pageRequestDTO, Model model) {
+    public void list(ApplicationPageRequestDTO applicationPageRequestDTO, Model model) {
         log.info("Listing application");
-        model.addAttribute("result",applicationBoardService.getList(pageRequestDTO));
+        model.addAttribute("result",applicationBoardService.getList(applicationPageRequestDTO));
     }
 
     @GetMapping({"/read", "/modify"})
-    public void read(long boardNo, @ModelAttribute("requestDTO") PageRequestDTO requestDTO, Model model ){
+    public void read(long boardNo, @ModelAttribute("requestDTO") ApplicationPageRequestDTO requestDTO, Model model ){
 
         log.info("boardNo: " + boardNo);
 
@@ -72,7 +72,7 @@ public class ApplicationBoardController {
 
     @PostMapping("/modify")
     public String modify(ApplicationBoardDTO dto,
-                         @ModelAttribute("requestDTO") PageRequestDTO requestDTO,
+                         @ModelAttribute("requestDTO") ApplicationPageRequestDTO requestDTO,
                          RedirectAttributes redirectAttributes){
 
 
