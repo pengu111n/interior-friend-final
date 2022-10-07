@@ -36,13 +36,19 @@ public class ApplicationBoardServiceImpl implements ApplicationBoardService {
         Map<String, Object> entityMap = dtoToEntity(applicationBoardDTO);
         ApplicationBoard applicationBoard = (ApplicationBoard) entityMap.get("applicationBoard");
 
+        System.out.println("applicationBoard = " + applicationBoard);
+
 
         List<ApplicationBoardImage> applicationBoardImageList = (List<ApplicationBoardImage>) entityMap.get("imgList");
 
         applicationBoardRepository.save(applicationBoard);
-        applicationBoardImageList.forEach(applicationBoardImage -> {
-            imageRepository.save(applicationBoardImage);
-        });
+
+        if(applicationBoardImageList != null) {
+            applicationBoardImageList.forEach(applicationBoardImage -> {
+                imageRepository.save(applicationBoardImage);
+            });
+
+        }
 
 
         return applicationBoard.getBoardNo();
@@ -124,7 +130,6 @@ public class ApplicationBoardServiceImpl implements ApplicationBoardService {
             entity.setBudget(dto.getBudget());
             entity.setPart(dto.getPart());
             entity.setRequired(dto.getRequired());
-            entity.setImage(dto.getImage());
 
             applicationBoardRepository.save(entity);
 

@@ -38,7 +38,6 @@ public interface ApplicationBoardService {
                 .budget(applicationBoard.getBudget())
                 .part(applicationBoard.getPart())
                 .required(applicationBoard.getRequired())
-                .image(applicationBoard.getImage())
                 .view_count(applicationBoard.getView_count())
                 .regDate(applicationBoard.getRegDate())
                 .modDate(applicationBoard.getModDate())
@@ -72,7 +71,6 @@ public interface ApplicationBoardService {
                 .budget(applicationBoard.getBudget())
                 .part(applicationBoard.getPart())
                 .required(applicationBoard.getRequired())
-                .image(applicationBoard.getImage())
                 .view_count(applicationBoard.getView_count())
                 .regDate(applicationBoard.getRegDate())
                 .modDate(applicationBoard.getModDate())
@@ -101,7 +99,6 @@ public interface ApplicationBoardService {
                 .budget(dto.getBudget())
                 .part(dto.getPart())
                 .required(dto.getRequired())
-                .image(dto.getImage())
                 .view_count(dto.getView_count())
                 .build();
 

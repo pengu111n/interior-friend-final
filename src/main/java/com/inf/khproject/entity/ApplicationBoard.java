@@ -60,8 +60,6 @@ public class ApplicationBoard extends BaseEntity {
     @Column(length = 500)
     private String required;
 
-    @Column(length = 50)
-    private String image;
 
     @Column
     @ColumnDefault("1")

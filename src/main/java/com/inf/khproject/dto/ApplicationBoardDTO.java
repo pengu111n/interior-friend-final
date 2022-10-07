@@ -31,7 +31,6 @@ public class ApplicationBoardDTO {
 	private int budget;
 	private String part;
 	private String required;
-	private String image;
 	private int view_count;
 
 	private LocalDateTime regDate;

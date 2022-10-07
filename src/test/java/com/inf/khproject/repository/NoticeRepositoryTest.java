@@ -9,8 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
 class NoticeRepositoryTest {
 
@@ -22,7 +20,7 @@ class NoticeRepositoryTest {
 
         IntStream.rangeClosed(1, 100).forEach(i -> {
 
-            Member member = Member.builder().memNo((long) i).build();
+            Member member = Member.builder().nickname("nicknamr"+ i).build();
 
             Notice notice = Notice.builder()
                     .title("Title..." + i)
