@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<link rel="stylesheet" th:href="@{/assets/css/infoBoard.css}">
+<link rel="stylesheet" th:href="@{/assets/css/FAQ.css}">
+<link rel="stylesheet" th:href="@{/assets/css/QNAForm.css}">
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
+
+    <th:block th:fragment="content">
+
+        <div class="page-head">
+            <div class="container">
+                <div class="row">
+                    <div class="page-head-content">
+                        <h1 class="page-title">1:1문의</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End page header -->
+
+        <section>
+            <div class="container">
+                <div class="qnaform">
+                    <form th:action="@{/service-center/qna/modify}" th:method="post">
+                        <!-- 카테고리 -->
+                        <div class="qnaform__category outside form-group">
+                            <span class="left">분류</span>
+                            <span class="right">
+                                <select class="selectbox" id="category" name="category" th:value="${dto.category}">
+                                    <option th:selected="${dto.category}=='전체'" value="전체">전체</option>
+                                    <option th:selected="${dto.category}=='주문/결제'" value="주문/결제">주문/결제</option>
+                                    <option th:selected="${dto.category}=='배송관련'" value="배송관련">배송관련</option>
+                                    <option th:selected="${dto.category}=='취소/환불'" value="취소/환불">취소/환불</option>
+                                    <option th:selected="${dto.category}=='반품/교환'" value="반품/교환">반품/교환</option>
+                                    <option th:selected="${dto.category}=='로그인/회원정보'" value="로그인/회원정보">로그인/회원정보</option>
+                                    <option th:selected="${dto.category}=='서비스/기타'" value="서비스/기타">서비스/기타</option>
+                                </select>
+						    </span>
+                        </div>
+
+                        <div class="qnaform__title outside form-group">
+                            <span class="left">제목</span>
+                            <span class="right"><input type="text" class="form-control" name="title" th:value="${dto.title}"></span>
+                        </div>
+                        <div class="qnaform__content outside form-group">
+                            <span class="left">내용</span>
+                            <span class="right"><textarea class="form-control" rows="10" name="content" th:text="${dto.content}"></textarea></span>
+                        </div>
+                        <div class="qnaform__submit">
+                            <button class="navbar-btn nav-button wow fadeInRight modifyBtn" data-wow-delay="0.48s" type="submit">등록</button>
+                        </div>
+
+                        <input type="hidden" name="qnaNo" th:value="${dto.qnaNo}">
+                        <input type="hidden" name="page" th:value="${requestDTO.page}">
+
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <script th:inline="javascript">
+
+            var actionForm = $("form");
+
+            $(".modifyBtn").click(function () {
+
+                if (!confirm("수정하시겠습니까?")) {
+                    return;
+                }
+
+                actionForm
+                    .attr("action", "/service-center/qna/modify")
+                    .attr("method", "post")
+                    .submit();
+
+            });
+
+        </script>
+
+    </th:block>
+
+</th:block>
+</html>

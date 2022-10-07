@@ -1,0 +1,30 @@
+package com.inf.khproject.repository;
+
+import com.inf.khproject.entity.Member;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.stream.IntStream;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+@SpringBootTest
+public class MemberRepositoryTest {
+
+    @Autowired
+    private MemberRepository memberRepository;
+
+    @Test
+    public void insertMembers() {
+
+        IntStream.rangeClosed(1, 100).forEach(i -> {
+            Member member = Member.builder()
+                    .nickname("USER"+i)
+                    .build();
+            memberRepository.save(member);
+        });
+
+    }
+
+}

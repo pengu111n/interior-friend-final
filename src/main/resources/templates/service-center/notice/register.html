@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<link rel="stylesheet" th:href="@{/assets/css/infoBoard.css}">
+<link rel="stylesheet" th:href="@{/assets/css/FAQ.css}">
+<link rel="stylesheet" th:href="@{/assets/css/QNAForm.css}">
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
+
+    <th:block th:fragment="content">
+
+
+        <div class="page-head">
+            <div class="container">
+                <div class="row">
+                    <div class="page-head-content">
+                        <h1 class="page-title">공지사항</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End page header -->
+
+        <section>
+            <div class="container">
+                <div class="qnaform">
+                    <form th:action="@{/service-center/notice/register}" th:method="post">
+                        <div class="qnaform__title outside form-group">
+                            <span class="left">제목</span>
+                            <span class="right"><input type="text" class="form-control" name="title" placeholder="제목을 입력하세요."></span>
+                        </div>
+                        <div class="qnaform__content outside form-group">
+                            <span class="left">내용</span>
+                            <span class="right"><textarea class="form-control" rows="10" name="content" placeholder="내용을 입력하세요."></textarea></span>
+                        </div>
+                        <div class="qnaform__submit">
+                            <button class="navbar-btn nav-button wow fadeInRight registerBtn" data-wow-delay="0.48s" type="submit">등록</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <script th:inline="javascript">
+
+            var actionForm = $("form");
+
+            $(".registerBtn").click(function () {
+
+                if (!confirm("등록하시겠습니까?")) {
+                    return;
+                }
+
+                actionForm
+                    .attr("action", "/service-center/notice/register")
+                    .attr("method", "post")
+                    .submit();
+
+            });
+
+        </script>
+
+    </th:block>
+
+</th:block>
+</html>
