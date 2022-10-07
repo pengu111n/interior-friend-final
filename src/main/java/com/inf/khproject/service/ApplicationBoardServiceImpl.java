@@ -2,7 +2,7 @@ package com.inf.khproject.service;
 
 import com.inf.khproject.dto.ApplicationBoardDTO;
 import com.inf.khproject.dto.ApplicationPageRequestDTO;
-import com.inf.khproject.dto.PageResultDTO;
+import com.inf.khproject.dto.ApplicationPageResultDTO;
 import com.inf.khproject.entity.ApplicationBoard;
 import com.inf.khproject.entity.ApplicationBoardImage;
 import com.inf.khproject.repository.ApplicationBoardImageRepository;
@@ -49,7 +49,7 @@ public class ApplicationBoardServiceImpl implements ApplicationBoardService {
     }
     @Transactional
     @Override
-    public PageResultDTO<ApplicationBoardDTO, Object[]> getList(ApplicationPageRequestDTO requestDTO) {
+    public ApplicationPageResultDTO<ApplicationBoardDTO, Object[]> getList(ApplicationPageRequestDTO requestDTO) {
 
         Pageable pageable = requestDTO.getPageable(Sort.by("boardNo").descending());
 
@@ -73,7 +73,7 @@ public class ApplicationBoardServiceImpl implements ApplicationBoardService {
         */
 
 
-        return new PageResultDTO<>(result, fn);
+        return new ApplicationPageResultDTO<>(result, fn);
 
 
     }

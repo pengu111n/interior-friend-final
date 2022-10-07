@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Data
-public class PageResultDTO<DTO, EN> {
+public class ApplicationPageResultDTO<DTO, EN> {
 
     //DTO리스트
     private List<DTO> dtoList;
@@ -32,7 +32,7 @@ public class PageResultDTO<DTO, EN> {
     //페이지 번호  목록
     private List<Integer> pageList;
 
-    public PageResultDTO(Page<EN> result, Function<EN,DTO> fn ){
+    public ApplicationPageResultDTO(Page<EN> result, Function<EN,DTO> fn ){
 
         dtoList = result.stream().map(fn).collect(Collectors.toList());
 
