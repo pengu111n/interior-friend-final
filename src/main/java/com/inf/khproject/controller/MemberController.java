@@ -4,6 +4,7 @@ package com.inf.khproject.controller;
 
 
 import com.inf.khproject.dto.MemberDTO;
+import com.inf.khproject.repository.MemberRepository;
 import com.inf.khproject.service.MemberService;
 import jdk.jfr.ContentType;
 import lombok.RequiredArgsConstructor;
@@ -38,10 +39,10 @@ public class MemberController {
         return "redirect:/";
     }
 
-    @PostMapping("/idCheck")
+    @PostMapping("/usernameCheck")
     @ResponseBody
-    public int idCheck(String id) throws Exception {
-        int result = service.idCheck(id);
+    public int usernameCheck(String username) throws Exception {
+        int result = service.usernameCheck(username);
         System.out.println(result);
         return result;
     }
@@ -57,6 +58,19 @@ public class MemberController {
     public void login(Model model) throws Exception{
         log.info("login");
     }
+
+    @PostMapping("/login")
+    public void login() throws Exception{
+
+    }
+
+    @GetMapping(value = "/login/error")
+    public String loginError(Model model) {
+        model.addAttribute("loginErrorMsg", "아이디 또는 비밀번호를 확인해주세요.");
+        return "/member/login";
+    }
+
+
 
 }
 

@@ -108,13 +108,13 @@ function checkNumber(event) {
 var idPass;
 var idRegex = /^[a-z]+[a-z0-9]{5,19}$/;
 
-function idCheck() {
-  var id = $("#id").val();
+function usernameCheck() {
+  var username = $("#username").val();
   $.ajax({
-    url: "/member/idCheck",
+    url: "/member/usernameCheck",
     type: "post",
     dataType: "json",
-    data: { id: id },
+    data: { username: username },
     success: function (data) {
       if (data == 1) {
         $("#dupId").show();

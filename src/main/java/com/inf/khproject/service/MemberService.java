@@ -4,14 +4,6 @@ package com.inf.khproject.service;
 
 import com.inf.khproject.dto.MemberDTO;
 import com.inf.khproject.entity.Member;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
-
-import java.util.Date;
-import java.util.List;
 
 public interface MemberService{
 
@@ -20,16 +12,16 @@ public interface MemberService{
 
 	public void regist(MemberDTO dto, String local) throws Exception;
 
-	public int idCheck(String id) throws Exception;
+	public int usernameCheck(String username) throws Exception;
 
 	public int nicknameCheck(String nickname) throws Exception;
 
 
 	default Member dtoToEntity(MemberDTO dto){
 		Member entity = Member.builder()
-				.memNo(dto.getMemNo())
-				.nickname(dto.getNickname())
 				.id(dto.getId())
+				.nickname(dto.getNickname())
+				.username(dto.getUsername())
 				.pw(dto.getPw())
 				.phoneNum(dto.getPhoneNum())
 				.email(dto.getEmail())
@@ -45,9 +37,9 @@ public interface MemberService{
 
 	default MemberDTO entityToDTO(Member entity){
 		MemberDTO dto = MemberDTO.builder()
-				.memNo(entity.getMemNo())
-				.nickname(entity.getNickname())
 				.id(entity.getId())
+				.nickname(entity.getNickname())
+				.username(entity.getUsername())
 				.pw(entity.getPw())
 				.phoneNum(entity.getPhoneNum())
 				.email(entity.getEmail())

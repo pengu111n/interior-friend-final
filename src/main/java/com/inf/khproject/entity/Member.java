@@ -3,8 +3,6 @@ package com.inf.khproject.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.persistence.criteria.Fetch;
-import java.util.HashSet;
 import java.util.Set;
 
 
@@ -15,14 +13,14 @@ import java.util.Set;
 @Builder
 @Table(name="Member")
 @ToString
-public class Member {
+public class Member{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer memNo;
+    private Long id;
 
     private String nickname;
-    private String id;
+    private String username;
     private String pw;
     private String phoneNum;
     private String email;
@@ -30,16 +28,16 @@ public class Member {
     private String companyNo;
     private String birth;
     private String name;
-    private Integer auth;
+    private String auth;
     private String fileName;
     private boolean isSocial;
 
-    @ElementCollection(fetch  = FetchType.LAZY)
-    @Builder.Default
-    private Set<MemberRole> roleSet = new HashSet<>();
 
-    public void addMemberRole(MemberRole role){
-        roleSet.add(role);
+    @ElementCollection(fetch = FetchType.LAZY)
+    private Set<MemberRole> roleSet;
+
+    public void addMemberRole(MemberRole memberRole){
+        roleSet.add(memberRole);
     }
 }
 

@@ -87,6 +87,7 @@
 							<label> <input type="checkbox" name="useCookie">
 								자동로그인
 							</label>
+							<p th:if="${loginErrorMsg}" class="error" th:text="${loginErrorMsg}"></p>
 						</div>
 					</div>
 							<div class="text-center">

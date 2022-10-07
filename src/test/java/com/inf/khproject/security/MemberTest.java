@@ -30,7 +30,7 @@ public class MemberTest {
 
    @Test
     public void testRead() {
-       Optional<Member> result = repository.findById("qwe", false);
+       Optional<Member> result = repository.findByUsername("qwe", false);
 
        Member member = result.get();
        System.out.println(member);

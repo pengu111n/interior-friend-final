@@ -1,34 +1,36 @@
 package com.inf.khproject.config;
 
-import com.inf.khproject.security.service.LoginDetailsService;
+import com.inf.khproject.security.handler.MemberHandler;
+import com.inf.khproject.security.service.MemberService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
-import org.springframework.security.config.ldap.EmbeddedLdapServerContextSourceFactoryBean;
-import org.springframework.security.config.ldap.LdapBindAuthenticationManagerFactory;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.sql.DataSource;
 
 @EnableWebSecurity
 @Configuration
 @Log4j2
+@RequiredArgsConstructor
 public class SecurityConfig {
 
     @Bean
@@ -37,7 +39,9 @@ public class SecurityConfig {
     }
 
 
-    private UserDetailsService userDetailsService;
+    private MemberService memberService;
+
+    private DataSource dataSource;
 
 
 //    @Bean
@@ -69,7 +73,7 @@ public class SecurityConfig {
                 .loginPage("/member/login")
                 .defaultSuccessUrl("/")
                 .failureUrl("/member/login")
-                .usernameParameter("id")
+                .usernameParameter("username")
                 .passwordParameter("pw")
             .and().logout().logoutUrl("/member/logout")
                 .logoutSuccessUrl("/")
@@ -78,11 +82,24 @@ public class SecurityConfig {
         return http.build();
     }
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+
+//    @Bean
+//    public UserDetailsManager users(DataSource dataSource) {
+//        UserDetails user = User.withDefaultPasswordEncoder()
+//                .username("username")
+//                .password("pw")
+//                .roles("INDIVIDUAL")
+//                .build();
+//        JdbcUserDetailsManager users = new JdbcUserDetailsManager(dataSource);
+//        users.createUser(user);
+//        return users;
+//    }
+
+    @Bean
+    public MemberHandler successHandler() {
+        return new MemberHandler(passwordEncoder());
     }
-    }
+
 
 
 }

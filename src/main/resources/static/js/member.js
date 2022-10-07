@@ -108,13 +108,13 @@ var idPass;
 
 
 function idCheck() {
-  var idRegex = /^[a-z]+[a-z0-9]{5,19}$/;
-  var id = $("#id").val();
+  var usernameRegex = /^[a-z]+[a-z0-9]{5,19}$/;
+  var username = $("#username").val();
   $.ajax({
-    url: "/member/idCheck",
+    url: "/member/usernameCheck",
     type: "post",
     dataType: "json",
-    data:  { id : id },
+    data:  { username : username },
     success: function (data) {
       console.log(data)
       if (data == 1) {
@@ -122,12 +122,12 @@ function idCheck() {
         $(".regexId").hide();
         $(".emptyID").hide();
         $(".successId").hide();
-      } else if (id == "") {
+      } else if (username == "") {
         $(".successId").hide();
         $("#dupId").hide();
         $(".regexId").hide();
         $(".emptyID").show();
-      } else if (!idRegex.test($("#id").val())) {
+      } else if (!usernameRegex.test($("#username").val())) {
         $(".successId").hide();
         $("#dupId").hide();
         $(".regexId").show();
@@ -167,9 +167,9 @@ function nicknameCheck() {
 }
 
 function fnSubmit() {
-  if ($("#id").val() == null || $("#id").val() == "") {
+  if ($("#username").val() == null || $("#username").val() == "") {
     alert("아이디를 입력해주세요.");
-    $("#id").focus();
+    $("#username").focus();
     return false;
   }
 
