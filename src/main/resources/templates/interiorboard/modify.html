@@ -77,8 +77,11 @@
                                              <div class="col-sm-12">
                                                  <div class="form-group">
                                                      <label>제목 : </label>
-                                                     <input type="text" class="form-control" name   ="title" id="title" onkeypress="TextCount(this,'title');"
-                                                            placeholder="시공내용을 간략하게 적어주세요 (20자이내)">
+                                                     <input class="form-control" id="title" name="title"
+                                                             onkeypress="TextCount(this,'title');"
+                                                             placeholder="시공내용을 간략하게 적어주세요 (20자이내)"
+                                                             th:value="${dto.title}"
+                                                             type="text">
                                                  </div>
                                              </div>
                                             <div class="col-sm-12">
@@ -87,27 +90,40 @@
                                                      <div class="form-group">
                                                          <label>주소 :</label><br/>
                                                          <select
-                                                                 class="form-group form-control" name="address_1" id="address_1"
+                                                                 class="form-control" name="sido1" id="sido1"
                                                                  style="width: 160px; display: inline-block;"></select>
                                                          <select
-                                                                 class="form-control" name="address_2" id="address_2"
+                                                                 class="form-control" name="gugun1" id="gugun1"
                                                                  style="width: 160px; display: inline-block;"></select>
                                                          <input type="hidden" id="address" name="address" value="">
+                                                         <input type="hidden" id="aaa" th:value="${dto.address}"/>
                                                      </div>
                                              </div>
 
                                                 <div class="col-sm-3" style="width : 400px; padding-right: 80px; padding-left: 0px">
                                                     <div class="form-group">
-                                                        <label>주거유형</label> <select class="selectpicker show-tick form-control"
-                                                                                    name="category" id="category">
-                                                        <option value="" disabled selected>주거유형</option>
-                                                        <option value="아파트">아파트</option>
-                                                        <option value="빌라">빌라</option>
-                                                        <option value="카페/식당">카페/식당</option>
-                                                        <option value="사무/오피스">사무/오피스</option>
-                                                        <option value="매장/상업">매장/상업</option>
-                                                        <option value="병원/의료">병원/의료</option>
-                                                        <option value="기타">기타</option>
+                                                        <label>주거유형</label> <select
+                                                            class="selectpicker show-tick form-control"
+                                                            id="category" name="category" th:value="${dto.category}">
+                                                        <option disabled selected value="">주거유형</option>
+                                                        <option th:selected="${dto.category}=='아파트'" value="아파트">아파트
+                                                        </option>
+                                                        <option th:selected="${dto.category}=='빌라'" value="빌라">빌라
+                                                        </option>
+                                                        <option th:selected="${dto.category}=='카페/식당'" value="카페/식당">
+                                                            카페/식당
+                                                        </option>
+                                                        <option th:selected="${dto.category}=='사무/오피스'" value="사무/오피스">
+                                                            사무/오피스
+                                                        </option>
+                                                        <option th:selected="${dto.category}=='매장/상업'" value="매장/상업">
+                                                            매장/상업
+                                                        </option>
+                                                        <option th:selected="${dto.category}=='병원/의료'" value="병원/의료">
+                                                            병원/의료
+                                                        </option>
+                                                        <option th:selected="${dto.category}=='기타'" value="기타">기타
+                                                        </option>
                                                     </select>
                                                     </div>
                                                 </div>
@@ -115,17 +131,25 @@
                                                 <div class="col-sm-3" style="width : 400px; padding-right: 80px; padding-left: 0px">
                                                     <div class="form-group">
                                                         <label>인테리어 분야</label>
-                                                        <select class="selectpicker show-tick form-control" name="part"
-                                                                id="part">
-                                                            <option value="" disabled selected>인테리어 분야</option>
-                                                            <option value="종합">종합</option>
-                                                            <option value="도배">도배</option>
-                                                            <option value="마루">마루</option>
-                                                            <option value="욕실">욕실</option>
-                                                            <option value="타일">타일</option>
-                                                            <option value="도어">도어</option>
-                                                            <option value="주방">주방</option>
-                                                            <option value="기타">기타</option>
+                                                        <select class="selectpicker show-tick form-control" id="part"
+                                                                name="part" th:value="${dto.part}">
+                                                            <option disabled selected value="">인테리어 분야</option>
+                                                            <option th:selected="${dto.part}=='종합'" value="종합">종합
+                                                            </option>
+                                                            <option th:selected="${dto.part}=='도배'" value="도배">도배
+                                                            </option>
+                                                            <option th:selected="${dto.part}=='마루'" value="마루">마루
+                                                            </option>
+                                                            <option th:selected="${dto.part}=='욕실'" value="욕실">욕실
+                                                            </option>
+                                                            <option th:selected="${dto.part}=='타일'" value="타일">타일
+                                                            </option>
+                                                            <option th:selected="${dto.part}=='도어'" value="도어">도어
+                                                            </option>
+                                                            <option th:selected="${dto.part}=='주방'" value="주방">주방
+                                                            </option>
+                                                            <option th:selected="${dto.part}=='기타'" value="기타">기타
+                                                            </option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -137,7 +161,9 @@
                                                             <div class="input-group"
                                                                  style="width: 320px; margin: 0px;">
                                                                 <div class="input-group-addon">평수</div>
-                                                                <input type="number" class="form-control" name="area"/>
+                                                                <input class="form-control" name="area"
+                                                                       th:value="${dto.area}"
+                                                                       type="number"/>
                                                                 <div class="input-group-addon">평</div>
                                                             </div>
                                                         </div>
@@ -152,7 +178,7 @@
                                                                      style="width: 320px; margin-top: 0px; margin-bottom: 0px;">
                                                                     <div class="input-group-addon">예산</div>
                                                                     <input type="number" class="form-control"
-                                                                           name="cost"/>
+                                                                           name="cost" th:value="${dto.cost}"/>
                                                                     <div class="input-group-addon">만원</div>
                                                                 </div>
                                                             </div>
@@ -165,7 +191,7 @@
                                                             <div class="input-group"
                                                                  style="width: 320px; margin: 0px;">
                                                                 <div class="input-group-addon">기간</div>
-                                                                <input type="number" class="form-control" name="period"/>
+                                                                <input type="number" class="form-control" name="period" th:value="${dto.period}"/>
                                                                 <div class="input-group-addon">일</div>
                                                             </div>
                                                         </div>
@@ -217,7 +243,7 @@
                                                         <label>인테리어상세 정보 :</label>
                                                         <textarea class="form-control" name="content"
                                                                   id="exampleFormControlTextarea1" rows="20" placeholder=" <프로젝트의 진행 내용>&#13;&#10;      예시) 사용 자재, 진행 과정 등&#13;&#10;&#13;&#10; <상세한 업무 내용>&#13;&#10;     예시) 시공내용, 일정 &#13;&#10;&#13;&#10; <참고자료 / 유의사항>&#13;&#10;     예시) 참고사이트, 기타 유의사항 등
-                                                            "></textarea>
+                                                            " th:text="${dto.content}"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
