@@ -61,10 +61,19 @@ public class MemberController {
     }
 
 
-    @GetMapping(value = "/login/error")
-    public String loginError(Model model) {
-        model.addAttribute("loginErrorMsg", "아이디 또는 비밀번호를 확인해주세요.");
+    @GetMapping(value = "/loginerror")
+    public String loginError(@RequestParam(value = "error", required = false) String error,
+                             @RequestParam(value = "exception", required = false) String exception,
+                             Model model) {
+        model.addAttribute("error", error);
+        model.addAttribute("exception", exception);
         return "/member/login";
+    }
+
+    @GetMapping(value = "/logout")
+    public void logout(){
+        log.info("logout....");
+
     }
 
 

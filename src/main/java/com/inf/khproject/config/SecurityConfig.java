@@ -1,6 +1,7 @@
 package com.inf.khproject.config;
 
 import com.inf.khproject.security.handler.MemberHandler;
+import com.inf.khproject.security.service.CustomMemberDetailService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,8 @@ import javax.sql.DataSource;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
+    private final UserDetailsService CustomMemberDetailService;
+    private final CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
     @Bean
     PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -65,12 +68,17 @@ public class SecurityConfig {
             .and().formLogin()
                 .loginPage("/member/login")
                 .defaultSuccessUrl("/")
-                .failureUrl("/member/login")
+                .failureHandler(customAuthenticationFailureHandler)
                 .usernameParameter("username")
                 .passwordParameter("pw")
             .and().logout().logoutUrl("/member/logout")
                 .logoutSuccessUrl("/")
                 .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID", "remember-me")
+            .and().rememberMe()
+                .rememberMeParameter("remember")
+                .tokenValiditySeconds(3600)
+                .userDetailsService(CustomMemberDetailService)
             .and().csrf().disable();
         return http.build();
     }

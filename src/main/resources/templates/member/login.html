@@ -84,10 +84,10 @@
 				<div class="row">
 					<div class="col-md-12 col-xs-8">
 						<div class="checkbox icheck">
-							<label> <input type="checkbox" name="useCookie">
+							<label> <input type="checkbox" name="remember">
 								자동로그인
 							</label>
-							<p th:if="${loginErrorMsg}" class="error" th:text="${loginErrorMsg}"></p>
+							<p th:if="${error}" class="error" th:text="${exception}"></p>
 						</div>
 					</div>
 							<div class="text-center">
