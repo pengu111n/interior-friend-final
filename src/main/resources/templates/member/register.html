@@ -27,10 +27,10 @@
                     <h2>새 계정 :</h2>
                     <form name="insForm" action="register" method="post" onsubmit="return fnSubmit(); SUMaddress();" content>
                         <div class="form-group">
-                        	<label for="rank">회원분류</label> 
+                        	<label for="rank">회원분류</label>
                         		<select id="rank" name ="rank" class="selectpicker show-tick form-control" onchange="changeRank()">
-       								<option value="ROLE_INDIVIDUAL">1:일반회원</option>
-       								<option value="ROLE_COMPANY">2:기업회원</option>
+       								<option value="1">1:일반회원</option>
+       								<option value="2">2:기업회원</option>
        							</select>
                         </div>
                         <div class="form-group" id="compInput">

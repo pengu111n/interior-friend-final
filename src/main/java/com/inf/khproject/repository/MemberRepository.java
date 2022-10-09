@@ -18,8 +18,8 @@ public interface MemberRepository extends JpaRepository<Member, String> {
 
 
     @EntityGraph(attributePaths = {"roleSet"}, type = EntityGraph.EntityGraphType.LOAD)
-    @Query("select m from Member m where m.isSocial = :social and m.username = :username")
-    Optional<Member> findByUsername(String username, boolean social);
+    @Query("select m from Member m where m.isSocial = :isSocial and m.username = :username")
+    Optional<Member> findByUsername(@Param("username") String username, @Param("isSocial") boolean isSocial);
 
-    Member findByUsername(String username);
+    Optional<Member> findByUsername(@Param("username") String username);
 }

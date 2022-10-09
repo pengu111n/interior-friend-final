@@ -5,7 +5,8 @@ package com.inf.khproject.controller;
 
 import com.inf.khproject.dto.MemberDTO;
 import com.inf.khproject.repository.MemberRepository;
-import com.inf.khproject.service.MemberService;
+import com.inf.khproject.security.service.CustomMemberDetailService;
+import com.inf.khproject.security.service.MemberService;
 import jdk.jfr.ContentType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -31,11 +32,11 @@ public class MemberController {
     public void regist(Model model) throws Exception {
         log.info("register");
     }
-
-    @PostMapping(value = "/register", produces = "application/json; charset=utf-8")
+//, produces = "application/json; charset=utf-8"
+    @PostMapping(value = "/register", produces = MediaType.APPLICATION_JSON_VALUE)
     public String regist(MemberDTO dto, HttpServletResponse res, HttpServletRequest req) throws Exception {
-
-        service.regist(dto, "sss");
+        log.info("dtoooo" + dto);
+        service.register(dto);
         return "redirect:/";
     }
 
@@ -59,10 +60,6 @@ public class MemberController {
         log.info("login");
     }
 
-    @PostMapping("/login")
-    public void login() throws Exception{
-
-    }
 
     @GetMapping(value = "/login/error")
     public String loginError(Model model) {

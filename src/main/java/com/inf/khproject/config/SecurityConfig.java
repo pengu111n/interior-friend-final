@@ -1,7 +1,6 @@
 package com.inf.khproject.config;
 
 import com.inf.khproject.security.handler.MemberHandler;
-import com.inf.khproject.security.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,12 +36,6 @@ public class SecurityConfig {
     PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
-
-
-    private MemberService memberService;
-
-    private DataSource dataSource;
-
 
 //    @Bean
 //    public InMemoryUserDetailsManager userDetailsManager() {
@@ -100,6 +93,9 @@ public class SecurityConfig {
         return new MemberHandler(passwordEncoder());
     }
 
-
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
+    }
 
 }

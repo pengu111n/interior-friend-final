@@ -1,12 +1,18 @@
 package com.inf.khproject.controller;
 
+import com.inf.khproject.dto.MemberDTO;
+import com.inf.khproject.security.dto.MemberAuthDTO;
+import com.inf.khproject.security.service.CustomMemberDetails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.security.Principal;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -26,7 +32,6 @@ public class HomeController {
     public String home(Locale locale, Model model) {
 
         logger.info("Welcome home! The client locale is {}.", locale);
-
         return "/main/index";
     }
 

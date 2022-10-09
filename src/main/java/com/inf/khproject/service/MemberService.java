@@ -4,13 +4,16 @@ package com.inf.khproject.service;
 
 import com.inf.khproject.dto.MemberDTO;
 import com.inf.khproject.entity.Member;
+import com.inf.khproject.entity.MemberRole;
+
+import java.util.Objects;
 
 public interface MemberService{
 
 
 
 
-	public void regist(MemberDTO dto, String local) throws Exception;
+	public Member regist(MemberDTO dto, String local) throws Exception;
 
 	public int usernameCheck(String username) throws Exception;
 
