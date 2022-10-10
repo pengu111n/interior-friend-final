@@ -1,6 +1,12 @@
 package com.inf.khproject.repository;
 
+import com.inf.khproject.dto.MemberDTO;
+import com.inf.khproject.entity.Member;
+import com.inf.khproject.entity.MemberRole;
 import com.inf.khproject.entity.Memo;
+import com.inf.khproject.security.service.MemberService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -8,6 +14,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.annotation.Commit;
 
 import javax.transaction.Transactional;
@@ -16,10 +24,39 @@ import java.util.Optional;
 import java.util.stream.IntStream;
 
 @SpringBootTest
+@RequiredArgsConstructor
+@Log4j2
 public class MemoRepositoryTests {
 
     @Autowired
     MemoRepository memoRepository;
+
+    @Autowired
+    MemberRepository repository;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
+    @Autowired
+    JavaMailSender mailsender;
+
+    @Autowired
+    MemberService service;
+
+
+
+    @Test
+    public void testRegister() throws Exception {
+        MemberDTO dto = new MemberDTO();
+        dto.setPw(passwordEncoder.encode(dto.getPw()));
+        MemberRole role = dto.getRole();
+        log.info(dto);
+        String auth = service.sendSimpleMessage(dto.getEmail());
+        dto.setEmail(auth);
+        log.info(dto);
+        Member member = dto.dtoToEntity(dto);
+        repository.save(member);
+    }
 
     @Test
     public void testClass() {

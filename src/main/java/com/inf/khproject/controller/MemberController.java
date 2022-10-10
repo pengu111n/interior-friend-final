@@ -13,6 +13,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,11 +34,19 @@ public class MemberController {
         log.info("register");
     }
 //, produces = "application/json; charset=utf-8"
+    @Transactional
     @PostMapping(value = "/register", produces = MediaType.APPLICATION_JSON_VALUE)
     public String regist(MemberDTO dto, HttpServletResponse res, HttpServletRequest req) throws Exception {
         log.info("dtoooo" + dto);
         service.register(dto);
         return "redirect:/";
+    }
+
+    @PostMapping("/confirmMail")
+    @ResponseBody
+    public String confirmMail(@RequestParam("email")String email) throws Exception {
+        String auth = service.sendSimpleMessage(email);
+        return auth;
     }
 
     @PostMapping("/usernameCheck")

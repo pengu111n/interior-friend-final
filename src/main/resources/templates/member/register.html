@@ -104,19 +104,14 @@
                         <div class="form-group email-form">
                             <label for="email">이메일</label>
                             <span>
-                            <input type="text" class="form-control form-control_half" id="email" name="email" placeholder="이메일" onblur="emptyMail()">                            
-                            <span>@</span>
-                            <select class="form-control" name="email2" id="email2" onchange="selectEmail()">
-                                <option value = "" selected>선택</option>
-                                <option value = "naver.com">naver.com</option>
-                                <option value = "daum.net">daum.net</option>
-                                <option value = "gmail.com">gmail.com</option>
-                                <option value = "hanmail.com">hanmail.com</option>
-                                <option value = "other">기타</option>
-                            </select>
+                            <input type="text" class="form-control" id="email" name="email" placeholder="이메일">
+                            <button type="button" class="btn btn-default" id="confirmEmailBtn">확인</button>
                             </span>
                             <b class="empty emptyMail">필수 정보입니다.</b>
-                            <input class="form-control" id="otherEmail" disabled type="text" name="email3">
+                            <label for="confirmMailText">인증번호</label>
+                            <span>
+                                <input name="auth" type="text" id="confirmMailText" class="form-control" placeholder="인증번호"/>
+                            </span>
                         </div>
                         <div class="form-group">
                           <div class="fileDrop">
