@@ -44,7 +44,7 @@ public class MemberController {
 
     @PostMapping("/confirmMail")
     @ResponseBody
-    public String confirmMail(@RequestParam("email")String email) throws Exception {
+    public String confirmMail(String email, Model model) throws Exception {
         String auth = service.sendSimpleMessage(email);
         return auth;
     }

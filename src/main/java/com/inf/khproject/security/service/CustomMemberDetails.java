@@ -9,21 +9,24 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
-@AllArgsConstructor
 @Data
 public class CustomMemberDetails implements UserDetails {
 
-    private final Member member;
+    private Member member;
 
-
+    public CustomMemberDetails(Member member){
+        this.member = member;
+    }
 
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Collection<GrantedAuthority> collectors = new ArrayList<>();
-        collectors.add(() -> {return "ROLE_" + member.getRole();});
-        return collectors;
+        List<GrantedAuthority> authorities= new ArrayList<GrantedAuthority>();
+        authorities.add(new SimpleGrantedAuthority(member.getRole().getValue()));
+        return authorities;
+
     }
 
     @Override
@@ -35,6 +38,8 @@ public class CustomMemberDetails implements UserDetails {
     public String getUsername() {
         return member.getUsername();
     }
+
+    public String getNickname() {return member.getNickname();}
 
     @Override
     public boolean isAccountNonExpired() {

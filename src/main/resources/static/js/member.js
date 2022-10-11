@@ -53,14 +53,34 @@ $(".uploadedList").on("click", ".delbtn", function (event) {
     },
   });
 });
-
-$("#confirmEmailBtn").click(function () {
+var auth;
+function confirmMail() {
   $.ajax({
     type: "POST",
-    url: "confirmMail",
-    data: {},
+    url: "/member/confirmMail",
+    data: { email : $("#email").val() },
+    success: function (data) {
+      $(".invalidEmail").hide()
+      $(".sendMail").show();
+      console.log(data);
+      auth = data;
+      $("#confirmEmailBtn").attr("disabled", true);
+    },
+    error: function(){
+        $(".invalidEmail").show()
+    }
   });
-});
+};
+
+function onKeyMailConfirm(){
+    if(auth != $("#confirmMailText").val()){
+        $(".notMatchAuth").show()
+        $(".success").hide()
+    }else{
+        $(".notMatchAuth").hide()
+        $(".success").show()
+    }
+}
 
 function changeRank() {
   var r = document.getElementById("rank");

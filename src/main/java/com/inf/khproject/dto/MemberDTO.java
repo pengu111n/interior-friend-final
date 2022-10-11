@@ -43,7 +43,7 @@ public class MemberDTO {
                     .name(dto.getName())
                     .auth(dto.getAuth())
                     .fileName(dto.getFileName())
-                    .role(role.INDIVIDUAL)
+                    .role(role.ROLE_INDIVIDUAL)
                     .build();
         }else if(dto.getRank() == 2){
             entity = Member.builder()
@@ -59,7 +59,7 @@ public class MemberDTO {
                     .name(dto.getName())
                     .auth(dto.getAuth())
                     .fileName(dto.getFileName())
-                    .role(role.COMPANY)
+                    .role(role.ROLE_COMPANY)
                     .build();
         }
 
