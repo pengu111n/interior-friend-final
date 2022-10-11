@@ -1,11 +1,13 @@
 package com.inf.khproject.repository;
 
+import com.inf.khproject.entity.Member;
 import com.inf.khproject.entity.QNA;
 import com.inf.khproject.entity.QNAReply;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
@@ -20,11 +22,9 @@ public class QNAReplyRepositoryTest {
     @Test
     public void insertQNAReply() {
 
-        IntStream.rangeClosed(1, 300).forEach(i -> {
+        IntStream.rangeClosed(2, 100).forEach(i -> {
 
-            long qnaNo = (long) (Math.random() * 100) + 1;
-
-            QNA qna = QNA.builder().qnaNo(qnaNo).build();
+            QNA qna = QNA.builder().qnaNo((long) i).build();
 
             QNAReply qnaReply = QNAReply.builder()
                     .content("Reply......" + i)
@@ -46,6 +46,15 @@ public class QNAReplyRepositoryTest {
 
         System.out.println(qnaReply);
         System.out.println(qnaReply.getQna());
+
+    }
+
+    @Test
+    public void testListByQNA() {
+
+        List<QNAReply> replyList = qnaReplyRepository.getQNARepliesByQnaOrderByQnaReplyNo(QNA.builder().qnaNo(97L).build());
+
+        replyList.forEach(reply -> System.out.println(reply));
 
     }
 

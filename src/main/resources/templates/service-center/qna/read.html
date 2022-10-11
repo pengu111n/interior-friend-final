@@ -36,6 +36,17 @@
                 <div class="content">
                     [[${dto.content}]]
                 </div>
+
+                <div th:if="${dto.status == 0}" class="content">
+
+                </div>
+
+                <div th:unless="${dto.status == 0}" class="content">
+                    <div class="list-group replyList">
+
+                    </div>
+                </div>
+
             </div>
 
             <form action="/service-center/qna/remove" method="post">
@@ -50,7 +61,36 @@
 
                 <a th:href="@{/service-center/qna/list(page=${requestDTO.page})}">
                     <button type="button" class="btn btn-primary">목록</button></a>
+
+                <button th:if="${dto.status != 0}" type="button" class="btn btn-primary answerBtn">답변확인</button>
+                <button type="button" class="btn btn-primary addReply">답변작성</button>
             </div>
+
+            <div class="modal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Modal title</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <input class="form-control" type="text" name="content" placeholder="답변을 입력해주세요.">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary replyRemove">삭제</button>
+                            <button type="button" class="btn btn-primary replyModify">수정</button>
+                            <button type="button" class="btn btn-primary replySave">저장</button>
+                            <button type="button" class="btn btn-primary replyClose" data-dismiss="modal">닫기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
 
         </div>
 
@@ -68,6 +108,102 @@
                     .attr("action", "/service-center/qna/remove")
                     .attr("method", "post")
                     .submit();
+
+            });
+
+            $(document).ready(function () {
+
+                var qnaNo = [[${dto.qnaNo}]];
+
+                //댓글 추가될 영역
+                var listGroup = $(".replyList");
+
+                //날짜 처리 위한 함수
+                function formatTime(str) {
+
+                    var date = new Date(str);
+
+                    return date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes();
+
+                }
+
+                //특정 게시글의 댓글을 처리하는 함수
+                function loadJSONData() {
+
+                    $.getJSON('/replies/qna/' + qnaNo, function (arr) {
+
+                        console.log(arr);
+
+                        var str = "";
+
+                        $('.answerBtn').html("답변");
+
+                        $.each(arr, function (idx, reply) {
+
+                            console.log(reply);
+
+                            str += '<div class="card-body"><b>관리자</b>';
+                            str += '<h5 class="card-title">' + reply.content + '</h5>';
+                            str += '<p class="card-text">' + formatTime(reply.regDate) + '</p>';
+                            str += '</div>';
+
+                        });
+
+                        listGroup.html(str);
+
+                    });
+
+                }
+
+                $(".answerBtn").click(function () {
+
+                    // $.getJSON('/replies/qna/' + qnaNo, function (arr) {
+                    //     console.log(arr);
+                    // });
+
+                    loadJSONData();
+
+                });
+
+                var modal = $('.modal');
+
+                $(".addReply").click(function () {
+
+                    modal.modal('show');
+
+                    $('input[name="content"]').val('');
+
+                    $(".modal-footer .btn").hide();
+                    $(".replySave, .replyClose").show();
+
+                });
+
+                $(".replySave").click(function () {
+
+                    var reply = {
+                        qnaNo: qnaNo,
+                        content: $('input[name="content"]').val()
+                    }
+
+                    console.log(reply);
+
+                    $.ajax({
+                        url: '/replies/',
+                        method: 'post',
+                        data: JSON.stringify(reply),
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json',
+                        success: function (data) {
+
+                            console.log(data);
+
+                            alert("답변이 등록되었습니다.")
+                            modal.modal('hide');
+                            loadJSONData();
+                        }
+                    })
+
+                });
 
             });
 

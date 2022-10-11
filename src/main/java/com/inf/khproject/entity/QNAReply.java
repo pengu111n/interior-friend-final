@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+@ToString(exclude = "qna")
 public class QNAReply extends BaseEntity {
 
     @Id
@@ -18,7 +18,7 @@ public class QNAReply extends BaseEntity {
 
     private String content;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private QNA qna;
 
 }
