@@ -1,5 +1,6 @@
 package com.inf.khproject.service;
 
+import com.inf.khproject.dto.QNADTO;
 import com.inf.khproject.dto.QNAReplyDTO;
 import com.inf.khproject.entity.QNA;
 import com.inf.khproject.entity.QNAReply;

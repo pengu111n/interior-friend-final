@@ -63,7 +63,7 @@
                     <button type="button" class="btn btn-primary">목록</button></a>
 
                 <button th:if="${dto.status != 0}" type="button" class="btn btn-primary answerBtn">답변확인</button>
-                <button type="button" class="btn btn-primary addReply">답변작성</button>
+                <button th:if="${dto.status == 0}" type="button" class="btn btn-primary addReply">답변작성</button>
             </div>
 
             <div class="modal" tabindex="-1" role="dialog">
@@ -78,6 +78,9 @@
                         <div class="modal-body">
                             <div class="form-group">
                                 <input class="form-control" type="text" name="content" placeholder="답변을 입력해주세요.">
+                            </div>
+                            <div class="form-group">
+                                <input type="hidden" name="qnaReplyNo">
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -114,6 +117,7 @@
             $(document).ready(function () {
 
                 var qnaNo = [[${dto.qnaNo}]];
+                var page = [[${result.page}]]
 
                 //댓글 추가될 영역
                 var listGroup = $(".replyList");
@@ -136,13 +140,14 @@
 
                         var str = "";
 
-                        $('.answerBtn').html("답변");
+                        $('.answerBtn').html("답변확인");
 
                         $.each(arr, function (idx, reply) {
 
                             console.log(reply);
+                            console.log("qnaReplyNo: " + reply.qnaReplyNo);
 
-                            str += '<div class="card-body"><b>관리자</b>';
+                            str += '<div class="card-body" data-qnareplyno="'+reply.qnaReplyNo+'"><b>관리자</b>';
                             str += '<h5 class="card-title">' + reply.content + '</h5>';
                             str += '<p class="card-text">' + formatTime(reply.regDate) + '</p>';
                             str += '</div>';
@@ -200,10 +205,89 @@
                             alert("답변이 등록되었습니다.")
                             modal.modal('hide');
                             loadJSONData();
+
+                            document.location.href = '/service-center/qna/read?qnaNo='+qnaNo+'&page='+page;
+
                         }
                     })
 
                 });
+
+                $('.replyList').on("click", ".card-body", function () {
+
+                    var qnaReplyNo = $(this).data("qnareplyno");
+
+                    console.log("qnaReplyNo: " + qnaReplyNo);
+
+                    $("input[name='content']").val($(this).find('.card-body').html());
+                    $("input[name='qnaReplyNo']").val(qnaReplyNo);
+
+                    $(".modal-footer .btn").hide();
+                    $(".replyRemove, .replyModify, .replyClose").show();
+
+                    modal.modal('show');
+
+                });
+
+                $('.replyRemove').on("click", function () {
+
+                    var qnaReplyNo = $("input[name='qnaReplyNo']").val();
+
+                    console.log("qnaReplyNo: " + qnaReplyNo);
+
+                    $.ajax({
+                        url: '/replies/' + qnaReplyNo,
+                        method: 'delete',
+
+                        success: function (result) {
+                            console.log("result: " + result);
+
+                            if (result === 'success') {
+
+                                alert("답변이 삭제되었습니다.");
+                                modal.modal('hide');
+                                loadJSONData();
+
+                                document.location.href = '/service-center/qna/read?qnaNo='+qnaNo+'&page='+page;
+
+                            }
+                        }
+                    });
+
+                });
+
+                $('.replyModify').on("click", function () {
+
+                    var qnaReplyNo = $("input[name='qnaReplyNo']").val();
+
+                    var reply = {
+                        qnaReplyNo: qnaReplyNo,
+                        qnaNo: qnaNo,
+                        content: $('input[name="content"]').val()
+                    }
+
+                    console.log(reply);
+
+                    $.ajax({
+                        url: '/replies/' + qnaReplyNo,
+                        method: 'put',
+                        data: JSON.stringify(reply),
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (result) {
+                            console.log("result: " + result);
+
+                            if (result === 'success') {
+
+                                alert("답변이 수정되었습니다.");
+                                modal.modal('hide');
+                                loadJSONData();
+
+                            }
+                        }
+                    });
+
+                });
+
 
             });
 

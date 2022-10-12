@@ -69,6 +69,7 @@ public class QNAController {
         log.info(qnaDTO);
 
         model.addAttribute("dto", qnaDTO);
+        model.addAttribute("result", qnaService.getList(pageRequestDTO));
 
     }
 

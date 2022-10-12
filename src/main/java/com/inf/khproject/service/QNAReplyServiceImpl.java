@@ -1,5 +1,6 @@
 package com.inf.khproject.service;
 
+import com.inf.khproject.dto.QNADTO;
 import com.inf.khproject.dto.QNAReplyDTO;
 import com.inf.khproject.entity.QNA;
 import com.inf.khproject.entity.QNAReply;
@@ -12,7 +13,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class QNAReplyServiceImpl implements QNAReplyService{
+public class QNAReplyServiceImpl implements QNAReplyService {
 
     private final QNAReplyRepository qnaReplyRepository;
 
