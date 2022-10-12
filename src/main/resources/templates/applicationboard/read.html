@@ -103,10 +103,14 @@
                                 <h4 class="s-property-title">참고 자료</h4>
                                 <div class="video-thumb">
 
-                                    <span th:data-file="${applicationBoardImage.getThumbnailURL()}"
-                                          th:each="applicationBoardImage: ${dto.imageDTOList}">
+                                    <span name="asd"
+                                          th:data-file="${applicationBoardImage.getThumbnailURL()}" th:each="applicationBoardImage: ${dto.imageDTOList}">
                                          <img style="width : 960px; " th:if="${applicationBoardImage.path != null}"
                                               th:src="|/display?fileName=${applicationBoardImage.getImageURL()}|">
+                                          <a download
+                                             th:href="|/display?fileName=${applicationBoardImage.getImageURL()}|">
+                                    [[${applicationBoardImage.imgName}]]
+                                    </a>
                                     </span>
                                 </div>
                             </div>
