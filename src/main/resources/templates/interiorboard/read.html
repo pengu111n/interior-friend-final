@@ -63,8 +63,11 @@
                                     <h4 class="s-property-title">시공 이미지</h4>
                                     <div class="video-thumb">
 
-                                    <span th:data-file="${interiorBoardImage.getThumbnailURL()}" th:each="interiorBoardImage: ${dto.imageDTOList}">
+                                        <span  th:data-file="${interiorBoardImage.getThumbnailURL()}" th:each="interiorBoardImage: ${dto.imageDTOList}" name="asd">
                                          <img style="width : 960px; " th:if="${interiorBoardImage.path != null}" th:src="|/display?fileName=${interiorBoardImage.getImageURL()}|">
+                                          <a th:href="|/display?fileName=${interiorBoardImage.getImageURL()}|" download>
+                                    [[${interiorBoardImage.imgName}]]
+                                    </a>
                                     </span>
                                     </div>
                                 </div>
