@@ -10,7 +10,9 @@ import com.inf.khproject.security.service.MemberService;
 import jdk.jfr.ContentType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -85,8 +87,40 @@ public class MemberController {
 
     }
 
+    @GetMapping(value="/findID")
+    public void findID() {
+        log.info("findID...");
+    }
+
+    @PostMapping(value = "/findID")
+    @ResponseBody
+    public String findID(Model model, String name, String phoneNum) throws Exception{
+        String username = service.findUsername(name, phoneNum);
+        model.addAttribute("username", username);
+        return username;
+    }
+
+    @GetMapping(value="/findPW")
+    public void findPW() {
+        log.info("findPW...");
+    }
 
 
+    @PostMapping(value="/findPW")
+    public String findPW(Model model, String name, String username, String email) throws Exception {
+        ResponseEntity<String> entity = null;
+        try {
+            service.tempPW(name, username, email);
+            model.addAttribute("success", "변경된 비밀번호로 입력 해 주세요.");
+            entity = new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
+            return "/member/login";
+        }catch (Exception e){
+            model.addAttribute("error", e.getMessage());
+            entity = new ResponseEntity<> (e.getMessage(), HttpStatus.BAD_REQUEST);
+            return "/member/findPW";
+        }
+
+    }
 }
 
 

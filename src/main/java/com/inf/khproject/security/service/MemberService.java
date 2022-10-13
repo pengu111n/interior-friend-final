@@ -17,6 +17,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
+import java.util.Optional;
 import java.util.Random;
 
 
@@ -53,6 +54,22 @@ public class MemberService {
         return existNickname;
     }
 
+
+    public String findUsername(String name, String phoneNum)throws Exception{
+        String username = repository.findUsernameByNameAndPhoneNum(name, phoneNum);
+        return username;
+    }
+
+    public void tempPW(String name, String username, String email) throws Exception {
+        String tempPw = sendTempPW(email);
+        String hashPw = passwordEncoder.encode(tempPw);
+        int existAccount = repository.existusernameandname(username,name);
+        if(existAccount == 1) {
+            repository.updatePW(name, username, hashPw);
+        }else{
+            throw new Exception("존재하지 않는 계정입니다.");
+        }
+    }
 
 
     private String CODE; // 인증번호
@@ -120,6 +137,51 @@ public class MemberService {
         CODE = createKey(); // 랜덤 인증번호 생성
 
         MimeMessage message = createMessage(to); // 메일 발송
+        try {// 예외처리
+            mailsender.send(message);
+        } catch (MailException e) {
+            e.printStackTrace();
+            throw new IllegalArgumentException();
+        }
+
+
+        return CODE; // 메일로 보냈던 인증 코드를 서버로 반환
+    }
+
+    public MimeMessage TempPW(String to) throws MessagingException, UnsupportedEncodingException {
+//		System.out.println("보내는 대상 : " + to);
+//		System.out.println("인증 번호 : " + ePw);
+
+        MimeMessage message = mailsender.createMimeMessage();
+
+        message.addRecipients(RecipientType.TO, to);// 보내는 대상
+        message.setSubject("[당신의 인테리어에 대한 고민을 보다 쉽게! 인테리어 프렌드 인프! 임시 비밀번호입니다.]");// 제목
+
+        String msgg = "";
+        msgg += "<div style='margin:100px;'>";
+        msgg += "<h1> 안녕하세요</h1>";
+        msgg += "<h1> 요청하신 임시 비밀번호 입니다</h1>";
+        msgg += "<br>";
+        msgg += "<p>아래 비밀번호로 로그인 후 비밀번호를 변경 해주세요</p>";
+        msgg += "<br>";
+        msgg += "<div align='center' style='border:1px solid black; font-family:verdana';>";
+        msgg += "<h3 style='color:blue;'>회원가입 인증 코드입니다.</h3>";
+        msgg += "<div style='font-size:130%'>";
+        msgg += "CODE : <strong>";
+        msgg += CODE + "</strong><div><br/> "; // 메일에 인증번호 넣기
+        msgg += "</div>";
+        message.setText(msgg, "utf-8", "html");// 내용, charset 타입, subtype
+        // 보내는 사람의 이메일 주소, 보내는 사람 이름
+        message.setFrom(new InternetAddress("xogus8206@gmail.com", "INF"));// 보내는 사람
+
+        return message;
+    }
+
+    public String sendTempPW(String to) throws Exception {
+
+        CODE = createKey(); // 랜덤 인증번호 생성
+
+        MimeMessage message = TempPW(to); // 메일 발송
         try {// 예외처리
             mailsender.send(message);
         } catch (MailException e) {

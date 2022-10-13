@@ -10,6 +10,8 @@ import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +28,7 @@ import java.util.stream.IntStream;
 @SpringBootTest
 @RequiredArgsConstructor
 @Log4j2
+@ComponentScan(basePackages = {"com.inf.khproject.security"})
 public class MemoRepositoryTests {
 
     @Autowired
@@ -188,4 +191,16 @@ public class MemoRepositoryTests {
         memoRepository.deleteMemoByMnoLessThan(10L);
     }
 
+    @Test
+    public void testFindID() throws Exception {
+        String username = repository.findUsernameByNameAndPhoneNum("qweqwe", "01087975442");
+        System.out.println(username);
+//        int check = repository.usernameCheck("qweqwe");
+//        System.out.println(check);
+    }
+
+    @Test
+    public void testchangePW() throws Exception{
+
+    }
 }

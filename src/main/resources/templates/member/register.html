@@ -38,12 +38,16 @@
                         </div>
                         <div class="form-group">
                             <label for="username">아이디</label>
-                            <input type="text" class="form-control" id="username" name="username" placeholder="username" onblur="idCheck()" maxlength="20">
+                            <div style="display: flex">
+                                <input type="text" class="form-control" id="username" name="username" placeholder="아이디" maxlength="20">
+                                <button type="button" class="btn btn-default" onclick="idCheck()">확인</button>
+                            </div>
                             <span id="dupId">중복된 아이디 입니다.</span>
                             <span class="regexId">6-20자의 영문 소문자와 숫자만 사용가능합니다.</span>
                             <span class="successId">멋진 아이디군요!</span>
                             <span class="empty emptyID">필수 정보입니다.</span>
                             <input type="hidden" id="idCheck_YN" name="idCheck_YN" value="N" />
+
                         </div>
                         <div class="form-group">
                             <label for="nickname" id="nickname__label">닉네임</label>
