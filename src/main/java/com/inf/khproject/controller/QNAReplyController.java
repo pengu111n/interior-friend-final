@@ -49,8 +49,8 @@ public class QNAReplyController {
     @DeleteMapping("/{qnaReplyNo}")
     public ResponseEntity<String> remove(@PathVariable("qnaReplyNo") Long qnaReplyNo) {
 
-//        QNADTO qnaDTO = qnaService.getByQnaReplyNo(qnaReplyNo);
-//        qnaService.modifyStatusWait(qnaDTO);
+        QNADTO qnaDTO = qnaService.getByQnaReplyNo(qnaReplyNo);
+        qnaService.modifyStatusWait(qnaDTO);
 
         qnaReplyService.remove(qnaReplyNo);
 
