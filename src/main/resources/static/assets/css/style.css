@@ -4114,3 +4114,21 @@ ul.footer-blog li {
 .profile a{
     padding-right : 0px;
 }
+
+.icheck {
+    display: flex;
+    justify-content: space-between;
+}
+
+.icheck2 {
+    display: flex;
+    justify-content: end;
+}
+
+.rememberBOX{
+    padding-left: 0px !important;
+}
+
+.findID{
+    margin-right: 6px;
+}

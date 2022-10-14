@@ -53,8 +53,36 @@ $(".uploadedList").on("click", ".delbtn", function (event) {
     },
   });
 });
+var auth;
+function confirmMail() {
+  $.ajax({
+    type: "POST",
+    url: "/member/confirmMail",
+    data: { email : $("#email").val() },
+    success: function (data) {
+      $(".invalidEmail").hide()
+      $(".sendMail").show();
+      console.log(data);
+      auth = data;
+      $("#confirmEmailBtn").attr("disabled", true);
+    },
+    error: function(){
+        $(".invalidEmail").show()
+    }
+  });
+};
 
-function changeRank(){
+function onKeyMailConfirm(){
+    if(auth != $("#confirmMailText").val()){
+        $(".notMatchAuth").show()
+        $(".success").hide()
+    }else{
+        $(".notMatchAuth").hide()
+        $(".success").show()
+    }
+}
+
+function changeRank() {
   var r = document.getElementById("rank");
   var innerR = r.options[r.selectedIndex].value;
 
@@ -64,29 +92,11 @@ function changeRank(){
 
     document.getElementById("nickname__label").innerHTML = "기업명";
     $("#name").attr("placeholder", "기업명");
-
-
   } else {
     document.getElementById("compInput").innerHTML = "";
 
-    document.getElementById("nickname__label").innerHTML = "닉네임"
+    document.getElementById("nickname__label").innerHTML = "닉네임";
     $("#name").attr("placeholder", "닉네임");
-  }
-}
-
-function selectEmail() {
-  var email = document.getElementById("email2");
-  var innerE = email.options[email.selectedIndex].value;
-
-  if (innerE == "other") {
-    document.getElementById("otherEmail").removeAttribute("disabled");
-    email.options[email.selectedIndex].value = "";
-  } else {
-    document.getElementById("otherEmail").setAttribute("disabled", "true");
-    document.getElementById("otherEmail").value = "";
-    if (email.options[5]) {
-      email.options[5].value = "other";
-    }
   }
 }
 
@@ -106,28 +116,27 @@ function checkNumber(event) {
 
 var idPass;
 
-
 function idCheck() {
-  var idRegex = /^[a-z]+[a-z0-9]{5,19}$/;
-  var id = $("#id").val();
+  var usernameRegex = /^[a-z]+[a-z0-9]{5,19}$/;
+  var username = $("#username").val();
   $.ajax({
-    url: "/member/idCheck",
+    url: "/member/usernameCheck",
     type: "post",
     dataType: "json",
-    data:  id,
+    data: { username: username },
     success: function (data) {
-      console.log(idRegex.test("asdamkxcle"))
+      console.log(data);
       if (data == 1) {
         $("#dupId").show();
         $(".regexId").hide();
         $(".emptyID").hide();
         $(".successId").hide();
-      } else if (id == "") {
+      } else if (username == "") {
         $(".successId").hide();
         $("#dupId").hide();
         $(".regexId").hide();
         $(".emptyID").show();
-      } else if (!idRegex.test($("#id").val())) {
+      } else if (!usernameRegex.test($("#username").val())) {
         $(".successId").hide();
         $("#dupId").hide();
         $(".regexId").show();
@@ -150,6 +159,7 @@ function nicknameCheck() {
     dataType: "json",
     data: { nickname: nickname },
     success: function (data) {
+      console.log(data);
       if (data == 1) {
         $(".nicknameCK").show();
         $(".emptynickname").hide();
@@ -166,9 +176,9 @@ function nicknameCheck() {
 }
 
 function fnSubmit() {
-  if ($("#id").val() == null || $("#id").val() == "") {
+  if ($("#username").val() == null || $("#username").val() == "") {
     alert("아이디를 입력해주세요.");
-    $("#id").focus();
+    $("#username").focus();
     return false;
   }
 
@@ -237,9 +247,9 @@ function SUMaddress() {
     $("#sample4_roadAddress").val() + " " + $("#sample4_detailAddress").val();
   realAddress.setAttribute("value", fakeAddress);
 
-  if(fakeAddress == ""){
+  if (fakeAddress == "") {
     realAddress.focus();
-    return false
+    return false;
   }
 }
 
@@ -262,27 +272,20 @@ function regexPW() {
   }
 }
 
-function regexPhone(){
-    var regExp = /^[0-9]{2,3}[0-9]{3,4}[0-9]{4}/;
-    var phoneNum = $("#phoneNum").val();
+function regexPhone() {
+  var regExp = /^[0-9]{2,3}[0-9]{3,4}[0-9]{4}/;
+  var phoneNum = $("#phoneNum").val();
 
-
-      if (phoneNum == "") {
-        $(".emptyPhone").show();
-        $(".regPhone").hide();
-
-      }else if(!regExp.test(phoneNum)){
-        $(".emptyPhone").hide();
-        $(".regPhone").show();
-
-      } else {
-        $(".emptyPhone").hide();
-        $(".regPhone").hide();
-
-      }
-
-
-
+  if (phoneNum == "") {
+    $(".emptyPhone").show();
+    $(".regPhone").hide();
+  } else if (!regExp.test(phoneNum)) {
+    $(".emptyPhone").hide();
+    $(".regPhone").show();
+  } else {
+    $(".emptyPhone").hide();
+    $(".regPhone").hide();
+  }
 }
 
 function confirmPW() {
@@ -318,22 +321,21 @@ function emptyBirth() {
 
   if (birth == "") {
     $(".lengthCK").css("display", "block");
-  }else if(birth.length != 4){
+  } else if (birth.length != 4) {
     $(".lengthCK").css("display", "block");
   } else {
     $(".lengthCK").hide();
   }
-
 }
 
-function emptyDay(){
-    let dd = $("#dd").val();
+function emptyDay() {
+  let dd = $("#dd").val();
 
-    if(dd == ""){
-        $(".emptyBirth").css("display", "block");
-    }else{
-        $(".emptyBirth").hide();
-    }
+  if (dd == "") {
+    $(".emptyBirth").css("display", "block");
+  } else {
+    $(".emptyBirth").hide();
+  }
 }
 
 function emptyMail() {
@@ -356,9 +358,9 @@ function emptyCompanyNo() {
   }
 }
 
-
-for (var i = 1; i <= 12; i++) {
-  var mm = i > 9 ? i : "0" + i;
-  $(".month").append('<option value="' + mm + '">' + mm + "월</option>");
-}
-
+$(function () {
+  for (var i = 1; i <= 12; i++) {
+    var mm = i > 9 ? i : "0" + i;
+    $(".month").append('<option value="' + mm + '">' + mm + "월</option>");
+  }
+});

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <th:block th:fragment="setContent(content)">
   <head>
@@ -45,7 +45,7 @@
           integrity="sha512-Velp0ebMKjcd9RiCoaHhLXkR1sFoCCWXNp6w4zj1hfMifYB5441C+sKeBl/T/Ka6NjBiRfBBQRaQq65ekYz3UQ=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <link rel="stylesheet" th:href="@{/assets/css/ArticleContentBox.css}">
-    <link rel="stylesheet" th:href="@{/assets/css/Board.css}">
+<!--    <link rel="stylesheet" th:href="@{/assets/css/Board.css}">-->
     <script src="/jQuery/jQuery-2.1.4.min.js"></script>
 
     <!--<script th:src="@{/assets/js/vendor/modernizr-2.6.2.min.js}"></script>
@@ -114,6 +114,7 @@
       <div class="collapse navbar-collapse yamm" id="navigation">
         <div class="button navbar-right">
           <!--                    <th:block th:if="${login == null}">-->
+          <div sec:authorize="isAnonymous()">
           <button class="navbar-btn nav-button wow fadeInRight"
                   onclick=" window.open('/member/register', '_self')"
                   data-wow-delay="0.48s">회원가입
@@ -122,17 +123,21 @@
                   onclick=" window.open('/member/login', '_self')"
                   data-wow-delay="0.45s">로그인
           </button>
-          <!--                    </th:block>-->
-          <!--<th:block th:if="${login != null}">
+          </div>
+          <!-- </th:block> -->
+          <!-- <th:block th:if="${login != null}"> -->
+            <div sec:authorize="isAuthenticated()">
               <button class="navbar-btn nav-button wow fadeInRight"
                       onclick=" window.open('#', '_self')"
-                      data-wow-delay="0.48s">${login.nickname}
+                      data-wow-delay="0.48s"
+                      sec:authentication="name">
               </button>
               <button class="navbar-btn nav-button wow bounceInRight login"
-                      onclick=" window.open('${pageContext.request.contextPath}/member/logout', '_self')"
+                      onclick=" window.open('/member/logout', '_self')"
                       data-wow-delay="0.45s">로그아웃
               </button>
-          </th:block>-->
+            </div>
+<!--          </th:block>-->
         </div>
         <ul class="main-nav nav navbar-nav navbar-right">
           <li class="wow fadeInDown" data-wow-delay="0.5s">
@@ -285,6 +290,10 @@
         <div class="row">
           <div class="pull-left">
             <span> (C) <a href="http://www.KimaroTec.com">인프</a> , All rights reserved 2022  </span>
+          <div sec:authorize="isAuthenticated()">
+            <p sec:authentication="principal.member.nickname"></p>
+            <p th:text="${#authentication}"></p>
+          </div>
           </div>
           <div class="bottom-menu pull-right">
             <ul>

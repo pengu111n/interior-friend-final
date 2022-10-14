@@ -51,26 +51,40 @@
 }
 
 #birth .emptyBirth {
-    display: none;
-    color: red;
+  display: none;
+  color: red;
 }
 
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+  -webkit-appearance: none;
+  margin: 0;
 }
 
-.lengthCK{
-    display: none;
-    color: red;
+.lengthCK {
+  display: none;
+  color: red;
 }
 
-.regPhone{
-    display: none;
-    color: red;
+.regPhone {
+  display: none;
+  color: red;
 }
 
-.successPW, .successPW1 {
-    display: none;
+.successPW,
+.successPW1,
+.success {
+  display: none;
 }
+
+.sendMail {
+    display:none;
+    color: green;
+    font-size: 13px;
+}
+.notMatchAuth,
+.invalidEmail {
+     display: none;
+      color: red;
+}
+

@@ -25,11 +25,11 @@
             <div class="box-for overflow">
                 <div class="col-md-12 col-xs-12 register-blocks">
                     <h2>새 계정 :</h2>
-                    <form name="insForm" action="register" method="post" onsubmit="return fnSubmit(); SUMaddress();">
+                    <form name="insForm" action="register" method="post" onsubmit="return fnSubmit(); SUMaddress();" content>
                         <div class="form-group">
-                        	<label for="rank">회원분류</label> 
+                        	<label for="rank">회원분류</label>
                         		<select id="rank" name ="rank" class="selectpicker show-tick form-control" onchange="changeRank()">
-       								<option value="1">1:일반회원</option> 
+       								<option value="1">1:일반회원</option>
        								<option value="2">2:기업회원</option>
        							</select>
                         </div>
@@ -37,13 +37,17 @@
                             
                         </div>
                         <div class="form-group">
-                            <label for="id">아이디</label>
-                            <input type="text" class="form-control" id="id" name="id" placeholder="ID" onblur="idCheck()" maxlength="20">
+                            <label for="username">아이디</label>
+                            <div style="display: flex">
+                                <input type="text" class="form-control" id="username" name="username" placeholder="아이디" maxlength="20">
+                                <button type="button" class="btn btn-default" onclick="idCheck()">확인</button>
+                            </div>
                             <span id="dupId">중복된 아이디 입니다.</span>
                             <span class="regexId">6-20자의 영문 소문자와 숫자만 사용가능합니다.</span>
                             <span class="successId">멋진 아이디군요!</span>
                             <span class="empty emptyID">필수 정보입니다.</span>
                             <input type="hidden" id="idCheck_YN" name="idCheck_YN" value="N" />
+
                         </div>
                         <div class="form-group">
                             <label for="nickname" id="nickname__label">닉네임</label>
@@ -104,19 +108,20 @@
                         <div class="form-group email-form">
                             <label for="email">이메일</label>
                             <span>
-                            <input type="text" class="form-control form-control_half" id="email" name="email" placeholder="이메일" onblur="emptyMail()">                            
-                            <span>@</span>
-                            <select class="form-control" name="email2" id="email2" onchange="selectEmail()">
-                                <option value = "" selected>선택</option>
-                                <option value = "naver.com">naver.com</option>
-                                <option value = "daum.net">daum.net</option>
-                                <option value = "gmail.com">gmail.com</option>
-                                <option value = "hanmail.com">hanmail.com</option>
-                                <option value = "other">기타</option>
-                            </select>
+                            <input type="text" class="form-control" id="email" name="email" placeholder="이메일">
+                            <button type="button" class="btn btn-default" id="confirmEmailBtn" onclick="confirmMail()">확인</button>
                             </span>
+                            <b class="sendMail">해당 이메일로 인증번호 발송이 완료되었습니다. 확인부탁드립니다.</b>
                             <b class="empty emptyMail">필수 정보입니다.</b>
-                            <input class="form-control" id="otherEmail" disabled type="text" name="email3">
+                            <p class="invalidEmail">메일 주소가 올바르지 않습니다. 다시 입력해 주세요</p>
+                            <label for="confirmMailText">인증번호</label>
+                            <span>
+                                <input name="auth" type="text" id="confirmMailText" class="form-control" placeholder="인증번호" onkeyup="onKeyMailConfirm()"/>
+                            </span>
+                            <span>
+                                <p class="notMatchAuth">인증번호가 잘못되었습니다.</p>
+                                <p class="success">✅</p>
+                            </span>
                         </div>
                         <div class="form-group">
                           <div class="fileDrop">
@@ -147,7 +152,7 @@
         border: 2px dotted #0b58a2;
     }
 </style>
-<script th:src="@{https://code.jquery.com/jquery-3.6.1.min.js}" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
 <script type="text/javascript" th:src="@{//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js}"></script>
 <script type="text/javascript" th:src="@{/js/address.js}"></script>
 
@@ -156,8 +161,14 @@
 
 
 <!-- End page header -->
-
-
+<script th:inline="javascript">
+$(function(){
+for (var i = 1; i <= 12; i++) {
+  var mm = i > 9 ? i : "0" + i;
+  $(".month").append('<option value="' + mm + '">' + mm + "월</option>");
+}
+});
+</script>
 <script type="text/javascript" th:src="@{/js/member.js}"></script>
 
     </th:block>
