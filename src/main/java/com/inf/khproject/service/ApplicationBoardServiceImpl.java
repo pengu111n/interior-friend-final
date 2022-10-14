@@ -5,6 +5,7 @@ import com.inf.khproject.dto.ApplicationPageRequestDTO;
 import com.inf.khproject.dto.ApplicationPageResultDTO;
 import com.inf.khproject.entity.ApplicationBoard;
 import com.inf.khproject.entity.ApplicationBoardImage;
+import com.inf.khproject.entity.Member;
 import com.inf.khproject.repository.ApplicationBoardImageRepository;
 import com.inf.khproject.repository.ApplicationBoardRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,8 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.*;
 import java.util.function.Function;
+
+import static com.inf.khproject.entity.QMember.member;
 
 @Service
 @Log4j2
@@ -43,7 +46,7 @@ public class ApplicationBoardServiceImpl implements ApplicationBoardService {
 
         applicationBoardRepository.save(applicationBoard);
 
-        if(applicationBoardImageList != null) {
+        if (applicationBoardImageList != null) {
             applicationBoardImageList.forEach(applicationBoardImage -> {
                 imageRepository.save(applicationBoardImage);
             });
@@ -53,30 +56,36 @@ public class ApplicationBoardServiceImpl implements ApplicationBoardService {
 
         return applicationBoard.getBoardNo();
     }
+
     @Transactional
     @Override
-    public ApplicationPageResultDTO<ApplicationBoardDTO, Object[]> getList(ApplicationPageRequestDTO requestDTO) {
+    public ApplicationPageResultDTO<ApplicationBoardDTO, Object[]> getList(ApplicationPageRequestDTO applicationPageRequestDTO) {
 
-        Pageable pageable = requestDTO.getPageable(Sort.by("boardNo").descending());
-
-
-        Page<Object[]> result = applicationBoardRepository.getListPage(pageable);
-
-        result.getContent().forEach(arr -> {
-            log.info(Arrays.toString(arr));
-        });
+        Pageable pageable = applicationPageRequestDTO.getPageable(Sort.by("boardNo").descending());
 
 
+//        Page<Object[]> result = applicationBoardRepository.getListPage(pageable);
+        Page<Object[]> result = applicationBoardRepository.searchPage(
+                applicationPageRequestDTO.getType(),
+                applicationPageRequestDTO.getKeyword(),
+                applicationPageRequestDTO.getPageable(Sort.by("boardNo").descending())
+        );
 
-            Function<Object[], ApplicationBoardDTO> fn = (arr -> entitiesToDto(
-                    (ApplicationBoard) arr[0]
-                    ,(List<ApplicationBoardImage>) (Arrays.asList((ApplicationBoardImage) arr[1]))
-            ));
-          /*
-        Function<Object[], ApplicationBoardDTO> fn = (arr -> entityToDto(
+  /*
+        Function<Object[], ApplicationBoardDTO> fn = (arr -> entitiesToDto(
                 (ApplicationBoard) arr[0]
+                , (Arrays.asList((ApplicationBoardImage) arr[1])),
+                (Member) arr[2]
+        ));*/
+
+        Function<Object[], ApplicationBoardDTO> fn =
+         (arr -> entitiesToDto(
+                 (ApplicationBoard) arr[0]
+                 , (Arrays.asList((ApplicationBoardImage) arr[1])),
+                 (Member) arr[2]
         ));
-        */
+
+
 
 
         return new ApplicationPageResultDTO<>(result, fn);
@@ -95,11 +104,12 @@ public class ApplicationBoardServiceImpl implements ApplicationBoardService {
         List<ApplicationBoardImage> applicationBoardImageList = new ArrayList<>();
 
         result.forEach(arr -> {
-            ApplicationBoardImage  applicationBoardImage = (ApplicationBoardImage)arr[1];
+            ApplicationBoardImage applicationBoardImage = (ApplicationBoardImage) arr[1];
             applicationBoardImageList.add(applicationBoardImage);
         });
+        Member member = new Member();
         //return entityToDto(applicationBoard);
-        return entitiesToDto(applicationBoard, applicationBoardImageList);
+        return entitiesToDto(applicationBoard, applicationBoardImageList,member);
     }
 
     @Transactional
@@ -110,6 +120,7 @@ public class ApplicationBoardServiceImpl implements ApplicationBoardService {
 
         applicationBoardRepository.deleteById(boardNo);
     }
+
     @Transactional
     @Override
     public void modify(ApplicationBoardDTO dto) {

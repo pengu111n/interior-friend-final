@@ -52,7 +52,7 @@
 
                         <div class="wizard-card ct-wizard-orange" id="wizardProperty">
                             <form th:action="@{/applicationboard/modify}" th:method="post">
-                                <input type="hidden"  name="boardNo" th:value="${dto.boardNo}">
+                                <input name="boardNo" th:value="${dto.boardNo}" type="hidden">
                                 <div class="wizard-header">
                                     <h3>
                                         인테리어 견적 수정 <br/>
@@ -60,67 +60,122 @@
                                 </div>
 
                                 <ul>
-                                    <li><a href="#step1" data-toggle="tab">Step 1 </a></li>
-                                    <li><a href="#step2" data-toggle="tab">Step 2 </a></li>
-                                    <li><a href="#step3" data-toggle="tab">Finished </a></li>
+                                    <li><a data-toggle="tab" href="#step1">Step 1 </a></li>
+                                    <li><a data-toggle="tab" href="#step2">Step 2 </a></li>
+                                    <li><a data-toggle="tab" href="#step3">Finished </a></li>
                                 </ul>
 
                                 <div class="tab-content">
 
                                     <div class="tab-pane" id="step1">
                                         <div class="row p-b-15  ">
-                                             <div class="col-sm-12">
-                                                 <div class="form-group">
-                                                     <label>제목 : </label>
-                                                     <input type="text" class="form-control" name="title" id="title" onkeypress="TextCount(this,'title');"
-                                                            placeholder="시공내용을 간략하게 적어주세요 (20자이내)">
-                                                 </div>
-                                             </div>
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label>제목 : </label>
+                                                    <input class="form-control" id="title" name="title"
+                                                           onkeypress="TextCount(this,'title');"
+                                                           placeholder="시공내용을 간략하게 적어주세요 (20자이내)"
+                                                           th:value="${dto.title}"
+                                                           type="text">
+                                                </div>
+                                            </div>
 
-                                             <div class="form-group" style="width: 800px;">
+<!--                                            <div class="form-group" style="width: 800px;">-->
 
-                                                 <div class="col-sm-12">
-                                                     <div class="form-group">
-                                                         <label>주소 :</label><br/>
-                                                         <select
-                                                                 class="form-control" name="address_1" id="address_1"
-                                                                 style="width: 160px; display: inline-block;"></select>
-                                                         <select
-                                                                 class="form-control" name="address_2" id="address_2"
-                                                                 style="width: 160px; display: inline-block;"></select>
-                                                         <input type="hidden" id="address" name="address" value="">
-                                                     </div>
-                                                 </div>
-                                             </div>
+<!--                                                <div class="col-sm-12">-->
+<!--                                                    <div class="form-group">-->
+<!--                                                        <label>주소 :</label><br/>-->
+<!--                                                        <select-->
+<!--                                                                class="form-control" id="sido1" name="sido1"-->
+<!--                                                                style="width: 160px; display: inline-block;"></select>-->
+<!--                                                        <select-->
+<!--                                                                class="form-control" id="gugun1" name="gugun1"-->
+<!--                                                                style="width: 160px; display: inline-block;"></select>-->
+<!--                                                        <input type="hidden" id="aaa" value="${boardVO.address}"/>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+                                            <div class="form-group" style="width: 800px;">
+
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <label>주소 :</label><br/>
+                                                        <select
+                                                                class="form-control" name="sido1" id="sido1"
+                                                                style="width: 160px; display: inline-block;"></select>
+                                                        <select
+                                                                class="form-control" name="gugun1" id="gugun1"
+                                                                style="width: 160px; display: inline-block;"></select>
+                                                        <input type="hidden" id="address" name="address" value="">
+                                                        <input type="hidden" id="aaa" th:value="${dto.address}"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-12">
+                                                 <span th:if="${dto.startDate == '0001-01-01'}">
+                                                    <div class="form-group">
+                                                        <label>시공 시작일</label><br/>
+                                                        <input class="form-control startDate"
+                                                               name="startDate"
+                                                               style="width: 200px; margin-right: 50px; display: inline-block;"
+                                                               type="date" th:value = null></input>
+                                                        <label>시공 시작일 미정</label>
+                                                        <input class="undefined_start" name="undefined_start"
+                                                               style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"
+                                                               type="checkbox"  th:checked="true" >
+                                                    </div>
+                                                 </span>
+
+                                                <span th:unless="${dto.startDate == '0001-01-01'}">
+                                                    <div class="form-group">
+                                                        <label>시공 시작일</label><br/>
+                                                        <input class="form-control startDate"
+                                                               name="startDate"
+                                                               style="width: 200px; margin-right: 50px; display: inline-block;"
+                                                               type="date" th:value="${dto.startDate}"></input>
+                                                        <label>시공 시작일 미정</label>
+                                                        <input class="undefined_start" name="undefined_start"
+                                                               style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"
+                                                               type="checkbox" >
+                                                    </div>
+                                                 </span>
 
 
-                                             <div class="col-sm-12">
-                                                 <div class="form-group">
-                                                     <label>시공 시작일</label><br/>
-                                                     <input type="date"
-                                                            class="form-control" name="startDate" id="startDate"
-                                                            style="width: 200px; margin-right: 50px; display: inline-block;"></input>
-                                                     <label>시공 시작일 미정</label>
-                                                     <input type="checkbox" id="undefined_start" name="undefined_start"
-                                                            style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;">
-                                                 </div>
+                                                <span th:if="${dto.endDate == '0001-01-01'}">
+                                                    <div class="form-group">
+                                                        <label>시공 종료일</label><br/>
+                                                        <input class="form-control endDate"
+                                                               name="endDate"
+                                                               style="width: 200px; margin-right: 50px; display: inline-block;"
+                                                               type="date" th:value = null/>
+                                                        <label>시공 종료일 미정</label>
+                                                        <input class="undefined_end" name="undefined_end"
+                                                               style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"
+                                                               type="checkbox"  th:checked="true" >
+                                                    </div>
+                                                </span>
 
-                                                 <div class="form-group">
-                                                     <label>시공 종료일</label><br/>
-                                                     <input type="date"
-                                                            class="form-control" name="endDate" id="endDate"
-                                                            style="width: 200px; margin-right: 50px; display: inline-block;"/>
-                                                     <label>시공 종료일 미정</label>
-                                                     <input type="checkbox" id="undefined_end"
-                                                            name="undefined_end"
-                                                            style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;">
-                                                 </div>
+                                                <span th:unless="${dto.endDate == '0001-01-01'}">
+                                                    <div class="form-group">
+                                                        <label>시공 종료일</label><br/>
+                                                        <input class="form-control endDate"
+                                                               name="endDate"
+                                                               style="width: 200px; margin-right: 50px; display: inline-block;"
+                                                               type="date" th:value="${dto.endDate}"/>
+                                                        <label>시공 종료일 미정</label>
+                                                        <input class="undefined_end"
+                                                               name="undefined_end"
+                                                               style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"
+                                                               type="checkbox"  >
+                                                    </div>
+                                                </span>
 
-                                             </div>
+                                            </div>
 
-                                         </div>
-                                     </div>
-                                     <!--  End step 1 -->
+                                        </div>
+                                    </div>
+                                    <!--  End step 1 -->
 
 
                                     <div class="tab-pane" id="step2">
@@ -133,7 +188,9 @@
                                                         <div class="input-group"
                                                              style="width: 320px; margin: 0px;">
                                                             <div class="input-group-addon">평수</div>
-                                                            <input type="number" class="form-control" name="area"/>
+                                                            <input class="form-control" name="area"
+                                                                   th:value="${dto.area}"
+                                                                   type="number"/>
                                                             <div class="input-group-addon">평</div>
                                                         </div>
                                                     </div>
@@ -145,19 +202,34 @@
                                                 <div class="col-sm-12">
                                                     <div class="form-group">
                                                         <div class="form-row">
-                                                            <label>희망 예산 :</label><br/>
-                                                            <div class="input-group"
-                                                                 style="width: 320px; margin-top: 0px; margin-bottom: 0px;">
+                                                            <label>희망 예산 : </label><br/>
+                                                            <span th:if="${dto.budget == -1}">
+                                                                <div class="input-group" style="width: 320px; margin-top: 0px; margin-bottom: 0px;">
                                                                 <div class="input-group-addon">예산</div>
-                                                                <input type="number" class="form-control"
-                                                                       name="budget_defined"/>
+                                                                <input class="form-control" name="budget_defined"
+                                                                       type="number"/>
                                                                 <div class="input-group-addon">만원</div>
                                                             </div>
+                                                            업체 협의
+                                                            <input id="budget_undefined" name="budget_undefined"
+                                                                   type="checkbox" th:checked="true" >
+                                                            </span>
 
-                                                               업체 협의
-                                                                <input type="checkbox" id="budget_undefined"
-                                                                       name="budget_undefined">
-                                                                <input type="hidden" id="budget" name="budget" value="">
+                                                            <span th:unless="${dto.budget == -1}">
+                                                                <div class="input-group" style="width: 320px; margin-top: 0px; margin-bottom: 0px;">
+                                                                <div class="input-group-addon">예산</div>
+                                                                <input class="form-control" name="budget_defined"
+                                                                       type="number" th:value="${dto.budget}"/>
+                                                                <div class="input-group-addon">만원</div>
+                                                            </div>
+                                                            업체 협의
+                                                            <input  name="budget_undefined"
+                                                                   type="checkbox" >
+                                                            </span>
+
+
+
+                                                            <input id="budget" name="budget" type="hidden" value="">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -168,16 +240,28 @@
 
                                                 <div class="col-sm-3" style="width : 250px;">
                                                     <div class="form-group">
-                                                        <label>주거유형</label> <select class="selectpicker show-tick form-control"
-                                                                                    name="category" id="category">
-                                                        <option value="" disabled selected>주거유형</option>
-                                                        <option value="아파트">아파트</option>
-                                                        <option value="빌라">빌라</option>
-                                                        <option value="카페/식당">카페/식당</option>
-                                                        <option value="사무/오피스">사무/오피스</option>
-                                                        <option value="매장/상업">매장/상업</option>
-                                                        <option value="병원/의료">병원/의료</option>
-                                                        <option value="기타">기타</option>
+                                                        <label>주거유형</label> <select
+                                                            class="selectpicker show-tick form-control"
+                                                            id="category" name="category" th:value="${dto.category}">
+                                                        <option disabled selected value="">주거유형</option>
+                                                        <option th:selected="${dto.category}=='아파트'" value="아파트">아파트
+                                                        </option>
+                                                        <option th:selected="${dto.category}=='빌라'" value="빌라">빌라
+                                                        </option>
+                                                        <option th:selected="${dto.category}=='카페/식당'" value="카페/식당">
+                                                            카페/식당
+                                                        </option>
+                                                        <option th:selected="${dto.category}=='사무/오피스'" value="사무/오피스">
+                                                            사무/오피스
+                                                        </option>
+                                                        <option th:selected="${dto.category}=='매장/상업'" value="매장/상업">
+                                                            매장/상업
+                                                        </option>
+                                                        <option th:selected="${dto.category}=='병원/의료'" value="병원/의료">
+                                                            병원/의료
+                                                        </option>
+                                                        <option th:selected="${dto.category}=='기타'" value="기타">기타
+                                                        </option>
                                                     </select>
                                                     </div>
                                                 </div>
@@ -185,17 +269,25 @@
                                                 <div class="col-sm-3" style="width : 250px;">
                                                     <div class="form-group">
                                                         <label>인테리어 분야</label>
-                                                        <select class="selectpicker show-tick form-control" name="part"
-                                                                id="part">
-                                                            <option value="" disabled selected>인테리어 분야</option>
-                                                            <option value="종합">종합</option>
-                                                            <option value="도배">도배</option>
-                                                            <option value="마루">마루</option>
-                                                            <option value="욕실">욕실</option>
-                                                            <option value="타일">타일</option>
-                                                            <option value="도어">도어</option>
-                                                            <option value="주방">주방</option>
-                                                            <option value="기타">기타</option>
+                                                        <select class="selectpicker show-tick form-control" id="part"
+                                                                name="part" th:value="${dto.part}">
+                                                            <option disabled selected value="">인테리어 분야</option>
+                                                            <option th:selected="${dto.part}=='종합'" value="종합">종합
+                                                            </option>
+                                                            <option th:selected="${dto.part}=='도배'" value="도배">도배
+                                                            </option>
+                                                            <option th:selected="${dto.part}=='마루'" value="마루">마루
+                                                            </option>
+                                                            <option th:selected="${dto.part}=='욕실'" value="욕실">욕실
+                                                            </option>
+                                                            <option th:selected="${dto.part}=='타일'" value="타일">타일
+                                                            </option>
+                                                            <option th:selected="${dto.part}=='도어'" value="도어">도어
+                                                            </option>
+                                                            <option th:selected="${dto.part}=='주방'" value="주방">주방
+                                                            </option>
+                                                            <option th:selected="${dto.part}=='기타'" value="기타">기타
+                                                            </option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -206,9 +298,11 @@
                                                 <div class="col-sm-12">
                                                     <div class="form-group">
                                                         <label>상세 요청 사항 :</label>
-                                                        <textarea class="form-control" name="required"
-                                                                  id="exampleFormControlTextarea1" rows="10" placeholder=" <프로젝트의 현재 상황>&#13;&#10;      예시) 디자인 준비 상황, 진행 계획 등&#13;&#10;&#13;&#10; <상세한 업무 내용>&#13;&#10;     예시) 시공내용, 일정 &#13;&#10;&#13;&#10; <참고자료 / 유의사항>&#13;&#10;     예시) 참고사이트, 기타 유의사항 등
-                                                            "></textarea>
+                                                        <textarea class="form-control" id="exampleFormControlTextarea1"
+                                                                  name="required"
+                                                                  placeholder=" <프로젝트의 현재 상황>&#13;&#10;      예시) 디자인 준비 상황, 진행 계획 등&#13;&#10;&#13;&#10; <상세한 업무 내용>&#13;&#10;     예시) 시공내용, 일정 &#13;&#10;&#13;&#10; <참고자료 / 유의사항>&#13;&#10;     예시) 참고사이트, 기타 유의사항 등
+                                                            "
+                                                                  rows="10" th:text="${dto.required}"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -220,18 +314,21 @@
                                     <div class="tab-pane" id="step3">
                                         <div class="row p-b-15">
 
-                                        <div class="col-sm-4 col-sm-offset-1">
-                                            <div class="picture-container">
-                                                <div class="picture">
-                                                    <img th:src="@{/assets/img/default-property.jpg}" class="picture-src" id="wizardPicturePreview" title="">
-                                                    <input type="file"  class="custom-file-input files" id="fileInput" multiple>
+                                            <div class="col-sm-4 col-sm-offset-1">
+                                                <div class="picture-container">
+                                                    <div class="picture">
+                                                        <img class="picture-src"
+                                                             id="wizardPicturePreview"
+                                                             th:src="@{/assets/img/default-property.jpg}" title="">
+                                                        <input class="custom-file-input files" id="fileInput"
+                                                               multiple type="file">
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                    <div style='display: none;' class="box">
+                                            <div class="box" style='display: none;'>
 
-                                    </div>
+                                            </div>
 
                                             <div class="col-sm-6">
                                                 <div class="form-group uploadResult">
@@ -240,25 +337,26 @@
                                                 </div>
                                             </div>
 
-                                    </div>
-                                </div>
-
-                                <div class="wizard-footer">
-                                    <div class="pull-right">
-                                        <input type='button' class='btn-next btn' name='next' value='Next'/>
-
-                                        <input type='submit' class='btn btn-finish btn-primary ' name='finish' id='finish' value='Finish'/>
+                                        </div>
                                     </div>
 
-                                    <div class="pull-left">
-                                        <input type='button' class='btn btn-previous btn-default' name='previous'
-                                               value='Previous'/>
+                                    <div class="wizard-footer">
+                                        <div class="pull-right">
+                                            <input class='btn-next btn' name='next' type='button' value='Next'/>
+
+                                            <input class='btn btn-finish btn-primary ' id='finish' name='finish'
+                                                   type='submit' value='Finish'/>
+                                        </div>
+
+                                        <div class="pull-left">
+                                            <input class='btn btn-previous btn-default' name='previous' type='button'
+                                                   value='Previous'/>
+                                        </div>
+                                        <div class="clearfix"></div>
                                     </div>
-                                    <div class="clearfix"></div>
-                                </div>
 
                                     <style>
-                                        .btn-next{
+                                        .btn-next {
                                             border-radius: 1px;
                                             padding: 10px 20px;
                                             border: 1px solid #fdc600;
@@ -280,17 +378,17 @@
         </div>
         </div>
 
-        <script type="text/javascript" th:src="@{/Board/js/register.js}"></script>
+        <script th:src="@{/Board/js/modify.js}" type="text/javascript"></script>
 
         <script>
-            $(document).ready(function(e) {
+            $(document).ready(function (e) {
 
                 var regex = new RegExp("(.*?)\.(exe|sh|zip|alz|tiff)$");
                 var maxSize = 10485760; //10MB
 
-                function checkExtension(fileName, fileSize){
+                function checkExtension(fileName, fileSize) {
 
-                    if(fileSize >= maxSize){
+                    if (fileSize >= maxSize) {
                         alert("파일 사이즈 초과");
                         return false;
                     }
@@ -302,7 +400,7 @@
                     return true;
                 }
 
-                $(".custom-file-input").on("change", function() {
+                $(".custom-file-input").on("change", function () {
 
                     var fileName = $(this).val().split("\\").pop();
                     $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
@@ -317,7 +415,7 @@
 
                     for (var i = 0; i < files.length; i++) {
 
-                        if(!checkExtension(files[i].name, files[i].size) ){
+                        if (!checkExtension(files[i].name, files[i].size)) {
                             return false;
                         }
 
@@ -327,7 +425,9 @@
                     }
 
                     //upload를 하지 않는다.
-                    if (!appended) {return;}
+                    if (!appended) {
+                        return;
+                    }
 
                     for (var value of formData.values()) {
                         console.log(value);
@@ -341,27 +441,27 @@
                         contentType: false,
                         data: formData,
                         type: 'POST',
-                        dataType:'json',
-                        success: function(result){
+                        dataType: 'json',
+                        success: function (result) {
                             console.log(result);
                             showResult(result);
                         },
-                        error: function(jqXHR, textStatus, errorThrown){
+                        error: function (jqXHR, textStatus, errorThrown) {
                             console.log(textStatus);
                         }
                     }); //$.ajax
                 }); //end change event
 
 
-                function showResult(uploadResultArr){
+                function showResult(uploadResultArr) {
 
                     var uploadUL = $(".uploadResult ul");
 
-                    var str ="";
+                    var str = "";
 
-                    $(uploadResultArr).each(function(i, obj) {
+                    $(uploadResultArr).each(function (i, obj) {
 
-                        str += "<li data-name='" + obj.fileName + "' data-path='"+obj.folderPath+"' data-uuid='"+obj.uuid+"'>";
+                        str += "<li data-name='" + obj.fileName + "' data-path='" + obj.folderPath + "' data-uuid='" + obj.uuid + "'>";
                         str + " <div>";
                         str += "<button type='button' data-file=\'" + obj.imageURL + "\' "
                         str += "class='btn-warning btn-sm'>X</button><br>";
@@ -373,7 +473,7 @@
                     uploadUL.append(str);
                 }
 
-                $(".uploadResult ").on("click", "li button", function(e){
+                $(".uploadResult ").on("click", "li button", function (e) {
 
                     console.log("delete file");
 
@@ -384,9 +484,9 @@
                     $.ajax({
                         url: '/removeFile',
                         data: {fileName: targetFile},
-                        dataType:'text',
+                        dataType: 'text',
                         type: 'POST',
-                        success: function(result){
+                        success: function (result) {
                             alert("삭제되었습니다");
 
                             targetLi.remove();
@@ -396,19 +496,19 @@
 
 
                 //prevent submit
-                $(".btn-primary").on("click", function(e) {
+                $(".btn-primary").on("click", function (e) {
                     e.preventDefault();
 
                     var str = "";
 
-                    $(".uploadResult li").each(function(i,obj){
+                    $(".uploadResult li").each(function (i, obj) {
                         var target = $(obj);
 
-                        str += "<input type='hidden' name='imageDTOList["+i+"].imgName' value='"+target.data('name') +"'>";
+                        str += "<input type='hidden' name='imageDTOList[" + i + "].imgName' value='" + target.data('name') + "'>";
 
-                        str += "<input type='hidden' name='imageDTOList["+i+"].path' value='"+target.data('path')+"'>";
+                        str += "<input type='hidden' name='imageDTOList[" + i + "].path' value='" + target.data('path') + "'>";
 
-                        str += "<input type='hidden' name='imageDTOList["+i+"].uuid' value='"+target.data('uuid')+"'>";
+                        str += "<input type='hidden' name='imageDTOList[" + i + "].uuid' value='" + target.data('uuid') + "'>";
 
                     });
 
@@ -420,24 +520,22 @@
                 });
 
 
-
             }); //document ready
 
 
             $(document).ready(
-                function() {
+                function () {
                     $("form")
                         .submit(
                             function () {
                                 var rv = true;
 
                                 var d = new Date();
-                                var strDate = d.getFullYear() + "/" + (d.getMonth()+1) + "/" + d.getDate();
+                                var strDate = d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + d.getDate();
 
                                 const date1 = new Date(strDate);
                                 const date2 = new Date($("#startDate").val());
                                 const date3 = new Date($("#endDate").val());
-
                                 if ($("#title").val() == "") {
                                     alert("시공내용을 간략히 입력해주세요");
                                     $("#title").focus();
@@ -460,40 +558,40 @@
                                     alert("면적을 입력해주세요(면적은 숫자만 입력 가능합니다)");
                                     $("#area").focus();
                                     return rv = false;
-                                }else if ($(
+                                } else if ($(
                                     'input[type=number][name=area]')
                                     .val() <= 0) {
                                     alert("면적을 입력해주세요(면적은 숫자만 입력 가능합니다)");
                                     $("#area").focus();
                                     return rv = false;
-                                } else if ($("#startDate").val() == ""
-                                    && $("#undefined_start").is(
+                                } else if ($(".startDate").val() == ""
+                                    && $(".undefined_start").is(
                                         ":checked") == false) {
                                     alert("시공 시작일을 입력해주세요");
-                                    $("#startDate").focus();
+                                    $(".startDate").focus();
                                     return rv = false;
-                                } else if(date1 > date2) {
+                                } else if (date1 > date2  && $(".undefined_start").is(
+                                    ":checked") == false) {
                                     alert("시공 시작일은 현재 날짜보다 이전일 수 없습니다.");
                                     return rv = false;
-                                }
-                                else if ($("#endDate").val() == ""
-                                    && $("#undefined_end").is(
+                                } else if ($(".endDate").val() == ""
+                                    && $(".undefined_end").is(
                                         ":checked") == false) {
                                     alert("시공 종료일을 입력해주세요");
-                                    $("#endDate").focus();
+                                    $(".endDate").focus();
                                     return rv = false;
-                                } else if(date1 > date2) {
+                                } else if (date2 > date3 && $(".undefined_end").is(
+                                    ":checked") == false) {
                                     alert("시공 종료일은 시공 시작일 이전일 수 없습니다.");
                                     return rv = false;
-                                }
-                                else if (!$.isNumeric($(
+                                } else if (!$.isNumeric($(
                                         'input[type=number][name=budget_defined]').val())
                                     && $("#budget_undefined").is(
                                         ":checked") == false) {
                                     alert("예산을 입력해주세요");
                                     $("#budget").focus();
                                     return rv = false;
-                                }else if ($('input[type=number][name=budget_defined]').val() <= 0
+                                } else if ($('input[type=number][name=budget_defined]').val() <= 0
                                     && $("#budget_undefined").is(
                                         ":checked") == false) {
                                     alert("예산은 양수만 입력이 가능합니다.");
@@ -532,16 +630,16 @@
                 }); // ready() end
 
 
-            function TextCount(obj,id){
+            function TextCount(obj, id) {
                 var strValue = obj.value;
-                var strLen = strValue.length+1;
+                var strLen = strValue.length + 1;
                 var str = "";
                 str += '[' + strLen + '자 / 21]';
-                if(strLen > 20){
+                if (strLen > 20) {
                     alert("제목을 간략하게 작성해주세요 (20자이내)");
                     $(obj).val(strValue.substring(0, 19));
                 }
-                $("#"+id).html(str);
+                $("#" + id).html(str);
             }
 
         </script>

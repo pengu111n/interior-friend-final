@@ -11,7 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
+@ToString(exclude = "writer")
 public class ApplicationBoard extends BaseEntity {
 
     @Id
@@ -60,6 +60,8 @@ public class ApplicationBoard extends BaseEntity {
     @Column(length = 500)
     private String required;
 
+    @ManyToOne (fetch = FetchType.LAZY)
+    private Member writer;
 
     @Column
     @ColumnDefault("1")

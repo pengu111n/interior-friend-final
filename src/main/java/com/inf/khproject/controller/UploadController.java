@@ -164,12 +164,16 @@ public class UploadController {
                 file  = new File(file.getParent(), file.getName().substring(2));
             }
 
+            String Dname = srcFileName.substring(48);
+            System.out.println("Dname = " + Dname);
             log.info("file: " + file);
 
             HttpHeaders header = new HttpHeaders();
 
             //MIME타입 처리
             header.add("Content-Type", Files.probeContentType(file.toPath()));
+            header.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + Dname);
+
             //파일 데이터 처리
             result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);
         } catch (Exception e) {

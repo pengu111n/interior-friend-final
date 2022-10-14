@@ -57,7 +57,7 @@ public class ApplicationBoardController {
 
     }
 
-    @RequestMapping(value="/remove", method = {RequestMethod.GET, RequestMethod.POST})
+    @PostMapping("/remove")
     public String remove(long boardNo, RedirectAttributes redirectAttributes){
 
 

@@ -6,7 +6,9 @@ import com.inf.khproject.dto.ApplicationPageRequestDTO;
 import com.inf.khproject.dto.ApplicationPageResultDTO;
 import com.inf.khproject.entity.ApplicationBoard;
 import com.inf.khproject.entity.ApplicationBoardImage;
+import com.inf.khproject.entity.Member;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,12 +25,14 @@ public interface ApplicationBoardService {
 
 
 
-    default ApplicationBoardDTO entitiesToDto(ApplicationBoard applicationBoard, List<ApplicationBoardImage> applicationBoardImages) {
+    default ApplicationBoardDTO entitiesToDto(ApplicationBoard applicationBoard, List<ApplicationBoardImage> applicationBoardImages, Member member) {
         ApplicationBoardDTO dto = ApplicationBoardDTO.builder()
                 .boardNo(applicationBoard.getBoardNo())
                 .id(applicationBoard.getId())
+
                 .nickName(applicationBoard.getNickName())
                 .username(applicationBoard.getUsername())
+
                 .title(applicationBoard.getTitle())
                 .category(applicationBoard.getCategory())
                 .address(applicationBoard.getAddress())
@@ -53,6 +57,7 @@ public interface ApplicationBoardService {
 
         dto.setImageDTOList(applicationBoardImageDTOList);
 
+        System.out.println("applicationBoardImageDTOList = " + applicationBoardImageDTOList);
         return dto;
     }
 
