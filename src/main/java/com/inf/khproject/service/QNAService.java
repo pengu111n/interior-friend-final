@@ -20,7 +20,7 @@ public interface QNAService {
 
     default QNA dtoToEntity(QNADTO dto) {
 
-        Member member = Member.builder().memNo(dto.getWriterMemNo()).build();
+        Member member = Member.builder().id(dto.getWriterMemNo()).build();
 
         QNA qna = QNA.builder()
                 .qnaNo(dto.getQnaNo())
@@ -42,7 +42,7 @@ public interface QNAService {
                 .category(qna.getCategory())
                 .title(qna.getTitle())
                 .content(qna.getContent())
-                .writerMemNo(member.getMemNo())
+                .writerMemNo(member.getId())
                 .writerNickname(member.getNickname())
                 .regDate(qna.getRegDate())
                 .modDate(qna.getModDate())

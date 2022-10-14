@@ -12,7 +12,6 @@ plugins {
     id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
     id "io.franzbecker.gradle-lombok" version "3.0.0"
 //    id 'com.ewerk.gradle.plugins.querydsl' version '1.0.10'
-    id 'com.ewerk.gradle.plugins.querydsl' version '1.0.10'
 }
 
 group = 'com.inf'
@@ -91,6 +90,4 @@ configurations {
     querydsl.extendsFrom compileClasspath
 }
 
-compileQuerydsl {
-    options.annotationProcessorPath = configurations.querydsl
-}
+

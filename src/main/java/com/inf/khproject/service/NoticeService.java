@@ -20,7 +20,7 @@ public interface NoticeService {
 
     default Notice dtoToEntity(NoticeDTO dto) {
 
-        Member member = Member.builder().memNo(dto.getWriterMemNo()).build();
+        Member member = Member.builder().id(dto.getWriterMemNo()).build();
 
         Notice notice = Notice.builder()
                 .noticeNo(dto.getNoticeNo())
@@ -41,7 +41,7 @@ public interface NoticeService {
                 .content(entity.getContent())
                 .regDate(entity.getRegDate())
                 .modDate(entity.getModDate())
-                .writerMemNo(entity.getWriter().getMemNo())
+                .writerMemNo(entity.getWriter().getId())
                 .build();
 
         return noticeDTO;

@@ -29,7 +29,7 @@ public class QNARepositoryTest {
 
         IntStream.rangeClosed(1, 100).forEach(i -> {
 
-            Member member = Member.builder().memNo((long) i).build();
+            Member member = Member.builder().id((long) i).build();
 
             QNA qna = QNA.builder()
                     .category("Category")
