@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" th:href="@{/assets/css/login.css}">
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
+	<th:block th:fragment="content">
+ <!-- iCheck -->
+<!--    <link th:href="@{/resources/plugins/iCheck/square/blue.css}" rel="stylesheet" type="text/css" />-->
+		<div id="my_modal">
+			고객님의 아이디는 <b id="usernameval" th:text="${username}"></b> 입니다.
+			<a class="modal_close_btn">닫기</a>
+		</div>
+	<!-- register-area -->
+	<div class="register-area"
+		style="background-color: rgb(249, 249, 249);">
+		<div class="container">
+			<div class="col-md-6">
+				<div class="box-for overflow">
+					<div class="col-md-12 col-xs-12 login-blocks">
+						<h2>아이디 찾기 :</h2>
+						<h5>본인이 등록하신 이름과 전화번호를 입력해주세요.</h5>
+						<form th:action="@{/member/findID}" method="post">
+							<div class="form-group">
+								<label for="name">이름</label> <input type="text" class="form-control" id="name" name= "name" >
+							</div>
+							<div class="form-group">
+								<label for="phoneNum">전화번호</label> <input type="text" class="form-control" id="phoneNum" name="phoneNum">
+							</div>
+						<!-- 자동 로그인 체크박스  -->
+				<div class="row">
+					<div class="col-md-12 col-xs-8">
+						<div class="checkbox icheck2">
+							<span>
+								<a th:href="@{/member/findID}" class="findID">아이디찾기</a>
+								<a th:href="@{/member/findPW}" class="findPW">비밀번호찾기</a>
+							</span>
+						</div>
+						<p th:if="${error}" class="error" th:text="${exception}"></p>
+					</div>
+							<div class="text-center">
+								<button type="button" class="btn btn-default" id="popup_open_btn"><h5>찾기</h5></button>
+							</div>
+
+					<!-- /.col -->
+					
+					<!-- /.col -->
+				</div>
+			</form>
+					<script>
+				$(function() {
+					$('input').iCheck({
+						checkboxClass : 'icheckbox_square-blue',
+						radioClass : 'iradio_square-blue',
+						increaseArea : '20%' // optional
+					});
+				});
+			</script>
+		</div>
+	</div>
+			
+						<br>
+
+						<!--  ><h2>Social login :</h2>-->
+
+						<!--<p>
+							<a class="login-social" href="#"><i class="fa fa-google-plus"></i>&nbsp;Gmail</a>
+						</p>-->
+					</div>
+
+				</div>
+			</div>
+
+		<script type="text/javascript" th:src="@{/js/login.js}"></script>
+
+</th:block>
+</th:block>
+
+
