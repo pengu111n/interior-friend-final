@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+
+<style>
+    .btn-primary {
+        color: #fff;
+        background-color: #fdc600;
+        border-color: #fdc600;
+        border-radius: 1px;
+        padding: 10px 20px;
+        font-weight: 600;
+    }
+
+
+    .fileDrop {
+        width: 80%;
+        height: 150px;
+        border: 1px dotted gray;
+        background-color: lightgrey;
+        margin: auto;
+
+    }
+
+    .tab-content {
+        margin: auto;
+        width: 80%;
+    }
+
+</style>
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
+
+    <th:block th:fragment="content">
+
+
+        <div class="page-head">
+            <div class="container">
+                <div class="row">
+                    <div class="page-head-content">
+                        <h1 class="page-title">시공사례 수정</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End page header -->
+
+        <div class="content-area submit-property" style="background-color: #FCFCFC;">&nbsp;
+            <div class="container">
+                <div class="clearfix">
+                    <div class="wizard-container">
+
+                        <div class="wizard-card ct-wizard-orange" id="wizardProperty">
+                            <form th:action="@{/interiorboard/modify}" th:method="post">
+                                <input type="hidden"  name="boardNo" th:value="${dto.boardNo}">
+
+                                <div class="wizard-header">
+                                    <h3>
+                                        인테리어 시공사례 등록 <br/>
+                                    </h3>
+                                </div>
+
+                                <ul>
+                                    <li><a href="#step1" data-toggle="tab">Step 1 </a></li>
+                                    <li><a href="#step2" data-toggle="tab">Step 2 </a></li>
+                                    <li><a href="#step3" data-toggle="tab">Finished </a></li>
+                                </ul>
+
+                                <div class="tab-content">
+
+                                    <div class="tab-pane" id="step1">
+                                        <div class="row p-b-15  ">
+                                            <!--/*   <input type="hidden" id="memNo" name="memNo" value="${login.memNo}">
+                                             <input type="hidden" id="id" name="id" value="${login.id}">
+                                             <input type="hidden" id="nickName" name="nickName" value="${login.nickName}">
+          */-->
+                                             <div class="col-sm-12">
+                                                 <div class="form-group">
+                                                     <label>제목 : </label>
+                                                     <input type="text" class="form-control" name   ="title" id="title" onkeypress="TextCount(this,'title');"
+                                                            placeholder="시공내용을 간략하게 적어주세요 (20자이내)">
+                                                 </div>
+                                             </div>
+                                            <div class="col-sm-12">
+
+                                             <div class="form-group" style="width: 800px;">
+                                                     <div class="form-group">
+                                                         <label>주소 :</label><br/>
+                                                         <select
+                                                                 class="form-group form-control" name="address_1" id="address_1"
+                                                                 style="width: 160px; display: inline-block;"></select>
+                                                         <select
+                                                                 class="form-control" name="address_2" id="address_2"
+                                                                 style="width: 160px; display: inline-block;"></select>
+                                                         <input type="hidden" id="address" name="address" value="">
+                                                     </div>
+                                             </div>
+
+                                                <div class="col-sm-3" style="width : 400px; padding-right: 80px; padding-left: 0px">
+                                                    <div class="form-group">
+                                                        <label>주거유형</label> <select class="selectpicker show-tick form-control"
+                                                                                    name="category" id="category">
+                                                        <option value="" disabled selected>주거유형</option>
+                                                        <option value="아파트">아파트</option>
+                                                        <option value="빌라">빌라</option>
+                                                        <option value="카페/식당">카페/식당</option>
+                                                        <option value="사무/오피스">사무/오피스</option>
+                                                        <option value="매장/상업">매장/상업</option>
+                                                        <option value="병원/의료">병원/의료</option>
+                                                        <option value="기타">기타</option>
+                                                    </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-3" style="width : 400px; padding-right: 80px; padding-left: 0px">
+                                                    <div class="form-group">
+                                                        <label>인테리어 분야</label>
+                                                        <select class="selectpicker show-tick form-control" name="part"
+                                                                id="part">
+                                                            <option value="" disabled selected>인테리어 분야</option>
+                                                            <option value="종합">종합</option>
+                                                            <option value="도배">도배</option>
+                                                            <option value="마루">마루</option>
+                                                            <option value="욕실">욕실</option>
+                                                            <option value="타일">타일</option>
+                                                            <option value="도어">도어</option>
+                                                            <option value="주방">주방</option>
+                                                            <option value="기타">기타</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="col-sm-12" style="padding: 0px;width : 400px;">
+                                                        <div class="form-group">
+                                                            <label>면적 :</label><br/>
+                                                            <div class="input-group"
+                                                                 style="width: 320px; margin: 0px;">
+                                                                <div class="input-group-addon">평수</div>
+                                                                <input type="number" class="form-control" name="area"/>
+                                                                <div class="input-group-addon">평</div>
+                                                            </div>
+                                                        </div>
+                                                </div>
+
+
+                                                <div class="col-sm-12" style="padding: 0px;width : 400px;">
+                                                        <div class="form-group">
+                                                            <div class="form-row">
+                                                                <label>예상 비용 :</label><br/>
+                                                                <div class="input-group"
+                                                                     style="width: 320px; margin-top: 0px; margin-bottom: 0px;">
+                                                                    <div class="input-group-addon">예산</div>
+                                                                    <input type="number" class="form-control"
+                                                                           name="cost"/>
+                                                                    <div class="input-group-addon">만원</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                </div>
+
+                                                <div class="col-sm-12" style="padding: 0px;">
+                                                        <div class="form-group">
+                                                            <label>예상 소요기간 :</label><br/>
+                                                            <div class="input-group"
+                                                                 style="width: 320px; margin: 0px;">
+                                                                <div class="input-group-addon">기간</div>
+                                                                <input type="number" class="form-control" name="period"/>
+                                                                <div class="input-group-addon">일</div>
+                                                            </div>
+                                                        </div>
+                                                </div>
+
+
+                                            </div>
+
+                                         </div>
+                                     </div>
+                                     <!--  End step 1 -->
+                                    <div class="tab-pane" id="step2">
+                                        <div class="row p-b-15">
+                                            <!--                                        <div class="form-group fileForm">-->
+                                            <!--                                            <div class="custom-file">-->
+                                            <!--                                                <input type="file"  class="custom-file-input files" id="fileInput" multiple>-->
+                                            <!--                                            </div>-->
+                                            <!--                                        </div>-->
+
+                                            <div class="col-sm-4 col-sm-offset-1">
+                                                <div class="picture-container">
+                                                    <div class="picture">
+                                                        <img th:src="@{/assets/img/default-property.jpg}" class="picture-src" id="wizardPicturePreview" title="">
+                                                        <input type="file"  class="custom-file-input files" id="fileInput" multiple>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div style='display: none;' class="box">
+
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group uploadResult">
+                                                    <ul class="mailbox-attachments clearfix ">
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <!--  End step 2 -->
+                                        </div>
+                                    </div>
+
+
+                                    <div class="tab-pane" id="step3">
+                                        <div class="row">
+
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <label>인테리어상세 정보 :</label>
+                                                        <textarea class="form-control" name="content"
+                                                                  id="exampleFormControlTextarea1" rows="20" placeholder=" <프로젝트의 진행 내용>&#13;&#10;      예시) 사용 자재, 진행 과정 등&#13;&#10;&#13;&#10; <상세한 업무 내용>&#13;&#10;     예시) 시공내용, 일정 &#13;&#10;&#13;&#10; <참고자료 / 유의사항>&#13;&#10;     예시) 참고사이트, 기타 유의사항 등
+                                                            "></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br>
+                                        </div>
+                                    </div>
+                                    <!-- End step 3 -->
+
+
+                                <div class="wizard-footer">
+                                    <div class="pull-right">
+                                        <input type='button' class='btn-next btn' name='next' value='Next'/>
+
+                                        <input type='submit' class='btn btn-finish btn-primary ' name='finish' id='finish' value='Finish'/>
+                                    </div>
+
+                                    <div class="pull-left">
+                                        <input type='button' class='btn btn-previous btn-default' name='previous'
+                                               value='Previous'/>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+
+                                    <style>
+                                        .btn-next{
+                                            border-radius: 1px;
+                                            padding: 10px 20px;
+                                            border: 1px solid #fdc600;
+                                            color: #000;
+                                            background-color: #fdc600;
+                                            border-color: #f0f0f0;
+                                            font-weight: 600;
+                                        }
+
+                                </style>
+
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+        </div>
+
+        <script type="text/javascript" th:src="@{/Board/js/modify.js}"></script>
+
+        <script>
+            $(document).ready(function(e) {
+
+                var regex = new RegExp("(.*?)\.(exe|sh|zip|alz|tiff)$");
+                var maxSize = 10485760; //10MB
+
+                function checkExtension(fileName, fileSize){
+
+                    if(fileSize >= maxSize){
+                        alert("파일 사이즈 초과");
+                        return false;
+                    }
+
+                    // if(regex.test(fileName)){
+                    //     alert("해당 종류의 파일은 업로드할 수 없습니다.");
+                    //     return false;
+                    // }
+                    return true;
+                }
+
+                $(".custom-file-input").on("change", function() {
+
+                    var fileName = $(this).val().split("\\").pop();
+                    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+
+                    var formData = new FormData();
+
+                    var inputFile = $(this);
+
+                    var files = inputFile[0].files;
+
+                    var appended = false;
+
+                    for (var i = 0; i < files.length; i++) {
+
+                        if(!checkExtension(files[i].name, files[i].size) ){
+                            return false;
+                        }
+
+                        console.log(files[i]);
+                        formData.append("uploadFiles", files[i]);
+                        appended = true;
+                    }
+
+                    //upload를 하지 않는다.
+                    if (!appended) {return;}
+
+                    for (var value of formData.values()) {
+                        console.log(value);
+                    }
+
+                    //실제 업로드 부분
+                    //upload ajax
+                    $.ajax({
+                        url: '/uploadAjax',
+                        processData: false,
+                        contentType: false,
+                        data: formData,
+                        type: 'POST',
+                        dataType:'json',
+                        success: function(result){
+                            console.log(result);
+                            showResult(result);
+                        },
+                        error: function(jqXHR, textStatus, errorThrown){
+                            console.log(textStatus);
+                        }
+                    }); //$.ajax
+                }); //end change event
+
+
+                function showResult(uploadResultArr){
+
+                    var uploadUL = $(".uploadResult ul");
+
+                    var str ="";
+
+                    $(uploadResultArr).each(function(i, obj) {
+
+                        str += "<li data-name='" + obj.fileName + "' data-path='"+obj.folderPath+"' data-uuid='"+obj.uuid+"'>";
+                        str + " <div>";
+                        str += "<button type='button' data-file=\'" + obj.imageURL + "\' "
+                        str += "class='btn-warning btn-sm'>X</button><br>";
+                        str += "<img src='/display?fileName=" + obj.thumbnailURL + "'>";
+                        str += "</div>";
+                        str + "</li>";
+                    });
+
+                    uploadUL.append(str);
+                }
+
+                $(".uploadResult ").on("click", "li button", function(e){
+
+                    console.log("delete file");
+
+                    var targetFile = $(this).data("file");
+
+                    var targetLi = $(this).closest("li");
+
+                    $.ajax({
+                        url: '/removeFile',
+                        data: {fileName: targetFile},
+                        dataType:'text',
+                        type: 'POST',
+                        success: function(result){
+                            alert("삭제되었습니다");
+
+                            targetLi.remove();
+                        }
+                    }); //$.ajax
+                });
+
+
+                //prevent submit
+                $(".btn-primary").on("click", function(e) {
+                    e.preventDefault();
+
+                    var str = "";
+
+                    $(".uploadResult li").each(function(i,obj){
+                        var target = $(obj);
+
+                        str += "<input type='hidden' name='imageDTOList["+i+"].imgName' value='"+target.data('name') +"'>";
+
+                        str += "<input type='hidden' name='imageDTOList["+i+"].path' value='"+target.data('path')+"'>";
+
+                        str += "<input type='hidden' name='imageDTOList["+i+"].uuid' value='"+target.data('uuid')+"'>";
+
+                    });
+
+                    //태그들이 추가된 것을 확인한 후에 comment를 제거
+                    $(".box").html(str);
+
+                    $("form").submit();
+
+                });
+
+
+
+            }); //document ready
+
+
+            $(document).ready(
+                function() {
+                    $("form")
+                        .submit(
+                            function () {
+                                var rv = true;
+
+                                if ($("#title").val() == "") {
+                                    alert("제목을 간략히 입력해주세요");
+                                    $("#title").focus();
+                                    return rv = false;
+                                }else if ($("#address_1").val() == "") {
+                                    alert("주소를 선택해주세요");
+                                    $("#address_1").focus();
+                                    return rv = false;
+                                } else if ($("#address_2").val() == "") {
+                                    alert("주소를 선택해주세요");
+                                    $("#address_2").focus();
+                                    return rv = false;
+                                } else if ($("#category").val() == null) {
+                                    alert("주거유형을 선택해주세요");
+                                    $("#category").focus();
+                                    return rv = false;
+                                }else if ($("#part").val() == null) {
+                                    alert("인테리어 분야를 선택해주세요");
+                                    $("#part").focus();
+                                    return rv = false;
+                                }  else if (!$.isNumeric($(
+                                    'input[type=number][name=area]')
+                                    .val())) {
+                                    alert("면적을 입력해주세요(면적은 숫자만 입력 가능합니다)");
+                                    $("#area").focus();
+                                    return rv = false;
+                                }else if ($(
+                                    'input[type=number][name=area]')
+                                    .val() <= 0) {
+                                    alert("면적은 양수만 입력이 가능합니다.");
+                                    $("#area").focus();
+                                    return rv = false;
+                                }else if (!$.isNumeric($(
+                                        'input[type=number][name=cost]').val()))
+                                {   alert("예상 시공비용을 입력해주세요");
+                                    $("#cost").focus();
+                                    return rv = false;
+                                }else if ($('input[type=number][name=cost]').val() < 0 )
+                                {    alert("시공비용은 양수만 입력이 가능합니다.");
+                                    $("#cost").focus();
+                                    return rv = false;
+                                }else if (!$.isNumeric($(
+                                    'input[type=number][name=period]').val()))
+                                {   alert("예상 시공기간을 입력해주세요");
+                                    $("#period").focus();
+                                    return rv = false;
+                                }else if ($('input[type=number][name=period]').val() < 0 )
+                                {    alert("시공기간은 양수만 입력이 가능합니다.");
+                                    $("#period").focus();
+                                    return rv = false;
+                                } else if ($("#content").val() == "undefined") {
+                                    alert("상세 시공내용을 입력해주세요");
+                                    $("#content").focus();
+                                    return rv = false;
+                                }
+
+
+                                event.preventDefault();
+
+                                var that = $(this);
+
+                                var str = "";
+                                $(".uploadedList .delbtn").each(function (index) {
+                                    str += "<input type='hidden' name='image[" + index + "]' value='" + $(this).attr("href") + "'> ";
+                                });
+
+                                that.append(str);
+
+                                that.get(0).submit();
+
+                                alert("게시글이 성공적으로 수정되었습니다");
+
+                            }) // submit() end
+                }); // ready() end
+
+
+            function TextCount(obj,id){
+                var strValue = obj.value;
+                var strLen = strValue.length+1;
+                var str = "";
+                str += '[' + strLen + '자 / 21]';
+                if(strLen > 20){
+                    alert("제목을 간략하게 작성해주세요 (20자이내)");
+                    $(obj).val(strValue.substring(0, 19));
+                }
+                $("#"+id).html(str);
+            }
+
+        </script>
+
+
+    </th:block>
+
+</th:block>
+</html>

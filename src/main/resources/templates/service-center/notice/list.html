@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<link rel="stylesheet" th:href="@{/assets/css/infoBoard.css}">
+<link rel="stylesheet" th:href="@{/assets/css/FAQ.css}">
+<link rel="stylesheet" th:href="@{/assets/css/QNAForm.css}">
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
+
+    <th:block th:fragment="content">
+
+        <div class="page-head">
+            <div class="container">
+                <div class="row">
+                    <div class="page-head-content">
+                        <h1 class="page-title">공지사항</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End page header -->
+
+        <!-- board list area -->
+        <div id="board-list">
+            <div class="container">
+                <table class="board-table" style="margin-top:10px;">
+                    <thead>
+                    <tr>
+                        <th scope="col" class="th-num">번호</th>
+                        <th scope="col" class="th-title">제목</th>
+                        <th scope="col" class="th-date">등록일</th>
+
+                        <div class="collapse navbar-collapse yamm" id="navigation">
+                            <div class="button navbar-right" style="margin-top: 10px;">
+                                <a th:href="@{/service-center/notice/register}"
+                                   class="navbar-btn nav-button wow fadeInRight"
+                                   data-wow-delay="0.48s">공지사항 작성</a>
+                            </div>
+                        </div>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr th:each="dto : ${result.dtoList}">
+                        <th scope="row">[[${dto.noticeNo}]]</th>
+                        <td>
+                            <a th:href="@{/service-center/notice/read(noticeNo=${dto.noticeNo}, page=${result.page})}">
+                                [[${dto.title}]]
+                            </a>
+                        </td>
+                        <td>[[${#temporals.format(dto.regDate, 'yyyy/MM/dd')}]]</td>
+                    </tr>
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+        <!-- /.box-body -->
+
+        <div class="text-center">
+            <div class="pagination">
+                <ul>
+                    <li class="page-item" th:if="${result.prev}">
+                        <a class="page-link" th:href="@{/service-center/notice/list(page=${result.start -1})}"
+                           tabindex="-1">&laquo;</a>
+                    </li>
+
+                    <li th:class="'page-item' + ${result.page == page?'active':''}"
+                        th:each="page: ${result.pageList}">
+                        <a class="page-link" th:href="@{/service-center/notice/list(page=${page})}">[[${page}]]</a>
+                    </li>
+
+                    <li class="page-item" th:if="${result.next}">
+                        <a class="page-link" th:href="@{/service-center/notice/list(page=${result.end +1})}">&raquo;</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </th:block>
+
+</th:block>
+</html>

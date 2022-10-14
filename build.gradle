@@ -1,3 +1,9 @@
+buildscript {
+    ext {
+        queryDslVersion = "5.0.0"
+    }
+}
+
 plugins {
     id 'org.springframework.boot' version '2.7.4'
     id 'io.spring.dependency-management' version '1.0.14.RELEASE'
@@ -6,6 +12,7 @@ plugins {
     id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
     id "io.franzbecker.gradle-lombok" version "3.0.0"
 //    id 'com.ewerk.gradle.plugins.querydsl' version '1.0.10'
+    id 'com.ewerk.gradle.plugins.querydsl' version '1.0.10'
 }
 
 group = 'com.inf'
@@ -27,6 +34,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation group: 'net.coobird', name: 'thumbnailator', version: '0.4.1'
+
+//    implementation 'org.springframework.boot:spring-boot-starter-security'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.projectlombok:lombok'
@@ -48,6 +58,10 @@ dependencies {
     implementation 'com.querydsl:querydsl-apt:5.0.0'
     implementation 'org.springframework.boot:spring-boot-starter-mail'
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+
+    //querydsl 추가
+    implementation "com.querydsl:querydsl-jpa:${queryDslVersion}" // querydsl 라이브러리
+    annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}" //  Querydsl 관련 코드 생성 기능
 }
 
 tasks.named('test') {
@@ -57,6 +71,7 @@ tasks.named('test') {
 def querydslDir = "$buildDir/generated/querydsl"
 
 querydsl {
+    library = "com.querydsl:querydsl-apt"
     jpa = true
     querydslSourcesDir = querydslDir
 }
@@ -76,4 +91,6 @@ configurations {
     querydsl.extendsFrom compileClasspath
 }
 
-
+compileQuerydsl {
+    options.annotationProcessorPath = configurations.querydsl
+}
