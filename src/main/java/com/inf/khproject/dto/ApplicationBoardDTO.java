@@ -16,9 +16,9 @@ import java.util.List;
 public class ApplicationBoardDTO {
 
 	private Long boardNo;
-	private String id;
+	private String username;
 	private String nickName;
-	private Long memNo;
+	private Long id;
 	private String title;
 
 
