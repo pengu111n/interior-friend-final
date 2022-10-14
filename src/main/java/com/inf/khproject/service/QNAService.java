@@ -14,9 +14,15 @@ public interface QNAService {
 
     QNADTO get(Long qnaNo);
 
+    QNADTO getByQnaReplyNo(Long qnaReplyNo);
+
     void removeWithReplies(Long qnaNo);
 
     void modify(QNADTO qnaDTO);
+
+    void modifyStatusComplete(QNADTO qnaDTO);
+
+    void modifyStatusWait(QNADTO qnaDTO);
 
     default QNA dtoToEntity(QNADTO dto) {
 

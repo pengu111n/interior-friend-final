@@ -5,6 +5,7 @@ import com.inf.khproject.dto.PageResultDTO;
 import com.inf.khproject.dto.QNADTO;
 import com.inf.khproject.entity.Member;
 import com.inf.khproject.entity.QNA;
+import com.inf.khproject.entity.QNAReply;
 import com.inf.khproject.repository.QNAReplyRepository;
 import com.inf.khproject.repository.QNARepository;
 import lombok.RequiredArgsConstructor;
@@ -50,8 +51,25 @@ public class QNAServiceImpl implements QNAService {
 
     }
 
+    @Transactional
     @Override
     public QNADTO get(Long qnaNo) {
+
+        Object result = qnaRepository.getQNAByQnaNo(qnaNo);
+
+        Object[] arr = (Object[]) result;
+
+        return entityToDTO((QNA) arr[0], (Member) arr[1]);
+
+    }
+
+    @Transactional
+    @Override
+    public QNADTO getByQnaReplyNo(Long qnaReplyNo) {
+
+        QNAReply qnaReply = qnaReplyRepository.findById(qnaReplyNo).get();
+
+        Long qnaNo = qnaReply.getQna().getQnaNo();
 
         Object result = qnaRepository.getQNAByQnaNo(qnaNo);
 
@@ -79,6 +97,30 @@ public class QNAServiceImpl implements QNAService {
 
         qna.changeTitle(qnaDTO.getTitle());
         qna.changeContent(qnaDTO.getContent());
+
+        qnaRepository.save(qna);
+
+    }
+
+    @Transactional
+    @Override
+    public void modifyStatusComplete(QNADTO qnaDTO) {
+
+        QNA qna = qnaRepository.getOne(qnaDTO.getQnaNo());
+
+        qna.changeStatus(1);
+
+        qnaRepository.save(qna);
+
+    }
+
+    @Transactional
+    @Override
+    public void modifyStatusWait(QNADTO qnaDTO) {
+
+        QNA qna = qnaRepository.getOne(qnaDTO.getQnaNo());
+
+        qna.changeStatus(0);
 
         qnaRepository.save(qna);
 
