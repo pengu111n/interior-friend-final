@@ -1,6 +1,7 @@
 package com.inf.khproject.controller;
 
 import com.inf.khproject.dto.UploadResultDTO;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import net.coobird.thumbnailator.Thumbnailator;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,6 +29,7 @@ import java.util.UUID;
 
 @RestController
 @Log4j2
+@RequiredArgsConstructor
 public class UploadController {
 
     @Value("${com.inf.upload.path}")

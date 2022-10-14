@@ -16,7 +16,7 @@ import java.util.List;
 public class InteriorBoardDTO {
 
 	private Long boardNo;
-	private Long memNo;
+	private Long id;
 	private String nickname;
 	private String title;
 	private String content;
@@ -28,7 +28,7 @@ public class InteriorBoardDTO {
 	private int period;
 
 
-	private String phonenum;
+	private String phoneNum;
 	private String email;
 	private String address;
 	private int view_count;

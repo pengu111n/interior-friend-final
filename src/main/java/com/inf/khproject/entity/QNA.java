@@ -1,5 +1,7 @@
 package com.inf.khproject.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -37,6 +39,10 @@ public class QNA extends BaseEntity{
 
     public void changeContent(String content) {
         this.content = content;
+    }
+
+    public void changeStatus(Integer status) {
+        this.status = status;
     }
 
 }

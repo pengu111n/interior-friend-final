@@ -14,13 +14,19 @@ public interface QNAService {
 
     QNADTO get(Long qnaNo);
 
+    QNADTO getByQnaReplyNo(Long qnaReplyNo);
+
     void removeWithReplies(Long qnaNo);
 
     void modify(QNADTO qnaDTO);
 
+    void modifyStatusComplete(QNADTO qnaDTO);
+
+    void modifyStatusWait(QNADTO qnaDTO);
+
     default QNA dtoToEntity(QNADTO dto) {
 
-        Member member = Member.builder().memNo(dto.getWriterMemNo()).build();
+        Member member = Member.builder().id(dto.getWriterMemNo()).build();
 
         QNA qna = QNA.builder()
                 .qnaNo(dto.getQnaNo())
@@ -42,7 +48,7 @@ public interface QNAService {
                 .category(qna.getCategory())
                 .title(qna.getTitle())
                 .content(qna.getContent())
-                .writerMemNo(member.getMemNo())
+                .writerMemNo(member.getId())
                 .writerNickname(member.getNickname())
                 .regDate(qna.getRegDate())
                 .modDate(qna.getModDate())
