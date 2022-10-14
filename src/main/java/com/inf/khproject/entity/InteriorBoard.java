@@ -19,7 +19,7 @@ public class InteriorBoard extends BaseEntity {
     private Long boardNo;
 
     @Column
-    private Long memno;
+    private Long id;
 
     @Column(length = 20)
     private String nickName;
@@ -52,7 +52,7 @@ public class InteriorBoard extends BaseEntity {
     private String address;
 
     @Column(length = 500)
-    private String phonenum;
+    private String phoneNum;
 
     @Column(length = 50)
     private String email;

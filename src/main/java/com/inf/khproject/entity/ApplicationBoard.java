@@ -19,13 +19,13 @@ public class ApplicationBoard extends BaseEntity {
     private Long boardNo;
 
     @Column(length = 20)
-    private String id;
+    private String username;
 
     @Column(length = 20)
     private String nickName;
 
     @Column
-    private Long memNo;
+    private Long id;
 
     @Column(length = 20)
     private String title;
