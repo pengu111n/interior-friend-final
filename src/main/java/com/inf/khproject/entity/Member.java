@@ -40,7 +40,7 @@ public class Member{
     private boolean isSocial;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(nullable = true)
     private MemberRole role;
 
 
