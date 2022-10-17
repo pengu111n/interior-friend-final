@@ -171,20 +171,21 @@
                                 <h4 class="s-property-title">공유 </h4>
                                 <div class="roperty-social">
                                     <ul>
-                                        <li><a href="#" title="Share this on dribbble "> <img
-                                                th:src="@{/assets/img/social_big/dribbble_grey.png}"></a></li>
-                                        <li><a href="#" title="Share this on facebok "><img
-                                                th:src="@{/assets/img/social_big/facebook_grey.png}"></a></li>
-                                        <li><a href="#" title="Share this on delicious "><img
-                                                th:src="@{/assets/img/social_big/delicious_grey.png}"></a></li>
-                                        <li><a href="#" title="Share this on tumblr "><img
-                                                th:src="@{/assets/img/social_big/tumblr_grey.png}"></a></li>
-                                        <li><a href="#" title="Share this on digg "><img
-                                                th:src="@{/assets/img/social_big/digg_grey.png}"></a></li>
-                                        <li><a href="#" title="Share this on twitter "><img
-                                                th:src="@{/assets/img/social_big/twitter_grey.png}"></a></li>
-                                        <li><a href="#" title="Share this on linkedin "><img
-                                                th:src="@{/assets/img/social_big/linkedin_grey.png}"></a></li>
+                                        <li>
+                                            <a class="facebook" onclick="fn_sendFB('facebook');return false;" href="#n" target="_self" title="Share this on facebook ">
+                                                <img th:src="@{/assets/img/social_big/facebook_grey.png}">
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="twitter" onclick="fn_sendFB('twitter');return false;" href="#n" target="_self" title="Share this on twitter ">
+                                                <img th:src="@{/assets/img/social_big/twitter_grey.png}">
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a id="kakaoBtn" class="kakaotalk" onclick="fn_sendFB('kakaotalk');return false;" href="#n" target="_self" title="Share this on kakaotalk ">
+                                                <img th:src="@{/assets/img/social_big/kakaotalk_grey.png}">
+                                            </a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -270,6 +271,41 @@
 
             </div>
         </div>
+
+        <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+
+        <script >
+            function fn_sendFB(sns) {
+                var thisUrl = document.URL;
+                var snsTitle = "[지금 인프에서 인테리어 견적 신청 확인하기]";
+                if (sns == 'facebook') {
+                    var url = "http://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(thisUrl);
+                    window.open(url, "", "width=486, height=286");
+                } else if (sns == 'twitter') {
+                    var url = "http://twitter.com/share?url=" + encodeURIComponent(thisUrl) + "&text=" + encodeURIComponent(snsTitle);
+                    window.open(url, "tweetPop", "width=486, height=286,scrollbars=yes");
+                } else if (sns == 'kakaotalk') {
+                    // 사용할 앱의 JavaScript 키 설정
+                    Kakao.init('d9c6ff29bb35b7f8e09b6ff44bbfb66e');
+
+                    // 카카오링크 버튼 생성
+                    Kakao.Link.createDefaultButton({
+                        container: '#kakaoBtn', // HTML에서 작성한 ID값
+                        objectType: 'feed',
+                        content: {
+                            title: "[지금 인프에서 인테리어 견적 신청 확인하기]", // 보여질 제목
+                            description: "[지금 인프에서 인테리어 견적 신청 확인하기]", // 보여질 설명
+                            imageUrl: thisUrl, // 콘텐츠 URL
+                            link: {
+                                mobileWebUrl: thisUrl,
+                                webUrl: thisUrl
+                            }
+                        }
+                    });
+                }
+            }
+        </script>
+
         <script th:inline="javascript">
 
             var actionForm = $("form"); //form 태그 객체
