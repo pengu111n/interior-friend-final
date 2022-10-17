@@ -61,5 +61,6 @@ public class InteriorBoard extends BaseEntity {
     @ColumnDefault("1")
     private int view_count;
 
-
+    @ManyToOne (fetch = FetchType.LAZY)
+    private Member writer;
 }
