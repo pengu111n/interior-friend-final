@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/service-center/qna")
+@RequestMapping("/servicecenter/qna")
 @Log4j2
 @RequiredArgsConstructor
 public class QNAController {
@@ -26,7 +26,7 @@ public class QNAController {
     @GetMapping("/")
     public String index() {
 
-        return "redirect:/service-center/qna/list";
+        return "redirect:/servicecenter/qna/list";
 
     }
 
@@ -55,7 +55,7 @@ public class QNAController {
 
         redirectAttributes.addFlashAttribute("msg", qnaNo);
 
-        return "redirect:/service-center/qna/list";
+        return "redirect:/servicecenter/qna/list";
 
     }
 
@@ -84,7 +84,7 @@ public class QNAController {
         redirectAttributes.addAttribute("page", requestDTO.getPage());
         redirectAttributes.addAttribute("qnaNo", qnaDTO.getQnaNo());
 
-        return "redirect:/service-center/qna/read";
+        return "redirect:/servicecenter/qna/read";
 
     }
 
@@ -97,7 +97,7 @@ public class QNAController {
 
         redirectAttributes.addFlashAttribute("msg", qnaNo);
 
-        return "redirect:/service-center/qna/list";
+        return "redirect:/servicecenter/qna/list";
 
     }
 
