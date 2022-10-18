@@ -17,7 +17,7 @@ public class ApplicationBoardDTO {
 
 	private Long boardNo;
 	private String username;
-	private String nickName;
+	private String nickname;
 	private Long id;
 	private String title;
 

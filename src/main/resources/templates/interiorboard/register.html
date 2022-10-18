@@ -87,10 +87,10 @@
 
                                     <div class="tab-pane" id="step2">
                                         <div class="row p-b-15  ">
-                                            <!--/*   <input type="hidden" id="memNo" name="memNo" value="${login.memNo}">
-                                             <input type="hidden" id="id" name="id" value="${login.id}">
-                                             <input type="hidden" id="nickName" name="nickName" value="${login.nickName}">
-          */-->
+                                            <input type="hidden" id="id" name="id" th:value="${#authentication.Principal.member.id}">
+                                            <input type="hidden" id="username" name="username" th:value="${#authentication.Principal.member.username}">
+                                            <input type="hidden" id="nickname" name="nickname" th:value="${#authentication.Principal.member.nickname}">
+
                                              <div class="col-sm-12">
                                                  <div class="form-group">
                                                      <label>제목 : </label>

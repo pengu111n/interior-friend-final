@@ -1,350 +1,370 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org">
 
 <th:block th:fragment="setContent(content)">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>인프 | 인테리어 친구</title>
-    <meta name="description" content="GARO is a real-estate template">
-    <meta name="author" content="Kimarotec">
-    <meta name="keyword"
-          content="html5, css, bootstrap, property, real-estate theme , bootstrap template">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link th:href="@{http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800}" rel='stylesheet' type='text/css'>
+    <head>
+        <meta charset="utf-8">
+        <meta content="IE=edge" http-equiv="X-UA-Compatible">
+        <title>인프 | 인테리어 친구</title>
+        <meta content="GARO is a real-estate template" name="description">
+        <meta content="Kimarotec" name="author">
+        <meta content="html5, css, bootstrap, property, real-estate theme , bootstrap template"
+              name="keyword">
+        <meta content="width=device-width, initial-scale=1" name="viewport">
+        <link rel='stylesheet' th:href="@{http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800}"
+              type='text/css'>
 
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <link rel="shortcut icon" th:href="@{favicon.ico}" type="image/x-icon">
-    <link rel="icon" th:href="@{favicon.ico}" type="image/x-icon">
-    <meta name="description" content="GARO is a real-estate template">
-    <meta name="author" content="Kimarotec">
-    <meta name="keyword" content="html5, css, bootstrap, property, real-estate theme , bootstrap template">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link th:href="@{http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800}" rel='stylesheet' type='text/css'>
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <link rel="shortcut icon" th:href="@{favicon.ico}" type="image/x-icon">
+        <link rel="icon" th:href="@{favicon.ico}" type="image/x-icon">
+        <meta content="GARO is a real-estate template" name="description">
+        <meta content="Kimarotec" name="author">
+        <meta content="html5, css, bootstrap, property, real-estate theme , bootstrap template" name="keyword">
+        <meta content="width=device-width, initial-scale=1" name="viewport">
+        <link rel='stylesheet' th:href="@{http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800}"
+              type='text/css'>
 
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <link rel="shortcut icon" th:href="@{favicon.ico}" type="image/x-icon">
-    <link rel="icon" th:href="@{favicon.ico}" type="image/x-icon">
-    <link rel="stylesheet" th:href="@{/assets/css/normalize.css}">
-    <link rel="stylesheet" th:href="@{/assets/css/font-awesome.min.css}">
-    <link rel="stylesheet" th:href="@{/assets/css/fontello.css}">
-    <link rel="stylesheet" th:href="@{/assets/fonts/icon-7-stroke/css/pe-icon-7-stroke.css}">
-    <link rel="stylesheet" th:href="@{/assets/fonts/icon-7-stroke/css/helper.css}">
-    <link rel="stylesheet" th:href="@{/assets/css/animate.css}" media="screen">
-    <link rel="stylesheet" th:href="@{/assets/css/bootstrap-select.min.css}">
-    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.css}">
-    <link rel="stylesheet" th:href="@{/assets/css/icheck.min_all.css}">
-    <link rel="stylesheet" th:href="@{/assets/css/price-range.css}">
-    <link rel="stylesheet" th:href="@{/assets/css/owl.carousel.css}">
-    <link rel="stylesheet" th:href="@{/assets/css/owl.theme.css}">
-    <link rel="stylesheet" th:href="@{/assets/css/owl.transitions.css}">
-    <link rel="stylesheet" th:href="@{/assets/css/style.css}">
-    <link rel="stylesheet" th:href="@{/assets/css/responsive.css}">
-    <link rel="stylesheet" th:href="@{/assets/css/wizard.css}">
-    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css}"
-          integrity="sha512-Velp0ebMKjcd9RiCoaHhLXkR1sFoCCWXNp6w4zj1hfMifYB5441C+sKeBl/T/Ka6NjBiRfBBQRaQq65ekYz3UQ=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
-    <link rel="stylesheet" th:href="@{/assets/css/ArticleContentBox.css}">
-<!--    <link rel="stylesheet" th:href="@{/assets/css/Board.css}">-->
-<!--    <script src="/jQuery/jQuery-2.1.4.min.js"></script>-->
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <link rel="shortcut icon" th:href="@{favicon.ico}" type="image/x-icon">
+        <link rel="icon" th:href="@{favicon.ico}" type="image/x-icon">
+        <link rel="stylesheet" th:href="@{/assets/css/normalize.css}">
+        <link rel="stylesheet" th:href="@{/assets/css/font-awesome.min.css}">
+        <link rel="stylesheet" th:href="@{/assets/css/fontello.css}">
+        <link rel="stylesheet" th:href="@{/assets/fonts/icon-7-stroke/css/pe-icon-7-stroke.css}">
+        <link rel="stylesheet" th:href="@{/assets/fonts/icon-7-stroke/css/helper.css}">
+        <link media="screen" rel="stylesheet" th:href="@{/assets/css/animate.css}">
+        <link rel="stylesheet" th:href="@{/assets/css/bootstrap-select.min.css}">
+        <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.css}">
+        <link rel="stylesheet" th:href="@{/assets/css/icheck.min_all.css}">
+        <link rel="stylesheet" th:href="@{/assets/css/price-range.css}">
+        <link rel="stylesheet" th:href="@{/assets/css/owl.carousel.css}">
+        <link rel="stylesheet" th:href="@{/assets/css/owl.theme.css}">
+        <link rel="stylesheet" th:href="@{/assets/css/owl.transitions.css}">
+        <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+        <link rel="stylesheet" th:href="@{/assets/css/responsive.css}">
+        <link rel="stylesheet" th:href="@{/assets/css/wizard.css}">
+        <link crossorigin="anonymous"
+              integrity="sha512-Velp0ebMKjcd9RiCoaHhLXkR1sFoCCWXNp6w4zj1hfMifYB5441C+sKeBl/T/Ka6NjBiRfBBQRaQq65ekYz3UQ=="
+              referrerpolicy="no-referrer"
+              rel="stylesheet"
+              th:href="@{https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css}"/>
+        <link rel="stylesheet" th:href="@{/assets/css/ArticleContentBox.css}">
+        <!--    <link rel="stylesheet" th:href="@{/assets/css/Board.css}">-->
+        <!--    <script src="/jQuery/jQuery-2.1.4.min.js"></script>-->
 
-<!--    <script th:src="@{/assets/js/modernizr-2.6.2.min.js}"></script>-->
-<!--    <script th:src="@{/assets/js/jquery-1.10.2.min.js}"></script>-->
-        <script th:src="@{https://code.jquery.com/jquery-3.6.1.min.js}" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
-    <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js}"
-            integrity="sha512-Y2IiVZeaBwXG1wSV7f13plqlmFOx8MdjuHyYFVoYzhyRr3nH/NMDjTBSswijzADdNzMyWNetbLMfOpIPl6Cv9g=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
-    <script th:src="@{/assets/js/bootstrap-select.min.js}"></script>
-    <script th:src="@{/assets/js/bootstrap-hover-dropdown.js}"></script>
-    <script th:src="@{/assets/js/easypiechart.min.js}"></script>
-    <script th:src="@{/assets/js/jquery.easypiechart.min.js}"></script>
-    <script th:src="@{/assets/js/owl.carousel.min.js}"></script>
-    <script th:src="@{/assets/js/wow.js}"></script>
-    <script th:src="@{/assets/js/icheck.min.js}"></script>
-    <script th:src="@{/assets/js/price-range.js}"></script>
-    <script th:src="@{/assets/js/main.js}"></script>
-    <script th:src="@{/assets/js/jquery.bootstrap.wizard.js}" type="text/javascript"></script>
-    <script th:src="@{/assets/js/jquery.validate.min.js}"></script>
-    <script th:src="@{/assets/js/wizard.js}"></script>
-    <script th:src="@{/assets/js/jquery.bootstrap.wizard.js}" type="text/javascript"></script>
-    <script th:src="@{/assets/js/jquery.validate.min.js}"></script>
-    <script th:src="@{/assets/js/wizard.js}"></script>
-    <script type="text/javascript" th:src="@{/assets/js/lightslider.min.js}"></script>
-    <script>
-      $(document).ready(function () {
+        <!--    <script th:src="@{/assets/js/modernizr-2.6.2.min.js}"></script>-->
+        <!--    <script th:src="@{/assets/js/jquery-1.10.2.min.js}"></script>-->
+        <script crossorigin="anonymous"
+                integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+                th:src="@{https://code.jquery.com/jquery-3.6.1.min.js}"></script>
+        <script crossorigin="anonymous"
+                integrity="sha512-Y2IiVZeaBwXG1wSV7f13plqlmFOx8MdjuHyYFVoYzhyRr3nH/NMDjTBSswijzADdNzMyWNetbLMfOpIPl6Cv9g=="
+                referrerpolicy="no-referrer"
+                th:src="@{https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js}"></script>
+        <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+        <script th:src="@{/assets/js/bootstrap-select.min.js}"></script>
+        <script th:src="@{/assets/js/bootstrap-hover-dropdown.js}"></script>
+        <script th:src="@{/assets/js/easypiechart.min.js}"></script>
+        <script th:src="@{/assets/js/jquery.easypiechart.min.js}"></script>
+        <script th:src="@{/assets/js/owl.carousel.min.js}"></script>
+        <script th:src="@{/assets/js/wow.js}"></script>
+        <script th:src="@{/assets/js/icheck.min.js}"></script>
+        <script th:src="@{/assets/js/price-range.js}"></script>
+        <script th:src="@{/assets/js/main.js}"></script>
+        <script th:src="@{/assets/js/jquery.bootstrap.wizard.js}" type="text/javascript"></script>
+        <script th:src="@{/assets/js/jquery.validate.min.js}"></script>
+        <script th:src="@{/assets/js/wizard.js}"></script>
+        <script th:src="@{/assets/js/jquery.bootstrap.wizard.js}" type="text/javascript"></script>
+        <script th:src="@{/assets/js/jquery.validate.min.js}"></script>
+        <script th:src="@{/assets/js/wizard.js}"></script>
+        <script th:src="@{/assets/js/lightslider.min.js}" type="text/javascript"></script>
+        <script>
+            $(document).ready(function () {
 
-        $('#image-gallery').lightSlider({
-          gallery: true,
-          item: 1,
-          thumbItem: 9,
-          slideMargin: 0,
-          speed: 500,
-          auto: true,
-          loop: true,
-          onSliderLoad: function () {
-            $('#image-gallery').removeClass('cS-hidden');
-          }
-        });
-      });
-    </script>
+                $('#image-gallery').lightSlider({
+                    gallery: true,
+                    item: 1,
+                    thumbItem: 9,
+                    slideMargin: 0,
+                    speed: 500,
+                    auto: true,
+                    loop: true,
+                    onSliderLoad: function () {
+                        $('#image-gallery').removeClass('cS-hidden');
+                    }
+                });
+            });
+        </script>
 
-    <!--<script th:src="@{/assets/js/vendor/modernizr-2.6.2.min.js}"></script>
-    <script th:src="@{/assets/js/jquery-1.10.2.min.js}"></script>
-    <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
-    <script th:src="@{/assets/js/bootstrap-select.min.js}"></script>
-    <script th:src="@{/assets/js/bootstrap-hover-dropdown.js}"></script>
-    <script th:src="@{/assets/js/easypiechart.min.js}"></script>
-    <script th:src="@{/assets/js/jquery.easypiechart.min.js}"></script>
-    <script th:src="@{/assets/js/owl.carousel.min.js}"></script>
-    <script th:src="@{/assets/js/wow.js}"></script>
-    <script th:src="@{/assets/js/icheck.min.js}"></script>
-    <script th:src="@{/assets/js/price-range.js}"></script>
-    <script type="text/javascript" th:src="@{/assets/js/lightslider.min.js}"></script>
-    <script th:src="@{/assets/js/main.js}"></script>-->
-  </head>
+        <!--<script th:src="@{/assets/js/vendor/modernizr-2.6.2.min.js}"></script>
+        <script th:src="@{/assets/js/jquery-1.10.2.min.js}"></script>
+        <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+        <script th:src="@{/assets/js/bootstrap-select.min.js}"></script>
+        <script th:src="@{/assets/js/bootstrap-hover-dropdown.js}"></script>
+        <script th:src="@{/assets/js/easypiechart.min.js}"></script>
+        <script th:src="@{/assets/js/jquery.easypiechart.min.js}"></script>
+        <script th:src="@{/assets/js/owl.carousel.min.js}"></script>
+        <script th:src="@{/assets/js/wow.js}"></script>
+        <script th:src="@{/assets/js/icheck.min.js}"></script>
+        <script th:src="@{/assets/js/price-range.js}"></script>
+        <script type="text/javascript" th:src="@{/assets/js/lightslider.min.js}"></script>
+        <script th:src="@{/assets/js/main.js}"></script>-->
+    </head>
 
-  <body>
-  <div id="preloader">
-    <div id="status">&nbsp;</div>
-  </div>
-  <!-- Body content -->
-
-  <div class="header-connect">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-5 col-sm-8  col-xs-12">
-          <div class="header-half header-call">
-            <p>
-              <span><i class="pe-7s-call"></i>고객센터 1577 - 1010</span>
-              <span><i class="pe-7s-mail"></i> interiorfriend@gmail.com</span>
-            </p>
-          </div>
-        </div>
-        <div class="col-md-2 col-md-offset-5  col-sm-3 col-sm-offset-1  col-xs-12">
-          <div class="header-half header-social">
-            <ul class="list-inline">
-              <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-              <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-              <li><a href="#"><i class="fa fa-vine"></i></a></li>
-              <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-              <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-              <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
+    <body>
+    <div id="preloader">
+        <div id="status">&nbsp;</div>
     </div>
-  </div>
-  <!--End top header -->
+    <!-- Body content -->
 
-  <nav class="navbar navbar-default ">
-    <div class="container">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navigation">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" th:href="@{/}"><img th:src="@{/assets/img/logo-.png}" width="253" alt=""></a>
-      </div>
-
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse yamm" id="navigation">
-        <div class="button navbar-right">
-          <!--                    <th:block th:if="${login == null}">-->
-          <div sec:authorize="isAnonymous()">
-          <button class="navbar-btn nav-button wow fadeInRight"
-                  onclick=" window.open('/member/register', '_self')"
-                  data-wow-delay="0.48s">회원가입
-          </button>
-          <button class="navbar-btn nav-button wow bounceInRight login"
-                  onclick=" window.open('/member/login', '_self')"
-                  data-wow-delay="0.45s">로그인
-          </button>
-          </div>
-          <!-- </th:block> -->
-          <!-- <th:block th:if="${login != null}"> -->
-            <div sec:authorize="isAuthenticated()">
-              <button class="navbar-btn nav-button wow fadeInRight"
-                      onclick=" window.open('#', '_self')"
-                      data-wow-delay="0.48s"
-                      sec:authentication="name">
-              </button>
-              <button class="navbar-btn nav-button wow bounceInRight login"
-                      onclick=" window.open('/member/logout', '_self')"
-                      data-wow-delay="0.45s">로그아웃
-              </button>
+    <div class="header-connect">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5 col-sm-8  col-xs-12">
+                    <div class="header-half header-call">
+                        <p>
+                            <span><i class="pe-7s-call"></i>고객센터 1577 - 1010</span>
+                            <span><i class="pe-7s-mail"></i> interiorfriend@gmail.com</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-2 col-md-offset-5  col-sm-3 col-sm-offset-1  col-xs-12">
+                    <div class="header-half header-social">
+                        <ul class="list-inline">
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-vine"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                            <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                            <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-<!--          </th:block>-->
         </div>
-        <ul class="main-nav nav navbar-nav navbar-right">
-          <li class="wow fadeInDown" data-wow-delay="0.5s">
-            <a href="/main/introduce">회사 소개</a>
-          </li>
-          <li class="dropdown ymm-sw " data-wow-delay="0.1s">
-            <a href="index.jsp" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="200">인테리어 신청<b class="caret"></b></a>
-            <ul class="dropdown-menu navbar-nav">
-              <li><a th:href="@{/applicationboard/register}">인테리어 신청</a></li>
-              <li><a th:href="@{/applicationboard/list}">인테리어 신청 목록</a></li>
-            </ul>
-          </li>
-          <li class="dropdown ymm-sw " data-wow-delay="0.1s">
-            <a href="index.jsp" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="200">인테리어 사례<b class="caret"></b></a>
-            <ul class="dropdown-menu navbar-nav">
-              <li><a th:href="@{/interiorboard/register}">시공사례 등록</a></li>
-              <li><a th:href="@{/interiorboard/list}">시공사례 목록</a></li>
-            </ul>
-          </li>
-          <li class="dropdown ymm-sw " data-wow-delay="0.1s">
-            <a href="infoBoard.jsp" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="200">고객센터 <b class="caret"></b></a>
-            <ul class="dropdown-menu navbar-nav">
-              <li><a href="/notice/list">공지사항</a></li>
-              <li><a href="/notice/faq">FAQ</a></li>
-              <li><a href="/qna/list">1:1 문의</a></li>
-            </ul>
-          </li>
-          <li class="dropdown ymm-sw " data-wow-delay="0.1s">
-            <a href="infoBoard.jsp" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="200">마이페이지<b class="caret"></b></a>
-            <ul class="dropdown-menu navbar-nav">
-              <li><a href="/mypage/member/get?memNo=${login.memNo}">회원정보 관리</a></li>
-              <li><a href="/mypage/member/get?memNo=${login.memNo}">작성글 관리</a></li>
-            </ul>
-            <!--<th:block th:if="${login != null}">
-        <li class="profile">
-            <a href="/blog/user?cmd=profileUpload">
-                <th:block th:if="${login.fullName == null}">
-                    <img style="border-radius:50%;" alt=""
-                         th:src="@{/assets/img/defaultProfile.jpeg}"
-                         width="40px" height="40px"/>
-                </th:block>
-                <th:block th:if="${login.fullName != null}">
-                    <img style="border-radius:50%;" alt=""
-                         th:src="@{/displayFile?fileName=${login.fullName}}"
-                         width="40px" height="40px"/>
-                </th:block>
-            </a>
-        </li>
-        </th:block>-->
-          </li>
-        </ul>
-      </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-  </nav>
-  <!-- End of nav bar -->
+    </div>
+    <!--End top header -->
 
-
-
-  <div class="contatiner-fluid">
-    <th:block th:replace="${content}"></th:block>
-  </div>
-
-
-
-  <!-- Footer area-->
-  <div class="footer-area">
-    <div class=" footer">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-3 col-sm-6 wow fadeInRight animated">
-            <div class="single-footer">
-              <h4>인프에 대해서.. </h4>
-              <div class="footer-title-line"></div>
-              <img th:src="@{/assets/img/logo-.png}" width="150" alt="" class="wow pulse" data-wow-delay="1s">
-              <p>
-                인테리어 프렌드 '인프'는 <br>
-                인테리어와 관련된 고민들을<br>
-                해결해드리는 서비스입니다.
-              </p>
-              <ul class="footer-adress">
-                <li><i class="pe-7s-map-marker strong"> </i> 서울특별시 강남구 테헤란로14길</li>
-                <li><i class="pe-7s-mail strong"> </i>interiorfriend@gmail.com</li>
-                <li><i class="pe-7s-call strong"> </i> 고객센터 1577 - 1010</li>
-              </ul>
+    <nav class="navbar navbar-default ">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button class="navbar-toggle collapsed" data-target="#navigation" data-toggle="collapse" type="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" th:href="@{/}"><img alt="" th:src="@{/assets/img/logo-.png}" width="253"></a>
             </div>
-          </div>
-          <div class="col-md-3 col-sm-6 wow fadeInRight animated">
-            <div class="single-footer">
-              <h4>바로 가기 </h4>
-              <div class="footer-title-line"></div>
-              <ul class="footer-menu">
-                <li><a href="/info/notice.do">공지사항</a></li>
-                <li><a href="/board/write.do">견적신청</a></li>
-                <li><a href="/info/QNA.do">Q&A</a></li>
-                <li><a href="/info/FAQ.do">FAQ</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-md-3 col-sm-6 wow fadeInRight animated">
-            <div class="single-footer">
-              <h4>Last News</h4>
-              <div class="footer-title-line"></div>
-              <ul class="footer-blog">
-                <li>
-                  <div class="col-md-3 col-sm-4 col-xs-4 blg-thumb p0">
-                    <a href="single.html">
-                      <img th:src="@{/assets/img/demo/small-proerty-2.jpg}">
-                    </a>
-                    <span class="blg-date">12-12-2016</span>
-                  </div>
-                  <div class="col-md-8  col-sm-8 col-xs-8  blg-entry">
-                    <h6><a href="single.html">Add news functions </a></h6>
-                    <p style="line-height: 17px; padding: 8px 2px;">Lorem ipsum dolor sit amet, nulla ...</p>
-                  </div>
-                </li>
-                <li>
-                  <div class="col-md-3 col-sm-4 col-xs-4 blg-thumb p0">
-                    <a href="single.html">
-                      <img th:src="@{/assets/img/demo/small-proerty-2.jpg}">
-                    </a>
-                    <span class="blg-date">12-12-2016</span>
-                  </div>
-                  <div class="col-md-8  col-sm-8 col-xs-8  blg-entry">
-                    <h6><a href="single.html">Add news functions </a></h6>
-                    <p style="line-height: 17px; padding: 8px 2px;">Lorem ipsum dolor sit amet,
-                      nulla ...</p>
-                  </div>
-                </li>
-                <li>
-                  <div class="col-md-3 col-sm-4 col-xs-4 blg-thumb p0">
-                    <a href="single.html">
-                      <img th:src="@{/assets/img/demo/small-proerty-2.jpg}">
-                    </a>
-                    <span class="blg-date">12-12-2016</span>
-                  </div>
-                  <div class="col-md-8  col-sm-8 col-xs-8  blg-entry">
-                    <h6><a href="single.html">Add news functions </a></h6>
-                    <p style="line-height: 17px; padding: 8px 2px;">Lorem ipsum dolor sit amet, nulla ...</p>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse yamm" id="navigation">
+                <div class="button navbar-right">
+                    <!--                    <th:block th:if="${login == null}">-->
+                    <div sec:authorize="isAnonymous()">
+                        <button class="navbar-btn nav-button wow fadeInRight"
+                                data-wow-delay="0.48s"
+                                onclick=" window.open('/member/register', '_self')">회원가입
+                        </button>
+                        <button class="navbar-btn nav-button wow bounceInRight login"
+                                data-wow-delay="0.45s"
+                                onclick=" window.open('/member/login', '_self')">로그인
+                        </button>
+                    </div>
+                    <!-- </th:block> -->
+                    <!-- <th:block th:if="${login != null}"> -->
+                    <div sec:authorize="isAuthenticated()">
+                        <button class="navbar-btn nav-button wow fadeInRight"
+                                data-wow-delay="0.48s"
+                                onclick=" window.open('#', '_self')"
+                                sec:authentication="name">
+                        </button>
+                        <button class="navbar-btn nav-button wow bounceInRight login"
+                                data-wow-delay="0.45s"
+                                onclick=" window.open('/member/logout', '_self')">로그아웃
+                        </button>
+                    </div>
+                    <!--          </th:block>-->
+                </div>
+                <ul class="main-nav nav navbar-nav navbar-right">
+                    <li class="wow fadeInDown" data-wow-delay="0.5s">
+                        <a href="/main/introduce">회사 소개</a>
+                    </li>
+                    <li class="dropdown ymm-sw " data-wow-delay="0.1s">
+                        <a class="dropdown-toggle" data-delay="200" data-hover="dropdown" data-toggle="dropdown"
+                           href="index.jsp">인테리어 신청<b class="caret"></b></a>
+                        <ul class="dropdown-menu navbar-nav">
+                            <li><a th:href="@{/applicationboard/register}">인테리어 신청</a></li>
+                            <li><a th:href="@{/applicationboard/list}">인테리어 신청 목록</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown ymm-sw " data-wow-delay="0.1s">
+                        <a class="dropdown-toggle" data-delay="200" data-hover="dropdown" data-toggle="dropdown"
+                           href="index.jsp">인테리어 사례<b class="caret"></b></a>
+                        <ul class="dropdown-menu navbar-nav">
+                            <li><a th:href="@{/interiorboard/register}">시공사례 등록</a></li>
+                            <li><a th:href="@{/interiorboard/list}">시공사례 목록</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown ymm-sw " data-wow-delay="0.1s">
+                        <a class="dropdown-toggle" data-delay="200" data-hover="dropdown" data-toggle="dropdown"
+                           href="infoBoard.jsp">고객센터 <b class="caret"></b></a>
+                        <ul class="dropdown-menu navbar-nav">
+                            <li><a href="/notice/list">공지사항</a></li>
+                            <li><a href="/notice/faq">FAQ</a></li>
+                            <li><a href="/qna/list">1:1 문의</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown ymm-sw " data-wow-delay="0.1s">
+                        <a class="dropdown-toggle" data-delay="200" data-hover="dropdown" data-toggle="dropdown"
+                           href="infoBoard.jsp">마이페이지<b class="caret"></b></a>
+                        <ul class="dropdown-menu navbar-nav">
+                            <li><a href="/mypage/member/get?memNo=${login.memNo}">회원정보 관리</a></li>
+
+                            <li sec:authorize="hasRole('ROLE_INDIVIDUAL')">
+                                <a th:href="@{/applicationboard/mypagelist(id = 1)}">작성글
+                                    관리</a></li>
+
+                            <li sec:authorize="hasRole('ROLE_COMPANY')">
+                                <a th:href="@{/interiorboard/mypagelist(id = ${#authentication.Principal.member.id})}">작성글
+                                    관리</a></li>
+
+                        </ul>
+                        <!--<th:block th:if="${login != null}">
+                    <li class="profile">
+                        <a href="/blog/user?cmd=profileUpload">
+                            <th:block th:if="${login.fullName == null}">
+                                <img style="border-radius:50%;" alt=""
+                                     th:src="@{/assets/img/defaultProfile.jpeg}"
+                                     width="40px" height="40px"/>
+                            </th:block>
+                            <th:block th:if="${login.fullName != null}">
+                                <img style="border-radius:50%;" alt=""
+                                     th:src="@{/displayFile?fileName=${login.fullName}}"
+                                     width="40px" height="40px"/>
+                            </th:block>
+                        </a>
+                    </li>
+                    </th:block>-->
+                    </li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+    <!-- End of nav bar -->
+
+
+    <div class="contatiner-fluid">
+        <th:block th:replace="${content}"></th:block>
     </div>
 
-    <div class="footer-copy text-center">
-      <div class="container">
-        <div class="row">
-          <div class="pull-left">
-            <span> (C) <a href="http://www.KimaroTec.com">인프</a> , All rights reserved 2022  </span>
-          <div sec:authorize="isAuthenticated()">
-            <p sec:authentication="principal.member.nickname"></p>
-            <p th:text="${#authentication}"></p>
-          </div>
-          </div>
-          <div class="bottom-menu pull-right">
-            <ul>
-              <li><a class="wow fadeInUp animated" href="#" data-wow-delay="0.2s">메인으로</a></li>
-            </ul>
-          </div>
+
+    <!-- Footer area-->
+    <div class="footer-area">
+        <div class=" footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 col-sm-6 wow fadeInRight animated">
+                        <div class="single-footer">
+                            <h4>인프에 대해서.. </h4>
+                            <div class="footer-title-line"></div>
+                            <img alt="" class="wow pulse" data-wow-delay="1s" th:src="@{/assets/img/logo-.png}"
+                                 width="150">
+                            <p>
+                                인테리어 프렌드 '인프'는 <br>
+                                인테리어와 관련된 고민들을<br>
+                                해결해드리는 서비스입니다.
+                            </p>
+                            <ul class="footer-adress">
+                                <li><i class="pe-7s-map-marker strong"> </i> 서울특별시 강남구 테헤란로14길</li>
+                                <li><i class="pe-7s-mail strong"> </i>interiorfriend@gmail.com</li>
+                                <li><i class="pe-7s-call strong"> </i> 고객센터 1577 - 1010</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 wow fadeInRight animated">
+                        <div class="single-footer">
+                            <h4>바로 가기 </h4>
+                            <div class="footer-title-line"></div>
+                            <ul class="footer-menu">
+                                <li><a href="/info/notice.do">공지사항</a></li>
+                                <li><a href="/board/write.do">견적신청</a></li>
+                                <li><a href="/info/QNA.do">Q&A</a></li>
+                                <li><a href="/info/FAQ.do">FAQ</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 wow fadeInRight animated">
+                        <div class="single-footer">
+                            <h4>Last News</h4>
+                            <div class="footer-title-line"></div>
+                            <ul class="footer-blog">
+                                <li>
+                                    <div class="col-md-3 col-sm-4 col-xs-4 blg-thumb p0">
+                                        <a href="single.html">
+                                            <img th:src="@{/assets/img/demo/small-proerty-2.jpg}">
+                                        </a>
+                                        <span class="blg-date">12-12-2016</span>
+                                    </div>
+                                    <div class="col-md-8  col-sm-8 col-xs-8  blg-entry">
+                                        <h6><a href="single.html">Add news functions </a></h6>
+                                        <p style="line-height: 17px; padding: 8px 2px;">Lorem ipsum dolor sit amet,
+                                            nulla ...</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="col-md-3 col-sm-4 col-xs-4 blg-thumb p0">
+                                        <a href="single.html">
+                                            <img th:src="@{/assets/img/demo/small-proerty-2.jpg}">
+                                        </a>
+                                        <span class="blg-date">12-12-2016</span>
+                                    </div>
+                                    <div class="col-md-8  col-sm-8 col-xs-8  blg-entry">
+                                        <h6><a href="single.html">Add news functions </a></h6>
+                                        <p style="line-height: 17px; padding: 8px 2px;">Lorem ipsum dolor sit amet,
+                                            nulla ...</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="col-md-3 col-sm-4 col-xs-4 blg-thumb p0">
+                                        <a href="single.html">
+                                            <img th:src="@{/assets/img/demo/small-proerty-2.jpg}">
+                                        </a>
+                                        <span class="blg-date">12-12-2016</span>
+                                    </div>
+                                    <div class="col-md-8  col-sm-8 col-xs-8  blg-entry">
+                                        <h6><a href="single.html">Add news functions </a></h6>
+                                        <p style="line-height: 17px; padding: 8px 2px;">Lorem ipsum dolor sit amet,
+                                            nulla ...</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+
+        <div class="footer-copy text-center">
+            <div class="container">
+                <div class="row">
+                    <div class="pull-left">
+                        <span> (C) <a href="http://www.KimaroTec.com">인프</a> , All rights reserved 2022  </span>
+                        <div sec:authorize="isAuthenticated()">
+                            <p sec:authentication="principal.member.nickname"></p>
+                            <p th:text="${#authentication}"></p>
+                        </div>
+                    </div>
+                    <div class="bottom-menu pull-right">
+                        <ul>
+                            <li><a class="wow fadeInUp animated" data-wow-delay="0.2s" href="#">메인으로</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-  </body>
+    </body>
 </th:block>
 </html>

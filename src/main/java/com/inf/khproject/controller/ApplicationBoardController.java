@@ -50,6 +50,15 @@ public class ApplicationBoardController {
         model.addAttribute("result",applicationBoardService.getList(applicationPageRequestDTO));
     }
 
+    @GetMapping(value = "/mypagelist")
+    public void mypagelist( long id, ApplicationPageRequestDTO applicationPageRequestDTO, Model model) {
+        log.info("Listing application");
+        log.info("id: " + id);
+
+        model.addAttribute("mypageResult",applicationBoardService.getMypageList(applicationPageRequestDTO,id));
+    }
+
+
     @GetMapping({"/read", "/modify"})
     public void read(long boardNo, @ModelAttribute("requestDTO") ApplicationPageRequestDTO requestDTO, Model model ){
 
