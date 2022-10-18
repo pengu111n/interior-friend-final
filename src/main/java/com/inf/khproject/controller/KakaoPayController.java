@@ -1,8 +1,14 @@
 package com.inf.khproject.controller;
 
+import com.inf.khproject.entity.ApplicationBoard;
+import com.inf.khproject.service.KakaoPayService;
+import com.inf.khproject.vo.ApproveResponse;
+import com.inf.khproject.vo.ReadyResponse;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -12,78 +18,57 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+@Log4j2
 @Controller
-@RequestMapping("/applicationboard/read")
+@SessionAttributes({"tid", "order"})
+@RequiredArgsConstructor
 public class KakaoPayController {
 
-//    private final KakaoPayService kakaoPayService;
+    private final KakaoPayService kakaoPayService;
 
-    @RequestMapping("/jq.cls")
-    public ModelAndView main(ModelAndView mv, HttpSession s, RedirectView rv) {
-        mv.setViewName("applicationboard/read");
-        return mv;
+    // 카카오페이결제 요청
+    @GetMapping("/order/pay")
+    public @ResponseBody ReadyResponse payReady(@RequestParam(name = "total_amount") int totalAmount, ApplicationBoard applicationBoard, Model model) {
+
+        log.info("주문가격:"+totalAmount);
+
+        // 카카오 결제 준비하기	- 결제요청 service 실행.
+        ReadyResponse readyResponse = kakaoPayService.payReady(totalAmount);
+
+        // 요청처리후 받아온 결재고유 번호(tid)를 모델에 저장
+        model.addAttribute("tid", readyResponse.getTid());
+        log.info("결재고유 번호: " + readyResponse.getTid());
+
+        // Order정보를 모델에 저장
+        model.addAttribute("order", applicationBoard);
+
+        return readyResponse; // 클라이언트에 보냄.(tid,next_redirect_pc_url이 담겨있음.)
     }
 
-    @RequestMapping("/pay.cls")
-    public ModelAndView serve(ModelAndView mv, HttpSession s, RedirectView redirectView) {
-        mv.setViewName("applicationboard/read");
-        return mv;
+    // 결제승인요청
+    @GetMapping("/order/pay/completed")
+    public String payCompleted(@RequestParam("pg_token") String pgToken, @ModelAttribute("tid") String tid, @ModelAttribute("order") ApplicationBoard applicationBoard,  Model model) {
+
+        log.info("결제승인 요청을 인증하는 토큰: " + pgToken);
+        log.info("주문정보: " + applicationBoard.getBudget());
+        log.info("결재고유 번호: " + tid);
+
+        // 카카오 결재 요청하기
+        ApproveResponse approveResponse = kakaoPayService.payApprove(tid, pgToken);
+
+        return "redirect:/applicationboard/list";
     }
 
-    @RequestMapping("/kakaopay.cls")
-    @ResponseBody
-    public String kakaopay() {
+    // 결제 취소시 실행 url
+    @GetMapping("/order/pay/cancel")
+    public String payCancel() {
+        return "redirect:/applicationboard/list";
+    }
 
-        try {
-            URL address = new URL("https://kapi.kakao.com/v1/payment/ready");
-            HttpURLConnection httpURLConnection = (HttpURLConnection) address.openConnection();
-            httpURLConnection.setRequestMethod("POST");
-            httpURLConnection.setRequestProperty("Authorization", "KakaoAK 5d0505d0b5dfa794f979a2b4d2fc26c4");
-            httpURLConnection.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
-            httpURLConnection.setDoOutput(true);
-
-            String parameter = "";
-
-            parameter += "cid=TC0ONETIME&";
-            parameter += "tid=tid&";
-            parameter += "partner_order_id=partner_order_id&";
-            parameter += "partner_user_id=partner_user_id&";
-            parameter += "pg_token=pg_token&";
-            parameter += "item_name=item_name&";
-            parameter += "quantity=1&";
-            parameter += "total_amount=1&";
-            parameter += "tax_free_amount=0&";
-            parameter += "approval_url=https://localhost:8080/applicationboard/list&";
-            parameter += "cancel_url=https://localhost:8080/applicationboard/list&";
-            parameter += "fail_url=https://localhost:8080/applicationboard/list";
-
-            OutputStream outputStream = httpURLConnection.getOutputStream();
-            DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
-            dataOutputStream.writeBytes(parameter);
-            dataOutputStream.close();
-
-            int result = httpURLConnection.getResponseCode();
-
-            InputStream inputStream;
-
-            if (result == 200) {
-                inputStream = httpURLConnection.getInputStream();
-            } else {
-                inputStream = httpURLConnection.getErrorStream();
-            }
-
-            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-
-            return bufferedReader.readLine();
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return "{\"result\":\"NO\"}";
+    // 결제 실패시 실행 url
+    @GetMapping("/order/pay/fail")
+    public String payFail() {
+        return "redirect:/applicationboard/list";
     }
 
 }

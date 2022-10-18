@@ -395,16 +395,25 @@
 
                             $("[id='confirmBtn']").click(function () {
 
+                                var totalAmount = [[${dto.budget}]];
+
+                                console.log(totalAmount);
+
                                 $.ajax({
-                                    url: '/applicationboard/read/kakaopay.cls',
-                                    dataType: 'json',
-                                    success: function (data) {
-                                        var box = data.next_redirect_pc_url;
-                                        window.open(box);
+
+                                    type: 'get',
+                                    url: '/order/pay',
+                                    data: {
+                                        total_amount: totalAmount
+                                    },
+
+                                    success: function (response) {
+                                        location.href = response.next_redirect_pc_url;
                                     },
                                     error: function (error) {
                                         alert(error);
                                     }
+
                                 });
                             });
                         });
