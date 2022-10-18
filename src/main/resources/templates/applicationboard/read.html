@@ -391,11 +391,10 @@
                             str += '    </div>';
                         })
 
-                        listGroup.html(str);
-
                         $(function () {
 
-                            $('#confirmBtn').click(function () {
+                            $("[id='confirmBtn']").click(function () {
+
                                 $.ajax({
                                     url: '/applicationboard/read/kakaopay.cls',
                                     dataType: 'json',
@@ -408,8 +407,9 @@
                                     }
                                 });
                             });
-
                         });
+
+                        listGroup.html(str);
 
                     });
                 }
