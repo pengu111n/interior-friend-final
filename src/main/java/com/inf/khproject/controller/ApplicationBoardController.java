@@ -2,6 +2,7 @@ package com.inf.khproject.controller;
 
 import com.inf.khproject.dto.ApplicationBoardDTO;
 import com.inf.khproject.dto.ApplicationPageRequestDTO;
+import com.inf.khproject.dto.ApplicationPageResultDTO;
 import com.inf.khproject.service.ApplicationBoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -55,8 +56,10 @@ public class ApplicationBoardController {
         log.info("boardNo: " + boardNo);
 
         ApplicationBoardDTO dto = applicationBoardService.read(boardNo);
+        ApplicationPageResultDTO<ApplicationBoardDTO, Object[]> result = applicationBoardService.getList(requestDTO);
 
         model.addAttribute("dto", dto);
+        model.addAttribute("result", result);
 
     }
 
