@@ -21,6 +21,7 @@
             <div class="container">
                 <div class="clearfix padding-top-40">
 
+                    <div th:if="${dto.status == 0}">
                     <div class="col-md-8 single-property-content prp-style-1 ">
 
 
@@ -273,6 +274,15 @@
 
                         </aside>
                     </div>
+                    </div>
+                    <div th:if="${dto.status == 1}">
+                        <div style="display: flex; justify-content: center; align-items: center;">
+                            <h4>거래 진행 중인 견적입니다.</h4>
+                        </div>
+                        <div style="display: flex; justify-content: center; align-items: center;">
+                            <button class="btn-primary" onclick="location.href='/applicationboard/list';"> < 돌아가기 </button>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -396,6 +406,7 @@
                             $("[id='confirmBtn']").click(function () {
 
                                 var totalAmount = [[${dto.budget}]];
+                                var boardNo = [[${dto.boardNo}]]
 
                                 console.log(totalAmount);
 
@@ -404,7 +415,8 @@
                                     type: 'get',
                                     url: '/order/pay',
                                     data: {
-                                        total_amount: totalAmount
+                                        total_amount: totalAmount,
+                                        board_no: boardNo
                                     },
 
                                     success: function (response) {

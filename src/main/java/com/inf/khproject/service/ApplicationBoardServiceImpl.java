@@ -130,6 +130,7 @@ public class ApplicationBoardServiceImpl implements ApplicationBoardService {
             entity.setBudget(dto.getBudget());
             entity.setPart(dto.getPart());
             entity.setRequired(dto.getRequired());
+            entity.setStatus(dto.getStatus());
 
             applicationBoardRepository.save(entity);
 
@@ -145,6 +146,28 @@ public class ApplicationBoardServiceImpl implements ApplicationBoardService {
             });
 
         }
+    }
+
+//    @Transactional
+//    @Override
+//    public ApplicationBoardDTO get(Long boardNo) {
+//
+//        Object result = applicationBoardRepository.getApplicationboardByBoardNo(boardNo);
+//
+//        return entityToDto((ApplicationBoard) result);
+//
+//    }
+
+    @Transactional
+    @Override
+    public void modifyStatusConfirmed(ApplicationBoardDTO applicationBoardDTO) {
+
+        ApplicationBoard applicationBoard = applicationBoardRepository.getOne(applicationBoardDTO.getBoardNo());
+
+        applicationBoard.changeStatus(1);
+
+        applicationBoardRepository.save(applicationBoard);
+
     }
 
 }

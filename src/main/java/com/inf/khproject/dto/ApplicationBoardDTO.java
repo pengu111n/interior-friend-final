@@ -32,6 +32,7 @@ public class ApplicationBoardDTO {
 	private String part;
 	private String required;
 	private int view_count;
+	private int status;
 
 	private LocalDateTime regDate;
 	private LocalDateTime modDate;
