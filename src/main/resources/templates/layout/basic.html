@@ -45,6 +45,8 @@
           integrity="sha512-Velp0ebMKjcd9RiCoaHhLXkR1sFoCCWXNp6w4zj1hfMifYB5441C+sKeBl/T/Ka6NjBiRfBBQRaQq65ekYz3UQ=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <link rel="stylesheet" th:href="@{/assets/css/ArticleContentBox.css}">
+    <link rel="stylesheet" th:href="@{/css/socialLogin.css}">
+    <!-- CSS only -->
 <!--    <link rel="stylesheet" th:href="@{/assets/css/Board.css}">-->
 <!--    <script src="/jQuery/jQuery-2.1.4.min.js"></script>-->
 
@@ -154,31 +156,42 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse yamm" id="navigation">
         <div class="button navbar-right">
-          <!--                    <th:block th:if="${login == null}">-->
+
           <div sec:authorize="isAnonymous()">
-          <button class="navbar-btn nav-button wow fadeInRight"
-                  onclick=" window.open('/member/register', '_self')"
-                  data-wow-delay="0.48s">회원가입
-          </button>
-          <button class="navbar-btn nav-button wow bounceInRight login"
-                  onclick=" window.open('/member/login', '_self')"
-                  data-wow-delay="0.45s">로그인
-          </button>
+            <button class="navbar-btn nav-button wow fadeInRight"
+                    onclick=" window.open('/member/register', '_self')"
+                    data-wow-delay="0.48s">회원가입
+            </button>
+            <button class="navbar-btn nav-button wow bounceInRight login"
+                    onclick=" window.open('/member/login', '_self')"
+                    data-wow-delay="0.45s">로그인
+            </button>
           </div>
-          <!-- </th:block> -->
-          <!-- <th:block th:if="${login != null}"> -->
             <div sec:authorize="isAuthenticated()">
-              <button class="navbar-btn nav-button wow fadeInRight"
-                      onclick=" window.open('#', '_self')"
-                      data-wow-delay="0.48s"
-                      sec:authentication="name">
-              </button>
-              <button class="navbar-btn nav-button wow bounceInRight login"
-                      onclick=" window.open('/member/logout', '_self')"
-                      data-wow-delay="0.45s">로그아웃
-              </button>
+              <div th:if="${session.member == null}">
+                <button class="navbar-btn nav-button wow fadeInRight"
+                        onclick=" window.open('#', '_self')"
+                        data-wow-delay="0.48s"
+                        sec:authentication="name">
+                </button>
+                <button class="navbar-btn nav-button wow bounceInRight login"
+                        onclick=" window.open('/member/logout', '_self')"
+                        data-wow-delay="0.45s">로그아웃
+                </button>
+              </div>
+              <div th:if="${session.member != null}">
+                <button class="navbar-btn nav-button wow fadeInRight"
+                        onclick=" window.open('#', '_self')"
+                        data-wow-delay="0.48s"
+                        th:text="${session.member.nickname}">
+                </button>
+                <button class="navbar-btn nav-button wow bounceInRight login"
+                        onclick=" window.open('/member/logout', '_self')"
+                        data-wow-delay="0.45s">로그아웃
+                </button>
+              </div>
             </div>
-<!--          </th:block>-->
+
         </div>
         <ul class="main-nav nav navbar-nav navbar-right">
           <li class="wow fadeInDown" data-wow-delay="0.5s">
@@ -201,9 +214,9 @@
           <li class="dropdown ymm-sw " data-wow-delay="0.1s">
             <a href="infoBoard.jsp" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="200">고객센터 <b class="caret"></b></a>
             <ul class="dropdown-menu navbar-nav">
-              <li><a href="/notice/list">공지사항</a></li>
-              <li><a href="/notice/faq">FAQ</a></li>
-              <li><a href="/qna/list">1:1 문의</a></li>
+              <li><a href="/service-center/notice/list">공지사항</a></li>
+              <li><a href="/service-center/faq">FAQ</a></li>
+              <li><a href="/service-center/qna/list">1:1 문의</a></li>
             </ul>
           </li>
           <li class="dropdown ymm-sw " data-wow-delay="0.1s">
@@ -332,7 +345,6 @@
           <div class="pull-left">
             <span> (C) <a href="http://www.KimaroTec.com">인프</a> , All rights reserved 2022  </span>
           <div sec:authorize="isAuthenticated()">
-            <p sec:authentication="principal.member.nickname"></p>
             <p th:text="${#authentication}"></p>
           </div>
           </div>

@@ -51,6 +51,23 @@ public class Member{
         this.role = role;
     }
 
+    @Builder
+    public Member(String nickname, String email, String fileName) {
+        this.username = username;
+        this.email = email;
+        this.fileName = fileName;
+    }
+
+    public String getRoleValue(){
+        return this.role.getValue();
+    }
+
+    public Member update(String email, String fileName){
+        this.email = email;
+        this.fileName = fileName;
+        this.isSocial = true;
+        return this;
+    }
 
 }
 

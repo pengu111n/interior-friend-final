@@ -25,7 +25,7 @@
             <div class="box-for overflow">
                 <div class="col-md-12 col-xs-12 register-blocks">
                     <h2>새 계정 :</h2>
-                    <form name="insForm" action="register" method="post" onsubmit="return fnSubmit(); SUMaddress();" content>
+                    <form id="registerForm" name="insForm" action="register" method="post" onsubmit="return fnSubmit(); SUMaddress();" content>
                         <div class="form-group">
                         	<label for="rank">회원분류</label>
                         		<select id="rank" name ="rank" class="selectpicker show-tick form-control" onchange="changeRank()">
@@ -109,7 +109,7 @@
                             <label for="email">이메일</label>
                             <span>
                             <input type="text" class="form-control" id="email" name="email" placeholder="이메일">
-                            <button type="button" class="btn btn-default" id="confirmEmailBtn" onclick="confirmMail()">확인</button>
+                            <button type="button" class="btn btn-default" id="confirmEmailBtn">확인</button>
                             </span>
                             <b class="sendMail">해당 이메일로 인증번호 발송이 완료되었습니다. 확인부탁드립니다.</b>
                             <b class="empty emptyMail">필수 정보입니다.</b>
@@ -157,7 +157,7 @@
 <script type="text/javascript" th:src="@{/js/address.js}"></script>
 
 <script type="text/javascript" th:src="@{/js/memberUpload.js}"></script>
-<script type="text/javascript" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js}"></script>
+<!--<script type="text/javascript" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js}"></script>-->
 
 
 <!-- End page header -->

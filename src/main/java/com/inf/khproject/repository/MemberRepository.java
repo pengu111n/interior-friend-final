@@ -36,4 +36,6 @@ public interface MemberRepository extends JpaRepository<Member, String> {
     @Query("select count(m) from Member m where m.username = :username and m.name = :name")
     int existusernameandname(@Param("username") String username, @Param("name") String name) throws Exception;
 
+    Optional<Member> findByEmail(@Param("email") String email);
+
 }

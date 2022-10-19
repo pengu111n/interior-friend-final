@@ -1,4 +1,4 @@
-var template = Handlebars.compile($("#template").html());
+//var template = Handlebars.compile($("#template").html());
 
 $(".fileDrop").on("dragenter dragover", function (event) {
   event.preventDefault(); // 기본효과를 막음
@@ -54,7 +54,8 @@ $(".uploadedList").on("click", ".delbtn", function (event) {
   });
 });
 var auth;
-function confirmMail() {
+$("#confirmEmailBtn").click(function (event) {
+  event.preventDefault();
   $.ajax({
     type: "POST",
     url: "/member/confirmMail",
@@ -65,12 +66,16 @@ function confirmMail() {
       console.log(data);
       auth = data;
       $("#confirmEmailBtn").attr("disabled", true);
+      return false;
     },
     error: function(){
         $(".invalidEmail").show()
     }
   });
-};
+});
+
+
+
 
 function onKeyMailConfirm(){
     if(auth != $("#confirmMailText").val()){

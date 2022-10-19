@@ -2,6 +2,7 @@ package com.inf.khproject.config;
 
 import com.inf.khproject.security.handler.MemberHandler;
 import com.inf.khproject.security.service.CustomMemberDetailService;
+import com.inf.khproject.security.service.CustomOauth2MemberDetailService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,8 @@ public class SecurityConfig {
 
     private final UserDetailsService CustomMemberDetailService;
     private final CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
+
+    private final CustomOauth2MemberDetailService customOauth2MemberDetailService;
     @Bean
     PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -57,14 +60,24 @@ public class SecurityConfig {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring()
-                .antMatchers("/resources/**");
+                .antMatchers("/resources/**", "/error", "/favicon.ico");
     }
 
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http)throws Exception{
-        http.authorizeHttpRequests()
+        http.csrf().disable()
+                .headers().frameOptions().disable()
+            .and().authorizeHttpRequests()
                 .antMatchers("/member/**", "/").permitAll()
+                .antMatchers("/applicationboard/register").hasAnyRole("INDIVIDUAL", "ADMIN")
+                .antMatchers("/applicationboard/list").permitAll()
+                .antMatchers("/applicationboard/read").authenticated()
+                .antMatchers("/interiorboard/register").hasAnyRole("COMPANY", "ADMIN")
+                .antMatchers("/interiorboard/**").permitAll()
+                .antMatchers("/service-center/notice/register","/service-center/notice/modify","/service-center/notice/remove").hasRole("ADMIN")
+                .antMatchers("/service-center/qna/**").authenticated()
+                .antMatchers("/service-center/**").permitAll()
             .and().formLogin()
                 .loginPage("/member/login")
                 .defaultSuccessUrl("/")
@@ -79,7 +92,14 @@ public class SecurityConfig {
                 .rememberMeParameter("remember")
                 .tokenValiditySeconds(3600)
                 .userDetailsService(CustomMemberDetailService)
-            .and().csrf().disable();
+            .and().oauth2Login()
+                .defaultSuccessUrl("/")
+                .userInfoEndpoint()
+                .userService(customOauth2MemberDetailService);
+            
+
+
+
         return http.build();
     }
 
