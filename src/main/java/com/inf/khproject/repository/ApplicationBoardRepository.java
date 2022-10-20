@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -25,6 +26,9 @@ public interface ApplicationBoardRepository extends JpaRepository<ApplicationBoa
     @Modifying
     @Transactional
     void updateview_count(long boardNo);
+
+    @Query("select a from ApplicationBoard a where a.boardNo =:boardNo")
+    Object getApplicationboardByBoardNo(@Param("boardNo") Long boardNo);
 
 
 }

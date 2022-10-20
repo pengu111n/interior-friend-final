@@ -58,31 +58,33 @@
                                     type=${applicationPageRequestDTO.type} ,
                                     keyword = ${applicationPageRequestDTO.keyword})}">
 
-                                   <img style="height: 150px;" th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].path != null }"
-                                        th:src="|/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|" >
+                                   <img style="height: 150px;"
+                                        th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].path != null }"
+                                        th:src="|/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|">
                                    <img th:unless="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].path != null }"
-                                        th:src="@{/assets/img/logo.png}" >
-
+                                        th:src="@{/assets/img/logo.png}">
                                </a>
 
                             </div>
 
                             <div class="item-entry overflow">
                                 <h5 style="font-size: 14px; clear:both">
-                                    <a th:href="@{/applicationboard/read(boardNo = ${dto.boardNo},
-                                    page= ${result.page},
-                                    type=${applicationPageRequestDTO.type} ,
-                                    keyword = ${applicationPageRequestDTO.keyword})}">
-                                     [[${dto.title}]]</a>
+                                    <span th:if="${dto.status == 1}" style="color: #b92c28"><b>[ 거래확정 ]</b></span>
+                                    <span><a th:href="@{/applicationboard/read(
+                                                                    boardNo = ${dto.boardNo},
+                                                                    page= ${result.page},
+                                                                    type=${applicationPageRequestDTO.type},
+                                                                    keyword = ${applicationPageRequestDTO.keyword}
+                                                                    )}">[[${dto.title}]]</a></span>
                                 <div class="dot-hr"></div>
                                 <span class="pull-left"><b> [[${dto.address}]] </b></span>
                                 <span class="proerty-price pull-right"> ￦ [[${dto.budget}]] </span>
 
-                                <div class="property-icon">
+                                <span class="property-icon pull-left">
                                         [[${dto.category}]] |
                                     [[${dto.part}]] |
                                     [[${dto.area}]]평
-                                </div>
+                                </span>
                                 </h5>
                             </div>
                         </div>
@@ -103,7 +105,8 @@
 
                                 <li th:class="'page-item' + ${result.page == page?'active':''}"
                                     th:each="page: ${result.pageList}">
-                                    <a class="page-link" th:href="@{/applicationboard/list(page=${page})}">[[${page}]]</a>
+                                    <a class="page-link"
+                                       th:href="@{/applicationboard/list(page=${page})}">[[${page}]]</a>
                                 </li>
 
                                 <li class="page-item" th:if="${result.next}">
@@ -116,7 +119,6 @@
                 </div>
             </div>
         </div>
-
 
 
     </th:block>

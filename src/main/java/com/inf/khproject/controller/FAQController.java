@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/service-center/faq")
+@RequestMapping("/servicecenter/faq")
 @Log4j2
 @RequiredArgsConstructor
 public class FAQController {
@@ -15,7 +15,7 @@ public class FAQController {
     @GetMapping("")
     public String index() {
 
-        return "/service-center/faq";
+        return "/servicecenter/faq";
 
     }
 
