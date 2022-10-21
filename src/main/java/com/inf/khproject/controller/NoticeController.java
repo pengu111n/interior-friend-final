@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/service-center/notice")
+@RequestMapping("/servicecenter/notice")
 @Log4j2
 @RequiredArgsConstructor
 public class NoticeController {
@@ -24,7 +24,7 @@ public class NoticeController {
     @GetMapping("/")
     public String index() {
 
-        return "redirect:/service-center/notice/list";
+        return "redirect:/servicecenter/notice/list";
 
     }
 
@@ -51,7 +51,7 @@ public class NoticeController {
 
         redirectAttributes.addFlashAttribute("msg", noticeNo);
 
-        return "redirect:/service-center/notice/list";
+        return "redirect:/servicecenter/notice/list";
 
     }
 
@@ -77,7 +77,7 @@ public class NoticeController {
         redirectAttributes.addAttribute("page", requestDTO.getPage());
         redirectAttributes.addAttribute("noticeNo", noticeDTO.getNoticeNo());
 
-        return "redirect:/service-center/notice/read";
+        return "redirect:/servicecenter/notice/read";
 
     }
 
@@ -90,7 +90,7 @@ public class NoticeController {
 
         redirectAttributes.addFlashAttribute("msg", noticeNo);
 
-        return "redirect:/service-center/notice/list";
+        return "redirect:/servicecenter/notice/list";
 
     }
 

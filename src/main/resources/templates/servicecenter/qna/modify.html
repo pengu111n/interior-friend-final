@@ -23,7 +23,7 @@
         <section>
             <div class="container">
                 <div class="qnaform">
-                    <form th:action="@{/service-center/qna/modify}" th:method="post">
+                    <form th:action="@{/servicecenter/qna/modify}" th:method="post">
                         <!-- 카테고리 -->
                         <div class="qnaform__category outside form-group">
                             <span class="left">분류</span>
@@ -71,7 +71,7 @@
                 }
 
                 actionForm
-                    .attr("action", "/service-center/qna/modify")
+                    .attr("action", "/servicecenter/qna/modify")
                     .attr("method", "post")
                     .submit();
 

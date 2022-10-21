@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
+
+    <th:block th:fragment="content">
+
+        <div class="page-head">
+            <div class="container">
+                <div class="row">
+                    <div class="page-head-content">
+                        <h1 class="page-title">인테리어 견적</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="content-area single-property" style="background-color: #FCFCFC;">&nbsp;
+            <div class="container">
+                <div class="clearfix padding-top-40">
+                    <form th:action="@{/applicationboard/completepayment}" th:method="post">
+                        <input type="hidden" name="status" th:value="${dto.status}">
+                        <input type="hidden" name="boardNo" th:value="${dto.boardNo}">
+                    </form>
+
+                    <div style="display: flex; justify-content: center; align-items: center;">
+                        <h4>결제에 성공하였습니다</h4>
+                    </div>
+                    <div style="display: flex; justify-content: center; align-items: center;">
+                        <button class="btn-primary returnBtn" type="submit"> < 돌아가기 </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script th:inline="javascript">
+
+            var actionForm = $("form");
+
+            $(".returnBtn").click(function () {
+
+                actionForm
+                    .attr("action", "/applicationboard/completepayment")
+                    .attr("method", "post")
+                    .submit();
+
+            });
+
+        </script>
+
+    </th:block>
+
+</th:block>
+<html>

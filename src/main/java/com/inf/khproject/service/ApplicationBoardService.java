@@ -20,6 +20,8 @@ public interface ApplicationBoardService {
     Long register(ApplicationBoardDTO applicationBoardDTO);
     void remove(Long boardNo);
     void modify(ApplicationBoardDTO dto);
+//    ApplicationBoardDTO get(Long boardNo);
+    void modifyStatusConfirmed(ApplicationBoardDTO applicationBoardDTO);
 
 
 
@@ -39,6 +41,7 @@ public interface ApplicationBoardService {
                 .part(applicationBoard.getPart())
                 .required(applicationBoard.getRequired())
                 .view_count(applicationBoard.getView_count())
+                .status(applicationBoard.getStatus())
                 .regDate(applicationBoard.getRegDate())
                 .modDate(applicationBoard.getModDate())
                 .build();
@@ -72,6 +75,7 @@ public interface ApplicationBoardService {
                 .part(applicationBoard.getPart())
                 .required(applicationBoard.getRequired())
                 .view_count(applicationBoard.getView_count())
+                .status(applicationBoard.getStatus())
                 .regDate(applicationBoard.getRegDate())
                 .modDate(applicationBoard.getModDate())
                 .build();
@@ -89,7 +93,7 @@ public interface ApplicationBoardService {
                 .boardNo(dto.getBoardNo())
                 .id(dto.getId())
                 .nickName(dto.getNickName())
-               .username(dto.getUsername())
+                .username(dto.getUsername())
                 .title(dto.getTitle())
                 .category(dto.getCategory())
                 .address(dto.getAddress())
@@ -100,6 +104,7 @@ public interface ApplicationBoardService {
                 .part(dto.getPart())
                 .required(dto.getRequired())
                 .view_count(dto.getView_count())
+                .status(dto.getStatus())
                 .build();
 
         entityMap.put("applicationBoard", applicationBoard);

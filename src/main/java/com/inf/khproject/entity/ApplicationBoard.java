@@ -67,4 +67,14 @@ public class ApplicationBoard extends BaseEntity {
     @ColumnDefault("1")
     private int view_count;
 
+
+
+
+    @Column(columnDefinition = "int default 0")
+    private Integer status;
+
+    public void changeStatus(Integer status) {
+        this.status = status;
+    }
+
 }

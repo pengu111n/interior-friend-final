@@ -38,17 +38,17 @@
                 </div>
             </div>
 
-            <form action="/service-center/notice/remove" method="post">
+            <form action="/servicecenter/notice/remove" method="post">
                 <input type="hidden" name="noticeNo" th:value="${dto.noticeNo}">
             </form>
 
             <div class="text-center">
-                <a th:href="@{/service-center/notice/modify(noticeNo=${dto.noticeNo}, page=${requestDTO.page})}">
+                <a th:href="@{/servicecenter/notice/modify(noticeNo=${dto.noticeNo}, page=${requestDTO.page})}">
                     <button type="button" class="btn btn-primary">수정</button></a>
 
                 <button type="button" class="btn btn-primary removeBtn">삭제</button>
 
-                <a th:href="@{/service-center/notice/list(page=${requestDTO.page})}">
+                <a th:href="@{/servicecenter/notice/list(page=${requestDTO.page})}">
                     <button type="button" class="btn btn-primary">목록</button></a>
             </div>
 
@@ -65,7 +65,7 @@
                 }
 
                 actionForm
-                    .attr("action", "/service-center/notice/remove")
+                    .attr("action", "/servicecenter/notice/remove")
                     .attr("method", "post")
                     .submit();
 

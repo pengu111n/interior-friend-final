@@ -49,17 +49,17 @@
 
             </div>
 
-            <form action="/service-center/qna/remove" method="post">
+            <form action="/servicecenter/qna/remove" method="post">
                 <input type="hidden" name="qnaNo" th:value="${dto.qnaNo}">
             </form>
 
             <div class="text-center">
-                <a th:href="@{/service-center/qna/modify(qnaNo=${dto.qnaNo}, page=${requestDTO.page})}">
+                <a th:href="@{/servicecenter/qna/modify(qnaNo=${dto.qnaNo}, page=${requestDTO.page})}">
                     <button type="button" class="btn btn-primary">수정</button></a>
 
                 <button type="button" class="btn btn-primary removeBtn">삭제</button>
 
-                <a th:href="@{/service-center/qna/list(page=${requestDTO.page})}">
+                <a th:href="@{/servicecenter/qna/list(page=${requestDTO.page})}">
                     <button type="button" class="btn btn-primary">목록</button></a>
 
                 <button th:if="${dto.status != 0}" type="button" class="btn btn-primary answerBtn">답변확인</button>
@@ -108,7 +108,7 @@
                 }
 
                 actionForm
-                    .attr("action", "/service-center/qna/remove")
+                    .attr("action", "/servicecenter/qna/remove")
                     .attr("method", "post")
                     .submit();
 
@@ -206,7 +206,7 @@
                             modal.modal('hide');
                             loadJSONData();
 
-                            document.location.href = '/service-center/qna/read?qnaNo='+qnaNo+'&page='+page;
+                            document.location.href = '/servicecenter/qna/read?qnaNo='+qnaNo+'&page='+page;
 
                         }
                     })
@@ -248,7 +248,7 @@
                                 modal.modal('hide');
                                 loadJSONData();
 
-                                document.location.href = '/service-center/qna/read?qnaNo='+qnaNo+'&page='+page;
+                                document.location.href = '/servicecenter/qna/read?qnaNo='+qnaNo+'&page='+page;
 
                             }
                         }

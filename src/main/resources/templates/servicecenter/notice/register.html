@@ -24,7 +24,7 @@
         <section>
             <div class="container">
                 <div class="qnaform">
-                    <form th:action="@{/service-center/notice/register}" th:method="post">
+                    <form th:action="@{/servicecenter/notice/register}" th:method="post">
                         <div class="qnaform__title outside form-group">
                             <span class="left">제목</span>
                             <span class="right"><input type="text" class="form-control" name="title" placeholder="제목을 입력하세요."></span>
@@ -52,7 +52,7 @@
                 }
 
                 actionForm
-                    .attr("action", "/service-center/notice/register")
+                    .attr("action", "/servicecenter/notice/register")
                     .attr("method", "post")
                     .submit();
 
