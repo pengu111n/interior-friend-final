@@ -64,7 +64,7 @@ public class OAuthDTO {
 
         return new OAuthDTO(attributes,
                 userNameAttributeName,
-                (String) response.get("name"),
+                (String) response.get("nickname"),
                 (String) response.get("email"),
                 (String) response.get("profile_image"));
     }

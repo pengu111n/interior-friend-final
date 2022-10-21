@@ -56,7 +56,7 @@ public class CustomOauth2MemberDetailService implements OAuth2UserService<OAuth2
     /* 소셜로그인시 기존 회원이 존재하면 수정날짜 정보만 업데이트해 기존의 데이터는 그대로 보존 */
     private Member saveOrUpdate(OAuthDTO dto) {
         Member member = repository.findByEmail(dto.getEmail())
-                .map(entity -> entity.update(dto.getEmail(), dto.getFileName()))
+                .map(entity -> entity.update(dto.getEmail(), dto.getFileName(), dto.getNickname()))
                 .orElse(dto.toEntity());
 
         return repository.save(member);

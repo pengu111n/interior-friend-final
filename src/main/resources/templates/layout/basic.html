@@ -91,19 +91,6 @@
       });
     </script>
 
-    <!--<script th:src="@{/assets/js/vendor/modernizr-2.6.2.min.js}"></script>
-    <script th:src="@{/assets/js/jquery-1.10.2.min.js}"></script>
-    <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
-    <script th:src="@{/assets/js/bootstrap-select.min.js}"></script>
-    <script th:src="@{/assets/js/bootstrap-hover-dropdown.js}"></script>
-    <script th:src="@{/assets/js/easypiechart.min.js}"></script>
-    <script th:src="@{/assets/js/jquery.easypiechart.min.js}"></script>
-    <script th:src="@{/assets/js/owl.carousel.min.js}"></script>
-    <script th:src="@{/assets/js/wow.js}"></script>
-    <script th:src="@{/assets/js/icheck.min.js}"></script>
-    <script th:src="@{/assets/js/price-range.js}"></script>
-    <script type="text/javascript" th:src="@{/assets/js/lightslider.min.js}"></script>
-    <script th:src="@{/assets/js/main.js}"></script>-->
   </head>
 
   <body>
@@ -225,22 +212,22 @@
               <li><a href="/mypage/member/get?memNo=${login.memNo}">회원정보 관리</a></li>
               <li><a href="/mypage/member/get?memNo=${login.memNo}">작성글 관리</a></li>
             </ul>
-            <!--<th:block th:if="${login != null}">
-        <li class="profile">
-            <a href="/blog/user?cmd=profileUpload">
-                <th:block th:if="${login.fullName == null}">
-                    <img style="border-radius:50%;" alt=""
-                         th:src="@{/assets/img/defaultProfile.jpeg}"
-                         width="40px" height="40px"/>
-                </th:block>
-                <th:block th:if="${login.fullName != null}">
-                    <img style="border-radius:50%;" alt=""
-                         th:src="@{/displayFile?fileName=${login.fullName}}"
-                         width="40px" height="40px"/>
-                </th:block>
-            </a>
-        </li>
-        </th:block>-->
+<!--            <th:block sec:authorize="isAuthenticated()">-->
+<!--              <li class="profile">-->
+<!--                <a href="/blog/user?cmd=profileUpload">-->
+<!--                  <th:block th:if="${principal.fileName == null}">-->
+<!--                      <img style="border-radius:50%;" alt=""-->
+<!--                           th:src="@{/assets/img/defaultProfile.jpeg}"-->
+<!--                           width="40px" height="40px"/>-->
+<!--                  </th:block>-->
+<!--                  <th:block th:if="${principal.fileName != null}">-->
+<!--                      <img style="border-radius:50%;" alt=""-->
+<!--                           th:src="${principal.fileName}"-->
+<!--                           width="40px" height="40px"/>-->
+<!--                  </th:block>-->
+<!--                </a>-->
+<!--             </li>-->
+<!--            </th:block>-->
           </li>
         </ul>
       </div><!-- /.navbar-collapse -->
@@ -345,7 +332,7 @@
           <div class="pull-left">
             <span> (C) <a href="http://www.KimaroTec.com">인프</a> , All rights reserved 2022  </span>
           <div sec:authorize="isAuthenticated()">
-            <p th:text="${#authentication}"></p>
+            <p sec:authentication="principal"></p>
           </div>
           </div>
           <div class="bottom-menu pull-right">

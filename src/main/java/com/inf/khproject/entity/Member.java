@@ -62,9 +62,10 @@ public class Member{
         return this.role.getValue();
     }
 
-    public Member update(String email, String fileName){
+    public Member update(String email, String fileName, String nickname){
         this.email = email;
         this.fileName = fileName;
+        this.nickname = nickname;
         this.isSocial = true;
         return this;
     }
