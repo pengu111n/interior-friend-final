@@ -212,22 +212,25 @@
               <li><a href="/mypage/member/get?memNo=${login.memNo}">회원정보 관리</a></li>
               <li><a href="/mypage/member/get?memNo=${login.memNo}">작성글 관리</a></li>
             </ul>
-<!--            <th:block sec:authorize="isAuthenticated()">-->
-<!--              <li class="profile">-->
-<!--                <a href="/blog/user?cmd=profileUpload">-->
-<!--                  <th:block th:if="${principal.fileName == null}">-->
-<!--                      <img style="border-radius:50%;" alt=""-->
-<!--                           th:src="@{/assets/img/defaultProfile.jpeg}"-->
-<!--                           width="40px" height="40px"/>-->
-<!--                  </th:block>-->
-<!--                  <th:block th:if="${principal.fileName != null}">-->
-<!--                      <img style="border-radius:50%;" alt=""-->
-<!--                           th:src="${principal.fileName}"-->
-<!--                           width="40px" height="40px"/>-->
-<!--                  </th:block>-->
-<!--                </a>-->
-<!--             </li>-->
-<!--            </th:block>-->
+              <li sec:authorize="isAuthenticated()" class="profile">
+                <th:block th:if="${session.member == null}">
+                  <th:block th:if="${principal.member == null}">
+                    <img style="border-radius:50%;" alt=""
+                         th:src="@{/assets/img/defaultProfile.jpeg}"
+                         width="40px" height="40px"/>
+                  </th:block>
+                  <th:block th:if="${principal.member != null}">
+                    <img style="border-radius:50%;" alt=""
+                         th:src="|/display?fileName=${principal.member.fileName}|"
+                         width="40px" height="40px"/>
+                  </th:block>
+                </th:block>
+                <th:block th:if="${session.member != null}">
+                  <img style="border-radius:50%;" alt=""
+                       th:src="${session.member.fileName}"
+                       width="40px" height="40px"/>
+                </th:block>
+             </li>
           </li>
         </ul>
       </div><!-- /.navbar-collapse -->
