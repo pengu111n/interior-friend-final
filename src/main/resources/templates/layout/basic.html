@@ -214,20 +214,27 @@
             </ul>
               <li sec:authorize="isAuthenticated()" class="profile">
                 <th:block th:if="${session.member == null}">
-                  <th:block th:if="${principal.member == null}">
+                  <th:block th:if="${#authentication.principal.member.fileName == null || #authentication.principal.member.fileName == ''}">
                     <img style="border-radius:50%;" alt=""
                          th:src="@{/assets/img/defaultProfile.jpeg}"
                          width="40px" height="40px"/>
                   </th:block>
-                  <th:block th:if="${principal.member != null}">
-                    <img style="border-radius:50%;" alt=""
-                         th:src="|/display?fileName=${principal.member.fileName}|"
-                         width="40px" height="40px"/>
+                  <th:block th:if="${#authentication.principal.member.fileName != null}">
+                    <th:block th:if="${#authentication.principal.member.fileName}.startswith('http')">
+                      <img style="border-radius:50%;" alt=""
+                           th:src="|${#authentication.principal.member.fileName}|"
+                           width="40px" height="40px"/>
+                    </th:block>
+                    <th:block th:unless="${#authentication.principal.member.fileName}.startswith('http')">
+                      <img style="border-radius:50%;" alt=""
+                           th:src="|/display?fileName=${#authentication.principal.member.fileName}|"
+                           width="40px" height="40px"/>
+                    </th:block>
                   </th:block>
                 </th:block>
                 <th:block th:if="${session.member != null}">
                   <img style="border-radius:50%;" alt=""
-                       th:src="${session.member.fileName}"
+                       th:src="|${session.member.fileName}|"
                        width="40px" height="40px"/>
                 </th:block>
              </li>
@@ -335,7 +342,9 @@
           <div class="pull-left">
             <span> (C) <a href="http://www.KimaroTec.com">인프</a> , All rights reserved 2022  </span>
           <div sec:authorize="isAuthenticated()">
-            <p sec:authentication="principal"></p>
+              <th:block th:if="${session.member == null}">
+                <p th:text="${#authentication.principal}"></p>
+              </th:block>
           </div>
           </div>
           <div class="bottom-menu pull-right">
