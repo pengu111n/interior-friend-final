@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" th:href="@{/assets/css/chat.css}">
+<link rel="stylesheet" th:href="@{/assets/js/chat.js}">
 
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
 
@@ -104,7 +106,8 @@
                                 <div class="video-thumb">
 
                                     <span name="asd"
-                                          th:data-file="${applicationBoardImage.getThumbnailURL()}" th:each="applicationBoardImage: ${dto.imageDTOList}">
+                                          th:data-file="${applicationBoardImage.getThumbnailURL()}"
+                                          th:each="applicationBoardImage: ${dto.imageDTOList}">
                                          <img style="width : 960px; " th:if="${applicationBoardImage.path != null}"
                                               th:src="|/display?fileName=${applicationBoardImage.getImageURL()}|">
                                           <a download
@@ -126,11 +129,12 @@
                                             <div class="form-group">
                                                 <label for="replyText">Comment <span class="required">*</span>
                                                 </label>
-                                                <textarea class="form-control" th:name="replyText" id="replyText" rows="4"></textarea>
+                                                <textarea class="form-control" id="replyText" rows="4"
+                                                          th:name="replyText"></textarea>
 
                                                 <input class="form-control" id="newReplyWriter" placeholder="USER ID"
                                                        style="display: none;" type="hidden"
-                                                       value="${login.nickName}">
+                                                       value="${login.nickname}">
 
                                             </div>
                                         </div>
@@ -172,17 +176,22 @@
                                 <div class="roperty-social">
                                     <ul>
                                         <li>
-                                            <a class="facebook" onclick="fn_sendFB('facebook');return false;" href="#n" target="_self" title="Share this on facebook ">
+                                            <a class="facebook" href="#n" onclick="fn_sendFB('facebook');return false;"
+                                               target="_self" title="Share this on facebook ">
                                                 <img th:src="@{/assets/img/social_big/facebook_grey.png}">
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="twitter" onclick="fn_sendFB('twitter');return false;" href="#n" target="_self" title="Share this on twitter ">
+                                            <a class="twitter" href="#n" onclick="fn_sendFB('twitter');return false;"
+                                               target="_self" title="Share this on twitter ">
                                                 <img th:src="@{/assets/img/social_big/twitter_grey.png}">
                                             </a>
                                         </li>
                                         <li>
-                                            <a id="kakaoBtn" class="kakaotalk" onclick="fn_sendFB('kakaotalk');return false;" href="#n" target="_self" title="Share this on kakaotalk ">
+                                            <a class="kakaotalk" href="#n"
+                                               id="kakaoBtn" onclick="fn_sendFB('kakaotalk');return false;"
+                                               target="_self"
+                                               title="Share this on kakaotalk ">
                                                 <img th:src="@{/assets/img/social_big/kakaotalk_grey.png}">
                                             </a>
                                         </li>
@@ -208,6 +217,20 @@
                                     <button class="btn btn-primary listBtn" type="submit">LIST ALL</button>
 
                                 </a>
+                                <button class="btn addChat" id="addChat"
+                                        style=" color: #FFF; background-color: #FDC600; border-color: #FDC600;
+                                             border-radius: 1px; padding: 10px 20px; font-weight: 600;"
+                                        th:if="${dto.id != #authentication.Principal.member.id}"
+                                        type="button">
+                                    <i class="fa fa-comment-o"></i> 1대1 채팅
+                                </button>
+                                <button class="btn answer" id="answer"
+                                        style=" color: #FFF; background-color: #FDC600; border-color: #FDC600;
+                                             border-radius: 1px; padding: 10px 20px; font-weight: 600;"
+                                        th:if="${dto.id == #authentication.Principal.member.id}"
+                                        type="button">
+                                    <i class="fa fa-comment-o"></i> 문의내역 확인하기
+                                </button>
                             </div>
 
                         </div>
@@ -219,7 +242,6 @@
                             <div class="dealer-widget">
                                 <div class="dealer-content">
                                     <div class="inner-wrapper">
-
                                         <div class="clear">
                                             <div class="col-xs-4 col-sm-4 dealer-face">
                                                 <a href="">
@@ -229,7 +251,7 @@
                                             </div>
                                             <div class="col-xs-8 col-sm-8 ">
                                                 <h3 class="dealer-name">
-                                                    <span>[[${dto.nickName}]]</span>
+                                                    <span>[[${dto.nickname}]]</span>
                                                 </h3>
                                                 <div class="dealer-social-media">
                                                     <a class="twitter" href="" target="_blank">
@@ -260,9 +282,94 @@
                                             </ul>
                                             <p>안녕하세요 항상 최고의 서비스를 제공하겠습니다.</p>
                                         </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="chatbox-individual">
+                                <div class="chatbox-individual-top">
+
+                                    <div class="chat-partner-name"
+                                         style="text-align: center;  padding-left: 0px;  margin: 0px;">
+                                        <span class="status online"></span>
+                                        <a target="_blank">[[${dto.nickname}]]</a>
+                                        <a href="javascript:void(0);" id="back" style="float: right;"><i
+                                                class="fa fa-close"></i></a>
+                                    </div>
+
+                                </div>
+
+                                <div class="chat-messages">
+
+
+                                </div>
+
+                                <div class="input-holder" style="margin: auto;">
+                                    <input th:name="receiver" th:value="${dto.id}" type="hidden">
+                                    <input th:name="senderid" th:value="${#authentication.Principal.member.id}"
+                                           type="hidden">
+                                    <input th:name="sendernickname"
+                                           th:value="${#authentication.Principal.member.nickname}"
+                                           type="hidden">
+
+                                    <input class="chat-input" id="message_company" style="width: 270px;"
+                                           th:name="message_company">
+                                    <input class="message-send chatSave" style="width: 70px; height: 40px;"
+                                           type="submit" value="Send"/>
+                                </div>
+
+                            </div>
+
+                            <!--                            <div class="panel-body recent-property-widget" style="padding: 0px;">-->
+                            <div class="chatbox-company" >
+                                <span class="user-list">
+                                    <div class="chatting-company-top">
+                                        <div class="chatting-partner-name"
+                                             style="text-align: center;  padding-left: 0px;">
+                                            <a target="_blank"> 대화중인 상대 목록 </a>
+                                            <a href="javascript:void(0);" id="close-chatting" style="float: right;"><i
+                                                    class="fa fa-close"></i></a>
+                                        </div>
+                                     </div>
+
+                                       <div class="panel-body recent-property-widget" style="color: #EEEEEE;background-color: #EEEEEE;">
+                                        <ul  class="chat-list" style="background-color: #EEEEEE;">
+
+                                        </ul>
+                                       </div>
+
+                                </span>
+
+                                <span class="chatting-company">
+                                    <div class="chatting-company-top">
+                                        <div class="chatting-partner-name"
+                                             style="text-align: center;  padding-left: 0px;">
+                                            <a target="_blank"> 채팅방 </a>
+                                            <a href="javascript:void(0);" id="back-user-list" style="float: right;"><i
+                                                    class="fa fa-close"></i></a>
+                                        </div>
+                                     </div>
+                                     <div class="chat-messages">
+
 
                                     </div>
-                                </div>
+
+                                    <div class="input-holder " style="margin: auto;">
+                                        <input th:name="receiver" th:value="${dto.id}" type="hidden">
+                                        <input th:name="senderid" th:value="${#authentication.Principal.member.id}"
+                                               type="hidden">
+                                        <input th:name="sendernickname"
+                                               th:value="${#authentication.Principal.member.nickname}"
+                                               type="hidden">
+
+                                        <input class="chat-input" id="message_individual" style="width: 270px;"
+                                               th:name="message_individual">
+                                        <input class="message-send chatSave" style="width: 70px; height: 40px;"
+                                               type="submit" value="Send"/>
+                                    </div>
+                                </span>
+
                             </div>
 
                         </aside>
@@ -273,8 +380,241 @@
         </div>
 
         <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+        <script th:inline="javascript">
+            var actionForm = $("form");
 
-        <script >
+            $(document).ready(function () {
+
+                var boardNo = [[${dto.boardNo}]];
+                //댓글 추가될 영역
+                var chatlistGroup = $(".chat-list");
+                var messageslistGroup = $(".chat-messages");
+
+                var chatBox = false;
+                chatBoxIndividual = false;
+                var senderid = 0;
+                var receiver = 0;
+                $(".chatbox-company").hide();
+                $(".chatbox-individual").hide();
+
+                $(".answer").click(function () {
+                    if (chatBox == false) {
+                        $(".chatbox-company").show();
+                        $(".chatting-company").hide();
+                        chatBoxIndividual = true;
+                        loadJSONChatListData();
+                    } else {
+                        $(".chatbox-company").hide();
+                        chatBoxIndividual = false;
+                    }
+                    if (chatBox == false) {
+                        chatBox = true;
+                    } else {
+                        chatBox = false;
+                    }
+                });
+
+                $(document).on('click', "#selectuser", function () {
+                    receiver = $(this).attr('th:value');
+                    $(".user-list").hide();
+                    $(".chatting-company").show();
+                    chatBoxIndividual = true;
+                    loadJSONChatData();
+                    Interval = setInterval(loadJSONChatData, 1000);
+                });
+
+                $(document).on('click', "#close-chatting", function () {
+                    $(".chatbox-company").hide();
+                    chatBoxIndividual = false;
+                    clearInterval(Interval);
+                });
+
+                $(document).on('click', "#back-user-list", function () {
+                    $(".user-list").show();
+                    $(".chatting-company").hide();
+                    chatBoxIndividual = false;
+                    chatBox = false;
+                    clearInterval(Interval);
+
+                });
+
+
+                function loadJSONChatListData() {
+                    $.getJSON('/applicationboard/chat/applicationboard/' + boardNo, function (arr) {
+                        var str = "";
+                        var duplicate = [];
+
+                        $.each(arr, function (idx, chat) {
+                            if ($.inArray(chat.senderid, duplicate) == -1) {
+                                str += '<li> <div class="col-md-8 col-sm-8 col-xs-8 blg-entry" > ' +
+                                    '<h2 style="color: #D27E04; font-weight : bold;"> <button  id="selectuser" class="btn selectuser" type="submit" th:onclick="selectuser();" th:value=' + chat.senderid + '><b> ' + chat.sendernickname + '</b></button></h2> ' +
+                                    '</div></li>';
+                                duplicate.push(chat.senderid);
+                            }
+                        });
+                        chatlistGroup.html(str);
+                        str = '';
+                    });
+
+                }
+
+                function loadJSONChatData() {
+                    if (chatBoxIndividual == true) {
+                        $.getJSON('/applicationboard/chat/applicationboard/' + boardNo, function (arr) {
+                            var senderid = $('input[name="senderid"]').val();
+                            var str = "";
+
+                            $.each(arr, function (idx, chat) {
+                                if (chat.senderid == senderid && chat.receiver == receiver) {
+                                    str += '<div class="message-box-holder"> <div class="message-box">' + chat.message + '</div></div>';
+                                } else if (chat.receiver == senderid && chat.senderid == receiver) {
+                                    str += '<div class="message-box-holder"> <div class="message-box message-partner">' + chat.message + '</div> </div>';
+                                }
+                            });
+                            messageslistGroup.html(str);
+                            str = "";
+                        });
+                    }
+                }
+
+                $(".chatSave").click(function () {
+                    if (chatBoxIndividual == true) {
+                        var chat = {
+                            boardNo: boardNo,
+                            message: $('input[name="message_individual"]').val(),
+                            receiver: receiver,
+                            senderid: $('input[name="senderid"]').val(),
+                            sendernickname: $('input[name="sendernickname"]').val()
+                        }
+                        if ($('input[name="message_individual"]').val() != '') {
+                            $.ajax({
+                                url: '/applicationboard/chat/',
+                                method: 'post',
+                                data: JSON.stringify(chat),
+                                contentType: 'application/json; charset=utf-8',
+                                dataType: 'json',
+                                success: function (data) {
+                                    loadJSONChatData();
+                                    $('input[name="message_individual"]').val('');
+                                }
+                            })
+                        }
+                    }
+                });
+            });
+        </script>
+        <script th:inline="javascript">
+
+            var actionForm = $("form");
+
+            $(document).ready(function () {
+
+                var boardNo = [[${dto.boardNo}]];
+                var chatBox = false;
+                var chatBoxCompany = false;
+                var Interval;
+                var listGroup = $(".chat-messages");
+                $(".chatbox-individual").hide();
+                $(".chatbox-company-top").hide();
+
+                //날짜 처리 위한 함수
+                function formatTime(str) {
+                    var date = new Date(str);
+                    return (date.getMonth() + 1) + '/' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes();
+                }
+
+                //특정 게시글의 댓글을 처리하는 함수
+                function loadJSONChatData() {
+                    if (chatBoxCompany == true) {
+                        $.getJSON('/applicationboard/chat/applicationboard/' + boardNo, function (arr) {
+                            var receiver = $('input[name="receiver"]').val();
+                            var senderid = $('input[name="senderid"]').val();
+
+                            console.log(arr);
+                            var str = " ";
+
+                            $.each(arr, function (idx, chat) {
+                                if (chat.senderid == senderid && chat.receiver == receiver) {
+                                    str += '<div class="message-box-holder"> <div class="message-box">' + chat.message + '</div> </div>';
+                                } else if (chat.receiver == senderid && chat.senderid == receiver) {
+                                    str += '<div class="message-box-holder"> <div class="message-box message-partner">' + chat.message + '</div> </div>';
+                                }
+                            });
+                            listGroup.html(str);
+                            str = "";
+                        });
+                    }
+                }
+
+
+                $(".addChat").click(function () {
+                    if (chatBox == false) {
+                        $(".chatbox-individual").show();
+                        chatBoxCompany = true;
+                        loadJSONChatData();
+                        Interval = setInterval(loadJSONChatData, 1000);
+                    } else {
+                        $(".chatbox-individual").hide();
+                        chatBoxCompany = false;
+                        clearInterval(Interval);
+                    }
+                    if (chatBox == false) {
+                        chatBox = true;
+                    } else {
+                        chatBox = false;
+                    }
+
+                });
+
+                $("#back").click(function () {
+                    if (chatBox == false) {
+                        $(".chatbox-individual").show();
+                        chatBoxCompany = true;
+                        loadJSONChatData();
+                        Interval = setInterval(loadJSONChatData, 1000);
+                    } else {
+                        $(".chatbox-individual").hide();
+                        chatBoxCompany = false;
+                        clearInterval(Interval);
+                    }
+                    if (chatBox == false) {
+                        chatBox = true;
+                    } else {
+                        chatBox = false;
+                    }
+
+                });
+
+                $(".chatSave").on("click", function () {
+                    if (chatBoxCompany == true) {
+                        var chat = {
+                            boardNo: boardNo,
+                            message: $('input[name="message_company"]').val(),
+                            receiver: $('input[name="receiver"]').val(),
+                            senderid: $('input[name="senderid"]').val(),
+                            sendernickname: $('input[name="sendernickname"]').val()
+                        }
+                        if ($('input[name="message_company"]').val() != '') {
+                            $.ajax({
+                                url: '/applicationboard/chat/',
+                                method: 'post',
+                                data: JSON.stringify(chat),
+                                contentType: 'application/json; charset=utf-8',
+                                dataType: 'json',
+                                success: function (data) {
+                                    loadJSONChatData();
+                                    $('input[name="message_company"]').val('');
+
+                                }
+                            })
+                        }
+                    }
+                });
+            });
+
+        </script>
+
+        <script>
             function fn_sendFB(sns) {
                 var thisUrl = document.URL;
                 var snsTitle = "[지금 인프에서 인테리어 견적 신청 확인하기]";
@@ -347,8 +687,7 @@
             })
 
 
-
-            $(document).ready(function() {
+            $(document).ready(function () {
 
                 var boardNo = [[${dto.boardNo}]];
 
@@ -390,6 +729,7 @@
                     });
                 }
 
+
                 $(".replyCount").ready(function () {
 
                     loadJSONData();
@@ -425,6 +765,7 @@
             })
 
         </script>
+
     </th:block>
 
 </th:block>
