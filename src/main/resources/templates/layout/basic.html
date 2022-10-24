@@ -343,9 +343,9 @@
             <span> (C) <a href="http://www.KimaroTec.com">인프</a> , All rights reserved 2022  </span>
           <div sec:authorize="isAuthenticated()">
               <th:block th:if="${session.member != null}">
-                <p th:text="${#authentication.principal.name}"></p>
-                <p th:text="${#authentication.principal.picture}"></p>
-                <p th:text="${#authentication.principal.email}"></p>
+                <p th:text="${#authentication.principal}"></p>
+                <p th:text="${#authentication.principal.member}"></p>
+                <p th:text="${#authentication.principal.member.id}"></p>
               </th:block>
           </div>
           </div>
