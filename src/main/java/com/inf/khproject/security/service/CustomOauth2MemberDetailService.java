@@ -4,6 +4,7 @@ import com.inf.khproject.entity.Member;
 import com.inf.khproject.entity.MemberRole;
 import com.inf.khproject.repository.MemberRepository;
 import com.inf.khproject.security.dto.MemberSessionDTO;
+import com.inf.khproject.security.dto.OAuth2Userimpl;
 import com.inf.khproject.security.dto.OAuthDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -47,10 +48,7 @@ public class CustomOauth2MemberDetailService implements OAuth2UserService<OAuth2
         /* 세션 정보를 저장하는 직렬화된 dto 클래스*/
         session.setAttribute("member", new MemberSessionDTO(member));
 
-        return new DefaultOAuth2User(
-                Collections.singleton(new SimpleGrantedAuthority(MemberRole.ROLE_INDIVIDUAL.getValue())),
-                dto.getAttributes(),
-                dto.getNameAttributeKey());
+        return new OAuth2Userimpl(dto.getAttributes(), member);
     }
 
     /* 소셜로그인시 기존 회원이 존재하면 수정날짜 정보만 업데이트해 기존의 데이터는 그대로 보존 */

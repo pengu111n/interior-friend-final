@@ -10,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,7 +31,7 @@ public class MypageMemberController {
 
 
     @GetMapping(value = "/get")
-    public String get(Model model, @AuthenticationPrincipal CustomMemberDetails customMemberDetails) throws Exception {
+    public String get(Model model, @AuthenticationPrincipal DefaultOAuth2User defaultOAuth2User) throws Exception {
 
 //        Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 //
@@ -49,9 +50,9 @@ public class MypageMemberController {
 //
 //        log.info("attribute...." + attributes);
 
-        log.info("attribute..." + customMemberDetails.getAttributes());
+        log.info("attribute..." + defaultOAuth2User.getAttributes());
 
-        model.addAttribute("login", customMemberDetails.getAttributes());
+        model.addAttribute("login", defaultOAuth2User.getAttributes());
 
 
         return "/mypage/member/get";
