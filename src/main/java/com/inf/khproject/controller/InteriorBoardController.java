@@ -21,7 +21,7 @@ public class InteriorBoardController {
 
     @GetMapping("/")
     public String index() {
-            return "redirect:/interiorboard/list2";
+        return "redirect:/interiorboard/list2";
     }
 
     @GetMapping("/register")

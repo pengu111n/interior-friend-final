@@ -24,7 +24,7 @@ public class ApplicationBoardController {
 
     @GetMapping("/")
     public String index() {
-            return "redirect:/applicationboard/list";
+        return "redirect:/applicationboard/list";
     }
 
     @GetMapping("/register")
@@ -107,27 +107,5 @@ public class ApplicationBoardController {
 
     }
 
-    @GetMapping("/completepayment")
-    public void payRead(Long boardNo, Model model){
-
-        log.info("boardNo: " + boardNo);
-
-        ApplicationBoardDTO dto = applicationBoardService.read(boardNo);
-
-        model.addAttribute("dto", dto);
-
-    }
-
-    @PostMapping("/completepayment")
-    public String payModify(ApplicationBoardDTO dto){
-
-        log.info("dto: " + dto);
-
-        applicationBoardService.modifyStatusConfirmed(dto);
-
-        return "redirect:/applicationboard/list";
-
-    }
-   
 
 }

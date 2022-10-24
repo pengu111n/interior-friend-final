@@ -95,13 +95,8 @@ public interface ApplicationBoardService {
         ApplicationBoard applicationBoard = ApplicationBoard.builder()
                 .boardNo(dto.getBoardNo())
                 .id(dto.getId())
-<<<<<<< HEAD
-                .nickName(dto.getNickName())
-                .username(dto.getUsername())
-=======
                 .nickname(dto.getNickname())
                .username(dto.getUsername())
->>>>>>> 27-mypage-writelist
                 .title(dto.getTitle())
                 .category(dto.getCategory())
                 .address(dto.getAddress())
