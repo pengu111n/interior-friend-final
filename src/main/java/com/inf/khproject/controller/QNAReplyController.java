@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/asdf/replies/")
+@RequestMapping("/replies/")
 @Log4j2
 @RequiredArgsConstructor
 public class QNAReplyController {
