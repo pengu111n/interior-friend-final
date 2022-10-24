@@ -1,6 +1,7 @@
 package com.inf.khproject.controller;
 
 import com.inf.khproject.entity.Member;
+import com.inf.khproject.security.service.CustomMemberDetails;
 import com.inf.khproject.security.service.MemberService;
 import com.inf.khproject.security.service.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +30,7 @@ public class MypageMemberController {
 
 
     @GetMapping(value = "/get")
-    public String get(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) throws Exception {
+    public String get(Model model, @AuthenticationPrincipal CustomMemberDetails customMemberDetails) throws Exception {
 
 //        Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 //
@@ -48,9 +49,9 @@ public class MypageMemberController {
 //
 //        log.info("attribute...." + attributes);
 
-        log.info("attribute..." + principalDetails.getAttributes());
+        log.info("attribute..." + customMemberDetails.getAttributes());
 
-        model.addAttribute("login", principalDetails.getAttributes());
+        model.addAttribute("login", customMemberDetails.getAttributes());
 
 
         return "/mypage/member/get";

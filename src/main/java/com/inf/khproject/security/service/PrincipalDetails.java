@@ -61,7 +61,7 @@ public class PrincipalDetails implements OAuth2User, UserDetails {
 
     @Override
     public String getUsername() {
-        return (String) attributes.get("username");
+        return member.getUsername();
     }
 
 
@@ -92,6 +92,6 @@ public class PrincipalDetails implements OAuth2User, UserDetails {
 
     @Override
     public String getName() {
-        return (String)attributes.get("name");
+        return member.getName();
     }
 }
