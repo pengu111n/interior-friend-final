@@ -134,7 +134,7 @@
                 //특정 게시글의 댓글을 처리하는 함수
                 function loadJSONData() {
 
-                    $.getJSON('/replies/qna/' + qnaNo, function (arr) {
+                    $.getJSON('/qna/replies/qna/' + qnaNo, function (arr) {
 
                         console.log(arr);
 
@@ -193,7 +193,7 @@
                     console.log(reply);
 
                     $.ajax({
-                        url: '/replies/',
+                        url: '/qna/replies/',
                         method: 'post',
                         data: JSON.stringify(reply),
                         contentType: 'application/json; charset=utf-8',
@@ -236,7 +236,7 @@
                     console.log("qnaReplyNo: " + qnaReplyNo);
 
                     $.ajax({
-                        url: '/replies/' + qnaReplyNo,
+                        url: '/qna/replies/' + qnaReplyNo,
                         method: 'delete',
 
                         success: function (result) {
@@ -269,7 +269,7 @@
                     console.log(reply);
 
                     $.ajax({
-                        url: '/replies/' + qnaReplyNo,
+                        url: '/qna/replies/' + qnaReplyNo,
                         method: 'put',
                         data: JSON.stringify(reply),
                         contentType: 'application/json; charset=utf-8',
