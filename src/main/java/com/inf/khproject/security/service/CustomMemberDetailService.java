@@ -34,7 +34,7 @@ public class CustomMemberDetailService implements UserDetailsService {
 
         session.setAttribute("user", new MemberSessionDTO(member));        /* 시큐리티 세션에 유저 정보 저장 */
 
-        return new CustomMemberDetails(member);
+        return new PrincipalDetails(member);
     }
 
 }

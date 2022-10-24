@@ -60,6 +60,8 @@ public class MemberService {
         return username;
     }
 
+
+
     public void tempPW(String name, String username, String email) throws Exception {
         String tempPw = sendTempPW(email);
         String hashPw = passwordEncoder.encode(tempPw);
@@ -192,5 +194,7 @@ public class MemberService {
 
         return CODE; // 메일로 보냈던 인증 코드를 서버로 반환
     }
+
+
 
 }

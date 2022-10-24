@@ -159,7 +159,7 @@
                 <button class="navbar-btn nav-button wow fadeInRight"
                         onclick=" window.open('#', '_self')"
                         data-wow-delay="0.48s"
-                        sec:authentication="name">
+                        th:text="${#authentication.member.nickname}">
                 </button>
                 <button class="navbar-btn nav-button wow bounceInRight login"
                         onclick=" window.open('/member/logout', '_self')"
@@ -209,8 +209,8 @@
           <li class="dropdown ymm-sw " data-wow-delay="0.1s">
             <a href="infoBoard.jsp" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="200">마이페이지<b class="caret"></b></a>
             <ul class="dropdown-menu navbar-nav">
-              <li><a href="/mypage/member/get?memNo=${login.memNo}">회원정보 관리</a></li>
-              <li><a href="/mypage/member/get?memNo=${login.memNo}">작성글 관리</a></li>
+              <li><a href="/mypage/member/get">회원정보 관리</a></li>
+              <li><a href="/mypage/member/get">작성글 관리</a></li>
             </ul>
               <li sec:authorize="isAuthenticated()" class="profile">
                 <th:block th:if="${session.member == null}">
@@ -220,12 +220,12 @@
                          width="40px" height="40px"/>
                   </th:block>
                   <th:block th:if="${#authentication.principal.member.fileName != null}">
-                    <th:block th:if="${#authentication.principal.member.fileName}.startswith('http')">
+                    <th:block th:if="${#strings.startsWith(#authentication.principal.member.fileName,'http')}">
                       <img style="border-radius:50%;" alt=""
                            th:src="|${#authentication.principal.member.fileName}|"
                            width="40px" height="40px"/>
                     </th:block>
-                    <th:block th:unless="${#authentication.principal.member.fileName}.startswith('http')">
+                    <th:block th:unless="${#strings.startsWith(#authentication.principal.member.fileName,'http') || #authentication.principal.member.fileName == null || #authentication.principal.member.fileName == ''}">
                       <img style="border-radius:50%;" alt=""
                            th:src="|/display?fileName=${#authentication.principal.member.fileName}|"
                            width="40px" height="40px"/>
@@ -342,8 +342,10 @@
           <div class="pull-left">
             <span> (C) <a href="http://www.KimaroTec.com">인프</a> , All rights reserved 2022  </span>
           <div sec:authorize="isAuthenticated()">
-              <th:block th:if="${session.member == null}">
-                <p th:text="${#authentication.principal}"></p>
+              <th:block th:if="${session.member != null}">
+                <p th:text="${#authentication.principal.name}"></p>
+                <p th:text="${#authentication.principal.picture}"></p>
+                <p th:text="${#authentication.principal.email}"></p>
               </th:block>
           </div>
           </div>

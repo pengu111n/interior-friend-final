@@ -13,11 +13,11 @@ public interface MemberService{
 
 
 
-	public Member regist(MemberDTO dto, String local) throws Exception;
+	Member regist(MemberDTO dto, String local) throws Exception;
 
-	public int usernameCheck(String username) throws Exception;
+	int usernameCheck(String username) throws Exception;
 
-	public int nicknameCheck(String nickname) throws Exception;
+	int nicknameCheck(String nickname) throws Exception;
 
 
 	default Member dtoToEntity(MemberDTO dto){

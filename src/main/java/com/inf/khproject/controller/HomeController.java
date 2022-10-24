@@ -2,7 +2,6 @@ package com.inf.khproject.controller;
 
 import com.inf.khproject.dto.MemberDTO;
 import com.inf.khproject.security.dto.MemberAuthDTO;
-import com.inf.khproject.security.service.CustomMemberDetails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

@@ -6,7 +6,6 @@ import com.inf.khproject.repository.MemberRepository;
 import com.inf.khproject.security.dto.MemberSessionDTO;
 import com.inf.khproject.security.dto.OAuthDTO;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -19,13 +18,13 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpSession;
 import java.util.Collections;
 
-@Log4j2
 @Service
 @RequiredArgsConstructor
-public class CustomOauth2MemberDetailService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
+public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 
     private final MemberRepository repository;
-    private final HttpSession session;
+
+    private HttpSession session;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -47,10 +46,7 @@ public class CustomOauth2MemberDetailService implements OAuth2UserService<OAuth2
         /* 세션 정보를 저장하는 직렬화된 dto 클래스*/
         session.setAttribute("member", new MemberSessionDTO(member));
 
-        return new DefaultOAuth2User(
-                Collections.singleton(new SimpleGrantedAuthority(MemberRole.ROLE_INDIVIDUAL.getValue())),
-                dto.getAttributes(),
-                dto.getNameAttributeKey());
+        return new PrincipalDetails(member, oAuth2User.getAttributes());
     }
 
     /* 소셜로그인시 기존 회원이 존재하면 수정날짜 정보만 업데이트해 기존의 데이터는 그대로 보존 */
@@ -61,5 +57,4 @@ public class CustomOauth2MemberDetailService implements OAuth2UserService<OAuth2
 
         return repository.save(member);
     }
-
 }
