@@ -159,7 +159,7 @@
                 <button class="navbar-btn nav-button wow fadeInRight"
                         onclick=" window.open('#', '_self')"
                         data-wow-delay="0.48s"
-                        th:text="${#authentication.member.nickname}">
+                        th:text="${#authentication.principal.member.nickname}">
                 </button>
                 <button class="navbar-btn nav-button wow bounceInRight login"
                         onclick=" window.open('/member/logout', '_self')"
