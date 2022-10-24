@@ -66,17 +66,32 @@ public class InteriorBoardServiceImpl implements InteriorBoardService {
                 (InteriorBoard) arr[0]
                 , (List<InteriorBoardImage>) (Arrays.asList((InteriorBoardImage) arr[1]))
         ));
-          /*
-        Function<Object[], InteriorBoardDTO> fn = (arr -> entityToDto(
-                (InteriorBoard) arr[0]
-        ));
-        */
-
 
         return new InteriorPageResultDTO<>(result, fn);
-
-
     }
+
+    @Transactional
+    @Override
+    public InteriorPageResultDTO<InteriorBoardDTO, Object[]> getMypageList(InteriorPageRequestDTO requestDTO, Long id) {
+
+        Pageable pageable = requestDTO.getPageable(Sort.by("boardNo").descending());
+
+
+        Page<Object[]> result = interiorBoardRepository.getMypageListPage(pageable,id);
+
+        result.getContent().forEach(arr -> {
+            log.info(Arrays.toString(arr));
+        });
+
+
+        Function<Object[], InteriorBoardDTO> fn = (arr -> entitiesToDto(
+                (InteriorBoard) arr[0]
+                , (List<InteriorBoardImage>) (Arrays.asList((InteriorBoardImage) arr[1]))
+        ));
+
+        return new InteriorPageResultDTO<>(result, fn);
+    }
+
     @Override
     public InteriorBoardDTO read(Long boardNo) {
         interiorBoardRepository.updateView_count(boardNo);

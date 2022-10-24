@@ -22,7 +22,7 @@ public class ApplicationBoard extends BaseEntity {
     private String username;
 
     @Column(length = 20)
-    private String nickName;
+    private String nickname;
 
     @Column
     private Long id;

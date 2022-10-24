@@ -1,5 +1,6 @@
 package com.inf.khproject.controller;
 
+import com.inf.khproject.dto.ApplicationPageRequestDTO;
 import com.inf.khproject.dto.InteriorBoardDTO;
 import com.inf.khproject.dto.InteriorPageRequestDTO;
 import com.inf.khproject.service.InteriorBoardService;
@@ -20,7 +21,7 @@ public class InteriorBoardController {
 
     @GetMapping("/")
     public String index() {
-            return "redirect:/interiorboard/list2";
+        return "redirect:/interiorboard/list2";
     }
 
     @GetMapping("/register")
@@ -45,6 +46,16 @@ public class InteriorBoardController {
         log.info("Listing interior");
         model.addAttribute("result",interiorBoardService.getList(pageRequestDTO));
     }
+
+    @GetMapping(value = "/mypagelist")
+    public void mypagelist(long id, InteriorPageRequestDTO interiorPageRequestDTO, Model model) {
+        log.info("Listing application");
+        log.info("id: " + id);
+
+        model.addAttribute("mypageResult",interiorBoardService.getMypageList(interiorPageRequestDTO,id));
+    }
+
+
     @GetMapping({"/read", "/modify"})
     public void read(long boardNo, @ModelAttribute("requestDTO") InteriorPageRequestDTO requestDTO, Model model ){
 
