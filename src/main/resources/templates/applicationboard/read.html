@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <link rel="stylesheet" th:href="@{/assets/css/chat.css}">
 <link rel="stylesheet" th:href="@{/assets/js/chat.js}">
 
@@ -122,9 +122,9 @@
 
                             <section class="add-comments" id="comment-form"
                                      style="padding-left: 0px; list-style: none; ">
+                                <form sec:authorize="hasRole('ROLE_COMPANY')">
                                 <h4 class="s-property-title">댓글 </h4>
                                 <h4 class="text-uppercase wow fadeInLeft animated">Leave comment</h4>
-                                <form>
                                     <div class="row wow fadeInLeft animated">
                                         <div class="col-sm-12">
                                             <div class="form-group">
