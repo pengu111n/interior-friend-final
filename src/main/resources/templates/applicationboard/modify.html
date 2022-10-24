@@ -385,6 +385,7 @@
 
                 var regex = new RegExp("(.*?)\.(exe|sh|zip|alz|tiff)$");
                 var maxSize = 10485760; //10MB
+                var file = 0;
 
                 function checkExtension(fileName, fileSize) {
 
@@ -412,7 +413,6 @@
                     var files = inputFile[0].files;
 
                     var appended = false;
-                    var file = 0;
 
                     for (var i = 0; i < files.length; i++) {
 

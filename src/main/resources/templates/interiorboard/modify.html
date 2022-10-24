@@ -298,6 +298,7 @@
 
                 var regex = new RegExp("(.*?)\.(exe|sh|zip|alz|tiff)$");
                 var maxSize = 10485760; //10MB
+                var file = 0;
 
                 function checkExtension(fileName, fileSize){
 
@@ -356,6 +357,8 @@
                         success: function(result){
                             console.log(result);
                             showResult(result);
+                            file += 1;
+
                         },
                         error: function(jqXHR, textStatus, errorThrown){
                             console.log(textStatus);
@@ -399,7 +402,7 @@
                         type: 'POST',
                         success: function(result){
                             alert("삭제되었습니다");
-
+                            file -= 1;
                             targetLi.remove();
                         }
                     }); //$.ajax
@@ -432,11 +435,7 @@
 
 
 
-            }); //document ready
 
-
-            $(document).ready(
-                function() {
                     $("form")
                         .submit(
                             function () {
@@ -495,6 +494,9 @@
                                 } else if ($("#content").val() == "undefined") {
                                     alert("상세 시공내용을 입력해주세요");
                                     $("#content").focus();
+                                    return rv = false;
+                                }else if (file == 0) {
+                                    alert("첨부파일을 등록해 주세요.(첨부 파일은 이미지만 등록 가능합니다)");
                                     return rv = false;
                                 }
 
