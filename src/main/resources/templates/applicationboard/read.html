@@ -131,9 +131,8 @@
                                                 <textarea class="form-control" th:name="replyText" id="replyText"
                                                           rows="4"></textarea>
 
-                                                <input class="form-control" id="newReplyWriter" placeholder="USER ID"
-                                                       style="display: none;" type="hidden"
-                                                       value="${login.nickName}">
+                                                <input class="form-control" th:name="replyer" type="hidden"
+                                                       th:value="${#authentication.Principal.member.nickname}">
 
                                             </div>
                                         </div>
@@ -393,9 +392,8 @@
 
                         $.each(arr, function (idx, reply) {
                             console.log(reply);
-                            str += '    <div class="card-body" data-rno="' + reply.rno + '"><b>' + reply.rno + '</b>';
-                            str += '    <h5 class="card-title">' + reply.replycontent + '</h5>';
                             str += '    <h6 class="card-subtitle mb-2 text-muted">' + reply.replyer + '</h6>';
+                            str += '    <h5 class="card-title">' + reply.replycontent + '</h5>';
                             str += '    <p class="card-text">' + formatTime(reply.regDate) + '</p>';
                             str += '    <button id="confirmBtn" class="confirmBtn btn-primary">확정</button>';
                             str += '    </div>';
