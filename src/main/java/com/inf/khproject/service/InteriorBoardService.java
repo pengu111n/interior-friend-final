@@ -16,6 +16,9 @@ public interface InteriorBoardService {
 
 
     InteriorPageResultDTO<InteriorBoardDTO, Object[]> getList(InteriorPageRequestDTO requestDTO);
+
+    InteriorPageResultDTO<InteriorBoardDTO, Object[]> getMypageList(InteriorPageRequestDTO requestDTO, Long id);
+
     InteriorBoardDTO read(Long boardNo);
     Long register(InteriorBoardDTO interiorBoardDTO);
     void remove(Long boardNo);
@@ -25,7 +28,7 @@ public interface InteriorBoardService {
         InteriorBoardDTO dto = InteriorBoardDTO.builder()
                 .boardNo(interiorBoard.getBoardNo())
                 .id(interiorBoard.getId())
-                .nickname(interiorBoard.getNickName())
+                .nickname(interiorBoard.getNickname())
                 .title(interiorBoard.getTitle())
                 .content(interiorBoard.getContent())
                 .category(interiorBoard.getCategory())
@@ -58,7 +61,7 @@ public interface InteriorBoardService {
         InteriorBoardDTO dto = InteriorBoardDTO.builder()
                 .boardNo(interiorBoard.getBoardNo())
                 .id(interiorBoard.getId())
-                .nickname(interiorBoard.getNickName())
+                .nickname(interiorBoard.getNickname())
                 .title(interiorBoard.getTitle())
                 .content(interiorBoard.getContent())
                 .category(interiorBoard.getCategory())
@@ -84,7 +87,7 @@ public interface InteriorBoardService {
         InteriorBoard interiorBoard = InteriorBoard.builder()
                 .boardNo(dto.getBoardNo())
                 .id(dto.getId())
-                .nickName(dto.getNickname())
+                .nickname(dto.getNickname())
                 .title(dto.getTitle())
                 .content(dto.getContent())
                 .category(dto.getCategory())

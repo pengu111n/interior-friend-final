@@ -15,6 +15,11 @@ public interface InteriorBoardRepository extends JpaRepository<InteriorBoard, Lo
             "left outer join InteriorBoardImage ai on ai.interiorBoard = m group by m ")
     Page<Object[]> getListPage(Pageable pageable);
 
+    @Query("select m, ai from InteriorBoard m " +
+            "left outer join InteriorBoardImage ai on ai.interiorBoard = m group by m " +
+            "having m.id = :id ")
+    Page<Object[]> getMypageListPage(Pageable pageable,long id);
+
     @Query("select m, mi " +
             " from InteriorBoard m left outer join InteriorBoardImage mi on mi.interiorBoard = m " +
             " where m.boardNo = :boardNo group by mi")

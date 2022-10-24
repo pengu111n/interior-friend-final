@@ -16,6 +16,9 @@ public interface ApplicationBoardService {
 
 
     ApplicationPageResultDTO<ApplicationBoardDTO, Object[]> getList(ApplicationPageRequestDTO requestDTO);
+
+    ApplicationPageResultDTO<ApplicationBoardDTO, Object[]> getMypageList(ApplicationPageRequestDTO requestDTO, Long id);
+
     ApplicationBoardDTO read(Long boardNo);
     Long register(ApplicationBoardDTO applicationBoardDTO);
     void remove(Long boardNo);
@@ -29,7 +32,7 @@ public interface ApplicationBoardService {
         ApplicationBoardDTO dto = ApplicationBoardDTO.builder()
                 .boardNo(applicationBoard.getBoardNo())
                 .id(applicationBoard.getId())
-                .nickName(applicationBoard.getNickName())
+                .nickname(applicationBoard.getNickname())
                 .username(applicationBoard.getUsername())
                 .title(applicationBoard.getTitle())
                 .category(applicationBoard.getCategory())
@@ -63,7 +66,7 @@ public interface ApplicationBoardService {
         ApplicationBoardDTO dto = ApplicationBoardDTO.builder()
                 .boardNo(applicationBoard.getBoardNo())
                 .id(applicationBoard.getId())
-                .nickName(applicationBoard.getNickName())
+                .nickname(applicationBoard.getNickname())
                 .username(applicationBoard.getUsername())
                 .title(applicationBoard.getTitle())
                 .category(applicationBoard.getCategory())
@@ -92,8 +95,13 @@ public interface ApplicationBoardService {
         ApplicationBoard applicationBoard = ApplicationBoard.builder()
                 .boardNo(dto.getBoardNo())
                 .id(dto.getId())
+<<<<<<< HEAD
                 .nickName(dto.getNickName())
                 .username(dto.getUsername())
+=======
+                .nickname(dto.getNickname())
+               .username(dto.getUsername())
+>>>>>>> 27-mypage-writelist
                 .title(dto.getTitle())
                 .category(dto.getCategory())
                 .address(dto.getAddress())

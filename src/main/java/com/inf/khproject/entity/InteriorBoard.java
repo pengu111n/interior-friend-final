@@ -18,18 +18,13 @@ public class InteriorBoard extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long boardNo;
 
-    @Column
-    private Long id;
 
-    @Column(length = 20)
-    private String nickName;
 
     @Column(length = 20)
     private String title;
 
     @Column(length = 500)
     private String content;
-
 
 
     @Column(length = 20)
@@ -51,15 +46,25 @@ public class InteriorBoard extends BaseEntity {
     @Column(length = 20)
     private String address;
 
+    @Column
+    @ColumnDefault("1")
+    private int view_count;
+
+
+    @Column
+    private Long id;
+
+    @Column(length = 20)
+    private String username;
+
+    @Column(length = 20)
+    private String nickname;
+
     @Column(length = 500)
     private String phoneNum;
 
     @Column(length = 50)
     private String email;
-
-    @Column
-    @ColumnDefault("1")
-    private int view_count;
 
     @ManyToOne (fetch = FetchType.LAZY)
     private Member writer;

@@ -66,21 +66,34 @@ public class ApplicationBoardServiceImpl implements ApplicationBoardService {
             log.info(Arrays.toString(arr));
         });
 
-
-
-            Function<Object[], ApplicationBoardDTO> fn = (arr -> entitiesToDto(
-                    (ApplicationBoard) arr[0]
-                    ,(List<ApplicationBoardImage>) (Arrays.asList((ApplicationBoardImage) arr[1]))
-            ));
-          /*
-        Function<Object[], ApplicationBoardDTO> fn = (arr -> entityToDto(
+        Function<Object[], ApplicationBoardDTO> fn = (arr -> entitiesToDto(
                 (ApplicationBoard) arr[0]
+                ,(List<ApplicationBoardImage>) (Arrays.asList((ApplicationBoardImage) arr[1]))
         ));
-        */
-
 
         return new ApplicationPageResultDTO<>(result, fn);
 
+    }
+
+    @Transactional
+    @Override
+    public ApplicationPageResultDTO<ApplicationBoardDTO, Object[]> getMypageList(ApplicationPageRequestDTO requestDTO,Long id) {
+
+        Pageable pageable = requestDTO.getPageable(Sort.by("boardNo").descending());
+
+
+        Page<Object[]> result = applicationBoardRepository.getMypageListPage(pageable,id);
+
+        result.getContent().forEach(arr -> {
+            log.info(Arrays.toString(arr));
+        });
+
+        Function<Object[], ApplicationBoardDTO> fn = (arr -> entitiesToDto(
+                (ApplicationBoard) arr[0]
+                ,(List<ApplicationBoardImage>) (Arrays.asList((ApplicationBoardImage) arr[1]))
+        ));
+
+        return new ApplicationPageResultDTO<>(result, fn);
 
     }
 
