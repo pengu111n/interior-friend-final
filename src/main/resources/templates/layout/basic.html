@@ -187,14 +187,35 @@
                     <li class="dropdown ymm-sw " data-wow-delay="0.1s">
                         <a href="index.jsp" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="200">인테리어 신청<b class="caret"></b></a>
                         <ul class="dropdown-menu navbar-nav">
-                            <li><a th:href="@{/applicationboard/register}">인테리어 신청</a></li>
+                             <li sec:authorize="hasRole('ROLE_INDIVIDUAL')">
+                                <a th:href="@{/applicationboard/register}">
+                                    인테리어 신청
+                                </a>
+                            </li>
+                            <li sec:authorize="hasRole('ROLE_COMPANY')">
+                                <a th:id="application_register" th:href="@{/applicationboard/register}">
+                                    인테리어 신청
+                                </a>
+                            </li>
+                            <li sec:authorize="hasRole('ROLE_ADMIN')">
+                                <a th:href="@{/applicationboard/register}">
+                                    인테리어 신청
+                                </a>
+                            </li>
+
+                            <li sec:authorize="isAnonymous()"><a th:href="@{/applicationboard/register}">인테리어 신청</a></li>
+
                             <li><a th:href="@{/applicationboard/list}">인테리어 신청 목록</a></li>
                         </ul>
                     </li>
                     <li class="dropdown ymm-sw " data-wow-delay="0.1s">
                         <a href="index.jsp" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="200">인테리어 사례<b class="caret"></b></a>
                         <ul class="dropdown-menu navbar-nav">
-                            <li><a th:href="@{/interiorboard/register}">시공사례 등록</a></li>
+                            <li sec:authorize="hasRole('ROLE_INDIVIDUAL')"><a th:id="interiorboard_register" th:href="@{/interiorboard/register}">시공사례 등록</a></li>
+                            <li sec:authorize="hasRole('ROLE_COMPANY')"><a th:href="@{/interiorboard/register}">시공사례 등록</a></li>
+                            <li sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/interiorboard/register}">시공사례 등록</a></li>
+
+                            <li sec:authorize="isAnonymous()"><a th:href="@{/interiorboard/register}">시공사례 등록</a></li>
                             <li><a th:href="@{/interiorboard/list}">시공사례 목록</a></li>
                         </ul>
                     </li>
@@ -364,6 +385,20 @@
             </div>
         </div>
     </div>
+    <script>
+
+    $(document).ready(function(e) {
+        $("#interiorboard_register").on("click", function(e) {
+            alert("기업 회원만 작성 가능합니다.");
+            return false;
+        })
+        $("#application_register").on("click", function(e) {
+            alert("개인 회원만 작성 가능합니다.");
+
+            return false;
+        })
+    });
+    </script>
     </body>
 </th:block>
 </html>
