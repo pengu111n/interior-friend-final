@@ -1,9 +1,7 @@
 package com.inf.khproject.config;
 
 import com.inf.khproject.security.handler.MemberHandler;
-import com.inf.khproject.security.service.CustomMemberDetailService;
-import com.inf.khproject.security.service.PrincipalDetails;
-import com.inf.khproject.security.service.PrincipalOauth2UserService;
+import com.inf.khproject.security.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,11 +33,10 @@ import javax.sql.DataSource;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final CustomMemberDetailService CustomMemberDetailService;
+    private final UserDetailsService CustomMemberDetailService;
     private final CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
 
-    private final PrincipalDetails principalDetails;
-    private final PrincipalOauth2UserService principalOauth2UserService;
+    private final CustomOauth2MemberDetailService customOauth2MemberDetailService;
     @Bean
     PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -97,7 +94,7 @@ public class SecurityConfig {
             .and().oauth2Login()
                 .defaultSuccessUrl("/")
                 .userInfoEndpoint()
-                .userService(principalOauth2UserService);
+                .userService(customOauth2MemberDetailService);
             
 
 
