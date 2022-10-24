@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <link rel="stylesheet" th:href="@{/assets/css/infoBoard.css}">
 <link rel="stylesheet" th:href="@{/assets/css/FAQ.css}">
@@ -30,13 +30,15 @@
                         <th scope="col" class="th-title">제목</th>
                         <th scope="col" class="th-date">등록일</th>
 
-                        <div class="collapse navbar-collapse yamm" id="navigation">
-                            <div class="button navbar-right" style="margin-top: 10px;">
-                                <a th:href="@{/servicecenter/notice/register}"
-                                   class="navbar-btn nav-button wow fadeInRight"
-                                   data-wow-delay="0.48s">공지사항 작성</a>
+                        <sec:authorize access="hasRole('ADMIN')">
+                            <div class="collapse navbar-collapse yamm" id="navigation">
+                                <div class="button navbar-right" style="margin-top: 10px;">
+                                    <a th:href="@{/servicecenter/notice/register}"
+                                       class="navbar-btn nav-button wow fadeInRight"
+                                       data-wow-delay="0.48s">공지사항 작성</a>
+                                </div>
                             </div>
-                        </div>
+                        </sec:authorize>
                     </tr>
                     </thead>
 
