@@ -203,7 +203,13 @@
                         <ul class="dropdown-menu navbar-nav">
                             <li><a href="/servicecenter/notice/list">공지사항</a></li>
                             <li><a href="/servicecenter/faq">FAQ</a></li>
-                            <li><a href="/servicecenter/qna/list">1:1 문의</a></li>
+
+                            <li sec:authorize="hasAnyRole('INDIVIDUAL', 'COMPANY')">
+                                <a th:href="@{/servicecenter/qna/list(id = ${#authentication.principal.member.id})}">1:1 문의</a>
+                            </li>
+                            <li sec:authorize="hasRole('ADMIN')">
+                                <a th:href="@{/servicecenter/qna/listAll}">1:1 문의</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="dropdown ymm-sw " data-wow-delay="0.1s">

@@ -24,20 +24,10 @@
             <div class="container">
                 <div class="qnaform">
                     <form th:action="@{/servicecenter/qna/modify}" th:method="post">
-                        <!-- 카테고리 -->
-                        <div class="qnaform__category outside form-group">
+
+                        <div class="qnaform__title outside form-group">
                             <span class="left">분류</span>
-                            <span class="right">
-                                <select class="selectbox" id="category" name="category" th:value="${dto.category}">
-                                    <option th:selected="${dto.category}=='전체'" value="전체">전체</option>
-                                    <option th:selected="${dto.category}=='주문/결제'" value="주문/결제">주문/결제</option>
-                                    <option th:selected="${dto.category}=='배송관련'" value="배송관련">배송관련</option>
-                                    <option th:selected="${dto.category}=='취소/환불'" value="취소/환불">취소/환불</option>
-                                    <option th:selected="${dto.category}=='반품/교환'" value="반품/교환">반품/교환</option>
-                                    <option th:selected="${dto.category}=='로그인/회원정보'" value="로그인/회원정보">로그인/회원정보</option>
-                                    <option th:selected="${dto.category}=='서비스/기타'" value="서비스/기타">서비스/기타</option>
-                                </select>
-						    </span>
+                            <span class="right"><input type="text" class="form-control" name="category" th:value="${dto.category}" readonly></span>
                         </div>
 
                         <div class="qnaform__title outside form-group">
