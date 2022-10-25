@@ -14,6 +14,10 @@ public interface QNAService {
 
     PageResultDTO<QNADTO, Object[]> getListAll(PageRequestDTO pageRequestDTO);
 
+    int getCount(Long id);
+
+    int getAllCount(Long id);
+
     QNADTO get(Long qnaNo);
 
     QNADTO getByQnaReplyNo(Long qnaReplyNo);

@@ -63,7 +63,7 @@
                         th:onclick="|location.href='@{/servicecenter/qna/list(id=${#authentication.principal.member.id}, page=${requestDTO.page})}'|"
                         type="button" class="btn btn-primary">목록</button>
                 <button sec:authorize="hasRole('ROLE_ADMIN')"
-                        th:onclick="|location.href='@{/servicecenter/qna/listAll}'|"
+                        th:onclick="|location.href='@{/servicecenter/qna/listAll(id=${#authentication.principal.member.id})}'|"
                         type="button" class="btn btn-primary">목록</button>
 
                 <button th:if="${dto.status != 0}"

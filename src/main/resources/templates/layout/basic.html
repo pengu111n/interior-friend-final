@@ -228,7 +228,7 @@
                                 <a th:href="@{/servicecenter/qna/list(id = ${#authentication.principal.member.id})}">1:1 문의</a>
                             </li>
                             <li sec:authorize="hasRole('ADMIN')">
-                                <a th:href="@{/servicecenter/qna/listAll}">1:1 문의</a>
+                                <a th:href="@{/servicecenter/qna/listAll(id = ${#authentication.principal.member.id})}">1:1 문의</a>
                             </li>
                         </ul>
                     </li>

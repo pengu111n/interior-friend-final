@@ -44,12 +44,12 @@
                     </thead>
 
                     <tbody>
-                    <!--<c:if test="${qnaPage.hasNoArticles()}">
-                        <tr>
-                            <td colspan="6">게시글이 없습니다.</td>
-                        </tr>
-                    </c:if>-->
-                    <tr th:each="dto : ${result.dtoList}">
+
+                    <tr th:if="${count == 0}">
+                        <td colspan="6">아직 등록된 1:1문의가 없습니다.</td>
+                    </tr>
+
+                    <tr th:unless="${count == 0}" th:each="dto : ${result.dtoList}">
                         <th scope="row">[[${dto.qnaNo}]]</th>
                         <td>[[${dto.category}]]</td>
                         <td>

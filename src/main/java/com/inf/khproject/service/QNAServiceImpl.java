@@ -64,6 +64,18 @@ public class QNAServiceImpl implements QNAService {
 
     }
 
+    @Override
+    public int getCount(Long id) {
+        int qnaCount = qnaRepository.getQNACount(id);
+        return qnaCount;
+    }
+
+    @Override
+    public int getAllCount(Long id) {
+        int qnaCount = qnaRepository.getAllQNACount(id);
+        return qnaCount;
+    }
+
     @Transactional
     @Override
     public QNADTO get(Long qnaNo) {

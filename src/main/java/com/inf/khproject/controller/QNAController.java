@@ -2,19 +2,9 @@ package com.inf.khproject.controller;
 
 import com.inf.khproject.dto.PageRequestDTO;
 import com.inf.khproject.dto.QNADTO;
-import com.inf.khproject.entity.Member;
-import com.inf.khproject.repository.MemberRepository;
-import com.inf.khproject.security.service.CustomMemberDetailService;
-import com.inf.khproject.security.service.CustomMemberDetails;
 import com.inf.khproject.service.QNAService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,9 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.security.Principal;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/servicecenter/qna")
@@ -38,13 +25,16 @@ public class QNAController {
     public void list(Long id, PageRequestDTO pageRequestDTO, Model model) {
 
         log.info("list......" + pageRequestDTO);
+        log.info("count......" + qnaService.getCount(id));
 
+        model.addAttribute("count", qnaService.getCount(id));
         model.addAttribute("result", qnaService.getList(pageRequestDTO, id));
 
     }
 
     @GetMapping("/listAll")
-    public void listAll(PageRequestDTO pageRequestDTO, Model model) {
+    public void listAll(Long id, PageRequestDTO pageRequestDTO, Model model) {
+        model.addAttribute("count", qnaService.getAllCount(id));
         model.addAttribute("result", qnaService.getListAll(pageRequestDTO));
     }
 
