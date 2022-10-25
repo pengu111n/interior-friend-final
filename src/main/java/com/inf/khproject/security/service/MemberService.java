@@ -34,8 +34,6 @@ public class MemberService {
     public Member register(MemberDTO dto) throws Exception {
         dto.setPw(passwordEncoder.encode(dto.getPw()));
         MemberRole role = dto.getRole();
-        String auth = sendSimpleMessage(dto.getEmail());
-        dto.setAuth(auth);
         log.info(dto);
         Member member = dto.dtoToEntity(dto);
         repository.save(member);
