@@ -734,35 +734,25 @@
                                 var totalAmount = [[${dto.budget}]];
                                 var boardNo = [[${dto.boardNo}]];
 
-                                var role = [[${#authentication.principal.member.role}]];
+                                console.log(totalAmount);
 
-                                if (role == 'ROLE_COMPANY') {
-                                    alert("기업회원은 확정을 할 수 없습니다.");
-                                } else {
+                                $.ajax({
 
-                                    console.log(totalAmount);
+                                    type: 'get',
+                                    url: '/order/pay',
+                                    data: {
+                                        total_amount: totalAmount,
+                                        board_no: boardNo
+                                    },
 
-                                    $.ajax({
+                                    success: function (response) {
+                                        location.href = response.next_redirect_pc_url;
+                                    },
+                                    error: function (error) {
+                                        alert(error);
+                                    }
 
-                                        type: 'get',
-                                        url: '/order/pay',
-                                        data: {
-                                            total_amount: totalAmount,
-                                            board_no: boardNo
-                                        },
-
-                                        success: function (response) {
-                                            location.href = response.next_redirect_pc_url;
-                                        },
-                                        error: function (error) {
-                                            alert(error);
-                                        }
-
-                                    });
-
-                                }
-
-
+                                });
                             });
                         });
 

@@ -34,6 +34,7 @@ public interface ApplicationBoardService {
                 .boardNo(applicationBoard.getBoardNo())
                 .nickname(applicationBoard.getNickname())
                 .username(applicationBoard.getUsername())
+                .id(applicationBoard.getWriter().getId())
                 .title(applicationBoard.getTitle())
                 .category(applicationBoard.getCategory())
                 .address(applicationBoard.getAddress())
