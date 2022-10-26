@@ -720,27 +720,37 @@
                             $("[id='confirmBtn']").click(function () {
 
                                 var totalAmount = [[${dto.budget}]];
-                                var boardNo = [[${dto.boardNo}]]
+                                var boardNo = [[${dto.boardNo}]];
 
-                                console.log(totalAmount);
+                                var role = [[${#authentication.principal.member.role}]];
 
-                                $.ajax({
+                                if (role == 'ROLE_COMPANY') {
+                                    alert("기업회원은 확정을 할 수 없습니다.");
+                                } else {
 
-                                    type: 'get',
-                                    url: '/order/pay',
-                                    data: {
-                                        total_amount: totalAmount,
-                                        board_no: boardNo
-                                    },
+                                    console.log(totalAmount);
 
-                                    success: function (response) {
-                                        location.href = response.next_redirect_pc_url;
-                                    },
-                                    error: function (error) {
-                                        alert(error);
-                                    }
+                                    $.ajax({
 
-                                });
+                                        type: 'get',
+                                        url: '/order/pay',
+                                        data: {
+                                            total_amount: totalAmount,
+                                            board_no: boardNo
+                                        },
+
+                                        success: function (response) {
+                                            location.href = response.next_redirect_pc_url;
+                                        },
+                                        error: function (error) {
+                                            alert(error);
+                                        }
+
+                                    });
+
+                                }
+
+
                             });
                         });
 
