@@ -56,7 +56,7 @@ public class KakaoPayServiceImpl implements KakaoPayService {
         Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
         String username = loggedInUser.getName();
 
-        //request 값 담기
+        // request 값 담기
         LinkedMultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
         parameters.add("cid", "TC0ONETIME");
         parameters.add("tid", tid);
@@ -64,16 +64,16 @@ public class KakaoPayServiceImpl implements KakaoPayService {
         parameters.add("partner_user_id", "inf");
         parameters.add("pg_token", pgToken);
 
-        //하나의 map 안에 header와 parameter 값을 담아줌
+        // 하나의 map 안에 header와 parameter 값을 담아줌
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(parameters, this.getHeaders());
 
         // 외부url 통신
         RestTemplate template = new RestTemplate();
         String url = "https://kapi.kakao.com/v1/payment/approve";
 
-        // 보낼 외부 url, 요청 메시지(header,parameter), 처리후 값을 받아올 클래스.
+        // 보낼 외부 url, 요청 메시지(header,parameter), 처리후 값을 받아올 클래스
         ApproveResponse approveResponse = template.postForObject(url, requestEntity, ApproveResponse.class);
-        log.info("결제승인 응답객체" + approveResponse);
+        log.info("결제승인 응답객체: " + approveResponse);
 
         return approveResponse;
 

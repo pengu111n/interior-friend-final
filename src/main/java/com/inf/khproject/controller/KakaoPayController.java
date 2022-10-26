@@ -24,7 +24,7 @@ public class KakaoPayController {
         log.info("주문정보:"+boardNo);
         log.info("주문가격:"+totalAmount);
 
-        // 카카오 결제 준비하기	- 결제요청 service 실행.
+        // 카카오 결제 준비 - 결제요청 service 실행
         ReadyResponse readyResponse = kakaoPayService.payReady(totalAmount);
 
         // 요청처리후 받아온 결재고유 번호(tid)를 모델에 저장
@@ -34,7 +34,7 @@ public class KakaoPayController {
         // Order정보를 모델에 저장
         model.addAttribute("boardNo", boardNo);
 
-        return readyResponse; // 클라이언트에 보냄.(tid,next_redirect_pc_url이 담겨있음.)
+        return readyResponse; // 클라이언트에 보냄 (tid, next_redirect_pc_url이 담겨있음)
     }
 
     // 결제승인요청
