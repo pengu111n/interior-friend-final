@@ -24,8 +24,6 @@ public class ApplicationBoard extends BaseEntity {
     @Column(length = 20)
     private String nickname;
 
-    @Column
-    private Long id;
 
     @Column(length = 20)
     private String title;

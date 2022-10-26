@@ -6,6 +6,7 @@ import com.inf.khproject.dto.ApplicationPageRequestDTO;
 import com.inf.khproject.dto.ApplicationPageResultDTO;
 import com.inf.khproject.entity.ApplicationBoard;
 import com.inf.khproject.entity.ApplicationBoardImage;
+import com.inf.khproject.entity.Member;
 
 import java.util.HashMap;
 import java.util.List;
@@ -31,7 +32,6 @@ public interface ApplicationBoardService {
     default ApplicationBoardDTO entitiesToDto(ApplicationBoard applicationBoard, List<ApplicationBoardImage> applicationBoardImages) {
         ApplicationBoardDTO dto = ApplicationBoardDTO.builder()
                 .boardNo(applicationBoard.getBoardNo())
-                .id(applicationBoard.getId())
                 .nickname(applicationBoard.getNickname())
                 .username(applicationBoard.getUsername())
                 .title(applicationBoard.getTitle())
@@ -62,39 +62,13 @@ public interface ApplicationBoardService {
         return dto;
     }
 
-    default ApplicationBoardDTO entityToDto(ApplicationBoard applicationBoard) {
-        ApplicationBoardDTO dto = ApplicationBoardDTO.builder()
-                .boardNo(applicationBoard.getBoardNo())
-                .id(applicationBoard.getId())
-                .nickname(applicationBoard.getNickname())
-                .username(applicationBoard.getUsername())
-                .title(applicationBoard.getTitle())
-                .category(applicationBoard.getCategory())
-                .address(applicationBoard.getAddress())
-                .area(applicationBoard.getArea())
-                .startDate(applicationBoard.getStartDate())
-                .endDate(applicationBoard.getEndDate())
-                .budget(applicationBoard.getBudget())
-                .part(applicationBoard.getPart())
-                .required(applicationBoard.getRequired())
-                .view_count(applicationBoard.getView_count())
-                .status(applicationBoard.getStatus())
-                .regDate(applicationBoard.getRegDate())
-                .modDate(applicationBoard.getModDate())
-                .build();
-
-
-
-        return dto;
-    }
-
 
     default Map<String, Object> dtoToEntity(ApplicationBoardDTO dto) {
         Map<String, Object> entityMap = new HashMap<>();
+        Member member = Member.builder().id(dto.getId()).build();
 
         ApplicationBoard applicationBoard = ApplicationBoard.builder()
                 .boardNo(dto.getBoardNo())
-                .id(dto.getId())
                 .nickname(dto.getNickname())
                .username(dto.getUsername())
                 .title(dto.getTitle())
@@ -108,6 +82,7 @@ public interface ApplicationBoardService {
                 .required(dto.getRequired())
                 .view_count(dto.getView_count())
                 .status(dto.getStatus())
+                .writer(member)
                 .build();
 
         entityMap.put("applicationBoard", applicationBoard);
