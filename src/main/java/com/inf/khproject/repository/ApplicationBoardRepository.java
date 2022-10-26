@@ -18,7 +18,7 @@ public interface ApplicationBoardRepository extends JpaRepository<ApplicationBoa
 
     @Query("select m, ai from ApplicationBoard m " +
             "left outer join ApplicationBoardImage ai on ai.applicationBoard = m group by m "+
-            "having m.id = :id ")
+            "having m.writer.id = :id ")
     Page<Object[]> getMypageListPage(Pageable pageable,long id);
 
     @Query("select m, mi " +

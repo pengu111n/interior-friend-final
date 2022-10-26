@@ -34,9 +34,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation group: 'net.coobird', name: 'thumbnailator', version: '0.4.1'
-    compile group: 'org.springframework.security', name: 'spring-security-web', version: '3.0.5.RELEASE'
 
-//    implementation 'org.springframework.boot:spring-boot-starter-security'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.projectlombok:lombok'

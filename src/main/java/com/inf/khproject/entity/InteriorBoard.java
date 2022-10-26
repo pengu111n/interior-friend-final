@@ -51,8 +51,6 @@ public class InteriorBoard extends BaseEntity {
     private int view_count;
 
 
-    @Column
-    private Long id;
 
     @Column(length = 20)
     private String username;

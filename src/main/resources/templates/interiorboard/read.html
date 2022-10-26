@@ -62,6 +62,7 @@
                                 <div class="section property-video">
                                     <h4 class="s-property-title">시공 이미지</h4>
                                     <div class="video-thumb">
+                                        <hr/>
 
                                         <span  th:data-file="${interiorBoardImage.getThumbnailURL()}" th:each="interiorBoardImage: ${dto.imageDTOList}" name="asd">
                                          <img style="width : 960px; " th:if="${interiorBoardImage.path != null}" th:src="|/display?fileName=${interiorBoardImage.getImageURL()}|">
@@ -132,21 +133,9 @@
                                     </div>
                                     <div class="col-xs-8 col-sm-8 ">
                                         <h3 class="dealer-name">
-                                            <a href="">회사명(추가예정)</a>
+                                            <a href="">[[${dto.nickname}]]</a>
                                         </h3>
-                                        <div class="dealer-social-media">
-                                            <a class="twitter" target="_blank" href=""> <i
-                                                    class="fa fa-twitter"></i>
-                                            </a> <a class="facebook" target="_blank" href=""> <i
-                                                class="fa fa-facebook"></i>
-                                        </a> <a class="gplus" target="_blank" href=""> <i
-                                                class="fa fa-google-plus"></i>
-                                        </a> <a class="linkedin" target="_blank" href=""> <i
-                                                class="fa fa-linkedin"></i>
-                                        </a> <a class="instagram" target="_blank" href=""> <i
-                                                class="fa fa-instagram"></i>
-                                        </a>
-                                        </div>
+
 
                                     </div>
                                 </div>
@@ -155,9 +144,9 @@
                                 <div class="section property-features">
                                     <!-- <h4 class="s-property-title">Features</h4>    -->
                                     <ul class="dealer-contacts">
-                                        <li><i class="pe-7s-map-marker strong"> </i> 주소(추가예정)</li>
-                                        <li><i class="pe-7s-mail strong"> </i> 이메일(추가예정) </li>
-                                        <li><i class="pe-7s-call strong"> </i> 연락처(추가예정) </li>
+                                        <li><i class="pe-7s-map-marker strong"> </i> [[${dto.address}]]</li>
+                                        <li><i class="pe-7s-mail strong"> </i> [[${dto.email}]] </li>
+                                        <li><i class="pe-7s-call strong"> </i> [[${dto.phoneNum}]] </li>
                                     </ul>
 
                                 </div>
