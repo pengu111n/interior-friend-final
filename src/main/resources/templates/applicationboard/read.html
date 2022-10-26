@@ -680,8 +680,8 @@
             $(document).ready(function () {
 
                 var boardNo = [[${dto.boardNo}]];
-
-
+                var id = [[${dto.id}]];
+                var loginId = [[${#authentication.principal.member.id}]];
                 //댓글이 추가될 영역
                 var listGroup = $(".replyList");
 
@@ -704,13 +704,14 @@
                         var str = "";
 
                         $('.replyCount').html(" Reply Count  " + arr.length);
-
                         $.each(arr, function (idx, reply) {
                             console.log(reply);
                             str += '    <h6 class="card-subtitle mb-2 text-muted">' + reply.replyer + '</h6>';
                             str += '    <h5 class="card-title">' + reply.replycontent + '</h5>';
                             str += '    <p class="card-text">' + formatTime(reply.regDate) + '</p>';
-                            str += '    <button id="confirmBtn" class="confirmBtn btn-primary">확정</button>';
+                            if(id == loginId){
+                                str += ' <button id="confirmBtn" class="confirmBtn btn-primary">확정</button>';
+                            }
                             str += '    </div>';
                         })
 
