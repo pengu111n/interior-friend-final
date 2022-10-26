@@ -1,5 +1,3 @@
-var template = Handlebars.compile($("#template").html());
-
 $(".fileDrop").on("dragenter dragover", function (event) {
   event.preventDefault(); // 기본효과를 막음
 });
@@ -349,3 +347,16 @@ for (var i = 1; i <= 12; i++) {
   $(".month").append('<option value="' + mm + '">' + mm + "월</option>");
 }
 
+$(document).ready(function() {
+        var formObj = $("form[role='form']");
+        console.log(formObj);
+        $(".btn-modify").on("click", function() {
+            formObj.attr("action", "/mypage/member/modify");
+            formObj.attr("method", "get");
+            formObj.submit();
+        });
+        $(".btn-leave").on("click", function() {
+            formObj.attr("action", "/mypage/member/remove");
+            formObj.submit();
+        });
+    });

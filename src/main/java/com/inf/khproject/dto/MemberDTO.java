@@ -18,7 +18,8 @@ public class MemberDTO {
     private String pw;
     private String phoneNum;
     private String email;
-    private String address;
+    private String roadAddress;
+    private String detailAddress;
     private String companyNo;
     private String birth;
     private String name;
@@ -37,7 +38,8 @@ public class MemberDTO {
                     .pw(dto.getPw())
                     .phoneNum(dto.getPhoneNum())
                     .email(dto.getEmail())
-                    .address(dto.getAddress())
+                    .roadAddress(dto.getRoadAddress())
+                    .detailAddress(dto.getDetailAddress())
                     .companyNo(dto.getCompanyNo())
                     .birth(dto.getBirth())
                     .name(dto.getName())
@@ -53,7 +55,8 @@ public class MemberDTO {
                     .pw(dto.getPw())
                     .phoneNum(dto.getPhoneNum())
                     .email(dto.getEmail())
-                    .address(dto.getAddress())
+                    .roadAddress(dto.getRoadAddress())
+                    .detailAddress(dto.getDetailAddress())
                     .companyNo(dto.getCompanyNo())
                     .birth(dto.getBirth())
                     .name(dto.getName())
@@ -74,7 +77,8 @@ public class MemberDTO {
                 .pw(entity.getPw())
                 .phoneNum(entity.getPhoneNum())
                 .email(entity.getEmail())
-                .address(entity.getAddress())
+                .roadAddress(entity.getRoadAddress())
+                .detailAddress(entity.getDetailAddress())
                 .companyNo(entity.getCompanyNo())
                 .birth(entity.getBirth())
                 .name(entity.getName())

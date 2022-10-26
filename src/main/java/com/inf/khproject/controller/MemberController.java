@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("/member")
 @Log4j2
 @RequiredArgsConstructor
+@CrossOrigin(origins = {"http://localhost:8080"})
 public class MemberController {
 
     private final MemberService service;
@@ -36,13 +37,13 @@ public class MemberController {
         log.info("register");
     }
 //, produces = "application/json; charset=utf-8"
-    @Transactional
-    @PostMapping(value = "/register", produces = MediaType.APPLICATION_JSON_VALUE)
-    public String regist(MemberDTO dto, HttpServletResponse res, HttpServletRequest req) throws Exception {
-        log.info("dtoooo" + dto);
-        service.register(dto);
-        return "redirect:/";
-    }
+    @PostMapping("/register")
+public String regist(MemberDTO dto, HttpServletResponse res, HttpServletRequest req, @RequestParam String yy, @RequestParam String mm, @RequestParam String dd) throws Exception {
+    log.info("dtoooo" + dto);
+    dto.setBirth(yy+"/"+mm+"/"+dd);
+    service.register(dto);
+    return "redirect:/";
+}
 
     @PostMapping("/confirmMail")
     @ResponseBody
@@ -68,6 +69,11 @@ public class MemberController {
 
     @GetMapping("/login")
     public void login(Model model) throws Exception{
+        log.info("login");
+    }
+
+    @PutMapping("/login")
+    public void login() throws Exception{
         log.info("login");
     }
 

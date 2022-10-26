@@ -5,6 +5,7 @@ import com.inf.khproject.security.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
@@ -15,6 +16,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -24,12 +26,12 @@ import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 
 import javax.sql.DataSource;
 
 @EnableWebSecurity
 @Configuration
-@Log4j2
 @RequiredArgsConstructor
 public class SecurityConfig {
 
@@ -38,7 +40,7 @@ public class SecurityConfig {
 
     private final CustomOauth2MemberDetailService customOauth2MemberDetailService;
     @Bean
-    PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
 
@@ -63,12 +65,14 @@ public class SecurityConfig {
     }
 
 
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http)throws Exception{
         http.csrf().disable()
                 .headers().frameOptions().disable()
             .and().authorizeHttpRequests()
                 .antMatchers("/member/**", "/").permitAll()
+                .antMatchers("/mypage/**","/api/**").authenticated()
                 .antMatchers("/applicationboard/register").hasAnyRole("INDIVIDUAL", "ADMIN")
                 .antMatchers("/applicationboard/list").permitAll()
                 .antMatchers("/applicationboard/read").authenticated()
@@ -77,12 +81,14 @@ public class SecurityConfig {
                 .antMatchers("/servicecenter/notice/register","/servicecenter/notice/modify","/servicecenter/notice/remove").hasRole("ADMIN")
                 .antMatchers("/servicecenter/qna/**").authenticated()
                 .antMatchers("/servicecenter/**").permitAll()
+                .anyRequest().permitAll()
             .and().formLogin()
                 .loginPage("/member/login")
                 .defaultSuccessUrl("/")
-                .failureHandler(customAuthenticationFailureHandler)
                 .usernameParameter("username")
                 .passwordParameter("pw")
+                .successHandler(new LoginSuccessHandler())
+                .failureHandler(customAuthenticationFailureHandler)
             .and().logout().logoutUrl("/member/logout")
                 .logoutSuccessUrl("/")
                 .invalidateHttpSession(true)
@@ -95,14 +101,22 @@ public class SecurityConfig {
                 .defaultSuccessUrl("/")
                 .userInfoEndpoint()
                 .userService(customOauth2MemberDetailService);
-            
+
+            http.sessionManagement()
+                    .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+                    .maximumSessions(1)
+                    .maxSessionsPreventsLogin(true)
+                    .expiredUrl("/member/login");
 
 
 
         return http.build();
     }
 
-
+    @Bean
+    public static ServletListenerRegistrationBean httpSessionEventPublisher() {
+        return new ServletListenerRegistrationBean(new HttpSessionEventPublisher());
+    }
 //    @Bean
 //    public UserDetailsManager users(DataSource dataSource) {
 //        UserDetails user = User.withDefaultPasswordEncoder()
@@ -124,5 +138,7 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
+
+
 
 }

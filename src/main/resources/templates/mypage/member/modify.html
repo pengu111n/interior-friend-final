@@ -1,96 +1,104 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
     <th:block th:fragment="content">
 
-<div class="register-area" style="background-color: rgb(249, 249, 249);">
-    <div class="container">
-        <div class="col-md-6">
-            <div class="box-for overflow">
-                <div class="col-md-12 col-xs-12 register-blocks">
-                    <form role="form" method="post">
-                        <h2>회원정보 수정 :</h2>
-                        <div class="form-group">
-                            <label for="rank">회원분류</label>
-                            <input type="text" class="form-control" id="rank" name="rank" value="${login.rank}"
-                                   readonly="readonly">
-                        </div>
-                        <c:if test="${login.rank == 2}">
-                            <div class="form-group">
-                                <label for="companyNo">사업자번호</label>
-                                <input type="text" class="form-control" id="companyNo" name="companyNo"
-                                       value="${login.companyNo}">
+        <div class="register-area" style="background-color: rgb(249, 249, 249);">
+            <div class="container">
+                <div class="col-md-6">
+                    <div class="box-for overflow">
+                        <div class="col-md-12 col-xs-12 register-blocks">
+                            <form role="form" action="/api/modify" type="PUT">
+                                <input type="hidden" id="id" name="id" th:value="${#authentication.principal.member.id}">
+                                <h2>회원정보 조회 :</h2>
+                                <div class="form-group">
+                                    <label for="rank">회원분류</label>
+                                    <input th:if="${#authorization.expression('hasRole(''INDIVIDUAL'')')}" class="form-control rank" name="rank1" value="개인"
+                                           readonly="readonly"/>
+                                    <input th:if="${#authorization.expression('hasRole(''INDIVIDUAL'')')}" type="hidden" id="rank" name="rank" value="1">
+
+                                    <input th:if="${#authorization.expression('hasRole(''COMPANY'')')}" class="form-control rank" name="rank1" value="기업"
+                                           readonly="readonly"/>
+                                    <input th:if="${#authorization.expression('hasRole(''COMPANY'')')}" type="hidden" id="rank" name="rank" value="2">
+
+                                    <input th:if="${#authorization.expression('hasRole(''ADMIN'')')}" class="form-control rank" name="rank1" value="관리자"
+                                           readonly="readonly"/>
+                                    <input th:if="${#authorization.expression('hasRole(''ADMIN'')')}" type="hidden" id="rank" name="rank" value="3">
+                                </div>
+                                <div class="form-group" sec:authorize="hasRole('COMPANY')">
+                                    <label for="companyNo">사업자번호</label>
+                                    <input type="text" class="form-control" id="companyNo" name="companyNo"
+                                           th:value="${#authentication.principal.member.companyNo}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="username">아이디</label>
+                                    <input type="text" class="form-control" id="username" name="username"
+                                           th:value="${#authentication.principal.member.username}" readonly="readonly">
+                                </div>
+                                <div class="form-group">
+                                    <label for="nickName">닉네임</label>
+                                    <input type="text" class="form-control" id="nickname" name="nickname"
+                                           th:value="${#authentication.principal.member.nickname}" onblur="nicknameCheck()">
+                                    <span class="nicknameCK">중복된 닉네임 입니다.</span>
+                                    <span class="empty emptynickname">필수 정보입니다.</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pw">비밀번호</label>
+                                    <input type="password" class="form-control" id="pw" name="pw"
+                                           th:value="${#authentication.principal.member.pw}" onblur="regexPW()">
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">이름</label>
+                                    <input type="text" class="form-control" id="name" name="name"
+                                           th:value="${#authentication.principal.member.name}" readonly="readonly">
+                                </div>
+                                <div class="form-group">
+                                    <label for="birth">생년월일</label>
+                                    <input type="text" class="form-control" id="birth" name="birth"
+                                           th:value="${#authentication.principal.member.birth}" readonly="readonly"
+                                           onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="sample4_postcode">주소</label>
+                                    <span class="half">
+                            <input type="text" id="sample4_postcode" class="form-control address_40%" placeholder="우편번호" readonly>
+                            <input type="button" onclick="sample4_execDaumPostcode()" class="form-control address_40%" value="우편번호 찾기">
+                            </span>
+                                    <input type="text" id="sample4_roadAddress" class="form-control address_40%" placeholder="도로명주소" name="roadAddress" th:value="${#authentication.principal.member.roadAddress}" readonly>
+                                    <span id="guide" style="color:#999;display:none"></span>
+                                    <input type="text" id="sample4_detailAddress" placeholder="상세주소" class="form-control address_40%" name="detailAddress" th:value="${#authentication.principal.member.detailAddress}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="phoneNum">전화번호</label>
+                                    <input type="text" class="form-control" id="phoneNum" name="phoneNum"
+                                           th:value="${#authentication.principal.member.phoneNum}"
+                                           onkeydown="this.value=this.value.replace(/[^0-9]/g,'');"
+                                           onblur="regexPhone()" maxlength="11"/>
+                                    <span class="regPhone">형식에 맞지 않는 번호입니다</span>
+                                    <span class="empty emptyPhone">필수 정보입니다.</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">이메일</label>
+                                    <input type="text" class="form-control" id="email" name="email"
+                                           th:value="${#authentication.principal.member.email}" readonly>
+                                </div>
+                            </form>
+                            <div class="text-center">
+                                <button type="button" class="btn btn-warning btn-save" style="float: left;">저장</button>
+                                <button type="button" class="btn btn-danger btn-cancle" style="float: right;">취소</button>
                             </div>
-                        </c:if>
-                        <div class="form-group">
-                            <label for="id">아이디</label>
-                            <input type="text" class="form-control" id="id" name="id"
-                                   value="${login.id}" readonly="readonly">
                         </div>
-                        <div class="form-group">
-                            <label for="nickname">닉네임</label>
-                            <input type="text" class="form-control" id="nickName" name="nickName"
-                                   value="${login.nickName}">
-                        </div>
-                        <div class="form-group">
-                            <label for="pw">비밀번호</label>
-                            <input type="password" class="form-control" id="pw" name="pw"
-                                   value="${login.pw}">
-                        </div>
-                        <div class="form-group">
-                            <label for="name">이름</label>
-                            <input type="text" class="form-control" id="name" name="name"
-                                   value="${login.name}" readonly="readonly">
-                        </div>
-                        <div class="form-group">
-                            <label for="birth">생년월일</label>
-                            <input type="text" class="form-control" id="birth" name="birth"
-                                   value="${login.birth}" readonly="readonly"
-                                   onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="address">주소</label>
-                            <input type="text" class="form-control" id="address" name="address"
-                                   value="${login.address}">
-                        </div>
-                        <div class="form-group">
-                            <label for="phoneNum">전화번호</label>
-                            <input type="text" class="form-control" id="phoneNum" name="phoneNum"
-                                   value="${login.phoneNum}"
-                                   onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">이메일</label>
-                            <input type="text" class="form-control" id="email" name="email"
-                                   value="${login.email}">
-                        </div>
-                    </form>
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-warning" style="float: left;">저장</button>
-                        <button type="submit" class="btn btn-danger" style="float: right;">취소</button>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
 
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-<script>
-    $(document).ready(function () {
-        var formObj = $("form[role='form']");
-        console.log(formObj);
-        $(".btn-danger").on("click", function () {
-            self.location = "/mypage/member/get?memNo="+${login.memNo};
-        });
-        $(".btn-warning").on("click", function () {
-            formObj.submit();
-        });
-    });
-</script>
 
+        <script type="text/javascript" th:src="@{/js/member.js}"></script>
+        <script type="text/javascript" th:src="@{/js/address.js}"></script>
+        <script type="text/javascript" th:src="@{//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js}"></script>
 
     </th:block>
 </th:block>

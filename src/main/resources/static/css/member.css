@@ -41,16 +41,12 @@
   font-weight: 300;
 }
 
-#birth {
+#birth2 {
   display: flex;
 }
 
-#birth input:nth-child(1),
-#birth select {
-  margin-right: 10px;
-}
 
-#birth .emptyBirth {
+#birth2 .emptyBirth {
   display: none;
   color: red;
 }

@@ -6,7 +6,7 @@
     <th:block th:fragment="content">
 
 <form role="form" method="post">
-    <input type='hidden' name='memNo' value="${login.memNo}">
+    <input type='hidden' name='id' th:value="${#authentication.principal.member.id}">
 </form>
 
 <div class="register-area" style="background-color: rgb(249, 249, 249);">
@@ -17,84 +17,74 @@
                     <h2>회원정보 조회 :</h2>
                     <div class="form-group">
                         <label for="rank">회원분류</label>
-                        <input type="text" class="form-control" id="rank" name="rank" th:value="${#authentication.principal.member.role}"
-                               readonly="readonly">
+                        <input th:if="${#authorization.expression('hasRole(''INDIVIDUAL'')')}" class="form-control rank" name="rank" value="개인"
+                                readonly="readonly"/>
+
+
+                        <input th:if="${#authorization.expression('hasRole(''COMPANY'')')}" class="form-control rank" name="rank" value="기업"
+                               readonly="readonly"/>
+
+
+                        <input th:if="${#authorization.expression('hasRole(''ADMIN'')')}" class="form-control rank" name="rank" value="관리자"
+                               readonly="readonly"/>
                     </div>
-                    <sec:authorize access="hasRole('ROLE_COMPANY')">
-                        <div class="form-group">
+                        <div class="form-group" sec:authorize="hasRole('COMPANY')">
                             <label for="companyNo">사업자번호</label>
                             <input type="text" class="form-control" id="companyNo" name="companyNo"
                                    th:value="${#authentication.principal.member.companyNo}" readonly="readonly">
                         </div>
-                    </sec:authorize>
-                    <div class="form-group">
-                        <label for="username">아이디</label>
-                        <input type="text" class="form-control" id="username" name="username"
-                               value="${#authentication.principal.member.username}" readonly="readonly">
-                    </div>
                     <div class="form-group">
                         <label for="nickName">닉네임</label>
                         <input type="text" class="form-control" id="nickName" name="nickName"
-                               value="${#authentication.principal.member.nickname}" readonly="readonly">
+                               th:value="${#authentication.principal.member.nickname}" readonly="readonly">
+                    </div>
+                    <div class="form-group">
+                        <label for="username">아이디</label>
+                        <input type="text" class="form-control" id="username" name="username"
+                               th:value="${#authentication.principal.member.username}" readonly="readonly">
                     </div>
                     <div class="form-group">
                         <label for="pw">비밀번호</label>
                         <input type="password" class="form-control" id="pw" name="pw"
-                               value="${#authentication.principal.member.pw}" readonly="readonly">
+                               th:value="${#authentication.principal.member.pw}" readonly="readonly">
                     </div>
                     <div class="form-group">
                         <label for="name">이름</label>
                         <input type="text" class="form-control" id="name" name="name"
-                               value="${#authentication.principal.member.name}" readonly="readonly">
-                    </div>
-                    <div class="form-group">
-                        <label for="birth">생년월일</label>
-                        <input type="text" class="form-control" id="birth" name="birth"
-                               value="${#authentication.principal.member.birth}" readonly="readonly"
-                               onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="address">주소</label>
-                        <input type="text" class="form-control" id="address" name="address"
-                               value="${#authentication.principal.member.address}" readonly="readonly">
-                    </div>
-                    <div class="form-group">
-                        <label for="phoneNum">전화번호</label>
-                        <input type="text" class="form-control" id="phoneNum" name="phoneNum"
-                               value="${#authentication.principal.member.phoneNum}" readonly="readonly"
-                               onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>
+                               th:value="${#authentication.principal.member.name}" readonly="readonly">
                     </div>
                     <div class="form-group">
                         <label for="email">이메일</label>
                         <input type="text" class="form-control" id="email" name="email"
-                               value="${#authentication.principal.member.email}" readonly="readonly">
+                               th:value="${#authentication.principal.member.email}" readonly="readonly">
+                    </div>
+                    <div class="form-group">
+                        <label for="birth">생년월일</label>
+                        <input type="text" class="form-control" id="birth" name="birth"
+                               th:value="${#authentication.principal.member.birth}" readonly="readonly"
+                               onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="sample4_roadAddress">주소</label>
+                        <input type="text" id="sample4_roadAddress" class="form-control address_40%" name="roadAddress" th:value="${#authentication.principal.member.roadAddress}" readonly>
+                        <span id="guide" style="color:#999;display:none"></span>
+                        <input type="text" id="sample4_detailAddress" class="form-control address_40%" name="detailAddress" th:value="${#authentication.principal.member.detailAddress}" onchange="SUMaddress()" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="phoneNum">전화번호</label>
+                        <input type="text" class="form-control" id="phoneNum" name="phoneNum"
+                               th:value="${#authentication.principal.member.phoneNum}" readonly="readonly"
+                               onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>
                     </div>
                     <div class="text-center">
-                        <button type="submit" class="btn btn-warning" style="float: left;">회원정보 수정</button>
-                        <button type="submit" class="btn btn-danger" style="float: right;">회원 탈퇴</button>
+                        <button type="button" class="btn btn-warning btn-modify" style="float: left;">회원정보 수정</button>
+                        <button type="button" class="btn btn-danger btn-leave" style="float: right;">회원 탈퇴</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-<script>
-    $(document).ready(function() {
-        var formObj = $("form[role='form']");
-        console.log(formObj);
-        $(".btn-warning").on("click", function() {
-            formObj.attr("action", "/mypage/member/modify");
-            formObj.attr("method", "get");
-            formObj.submit();
-        });
-        $(".btn-danger").on("click", function() {
-            formObj.attr("action", "/mypage/member/remove");
-            formObj.submit();
-        });
-    });
-</script>
-
+        <script type="text/javascript" th:src="@{/js/mpMember.js}"></script>
     </th:block>
 </th:block>

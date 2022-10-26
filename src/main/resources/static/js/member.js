@@ -246,18 +246,6 @@ function fnSubmit() {
   }
 }
 
-function SUMaddress() {
-  var realAddress = document.getElementById("address");
-  var fakeAddress =
-    $("#sample4_roadAddress").val() + " " + $("#sample4_detailAddress").val();
-  realAddress.setAttribute("value", fakeAddress);
-
-  if (fakeAddress == "") {
-    realAddress.focus();
-    return false;
-  }
-}
-
 function regexPW() {
   var regExp =
     /^(?!((?:[A-Za-z]+)|(?:[~!@#$%^&*()_+=]+)|(?=[0-9]+))$)[A-Za-z\d~!@#$%^&*()_+=]{8,}$/;
@@ -322,18 +310,23 @@ function emptyName() {
   }
 }
 function emptyBirth() {
-  let birth = $("#yy").val();
+  let yy = $("#yy").val();
 
-  if (birth == "") {
+  if (yy == "") {
     $(".lengthCK").css("display", "block");
-  } else if (birth.length != 4) {
+  } else if (yy.length != 4) {
     $(".lengthCK").css("display", "block");
   } else {
     $(".lengthCK").hide();
   }
 }
 
-function emptyDay() {
+function fourinput(object){
+    if (object.value.length > object.maxLength){
+            object.value = object.value.slice(0, object.maxLength);
+          }
+}
+function emptyDay(object) {
   let dd = $("#dd").val();
 
   if (dd == "") {
@@ -341,6 +334,10 @@ function emptyDay() {
   } else {
     $(".emptyBirth").hide();
   }
+if (object.value.length > object.maxLength){
+        object.value = object.value.slice(0, object.maxLength);
+      }
+
 }
 
 function emptyMail() {
@@ -363,9 +360,75 @@ function emptyCompanyNo() {
   }
 }
 
-$(function () {
-  for (var i = 1; i <= 12; i++) {
-    var mm = i > 9 ? i : "0" + i;
-    $(".month").append('<option value="' + mm + '">' + mm + "월</option>");
-  }
+let index = {
+	init: function(){
+		$(".btn-save").on("click",()=>{	//function(){} 대신 ()=>{} : this를 바인딩하기 위해서
+		this.update();
+		});
+	},
+
+        update : function(){
+		//alert('user의 save함수 호출됨');
+		let data = {
+			id: $("#id").val(),
+			username: $("#username").val(),
+			pw: $("#pw").val(),
+			email: $("#email").val(),
+			rank: $("#rank").val(),
+			companyNo: $("#companyNo").val(),
+			nickname: $("#nickname").val(),
+			name: $("#name").val(),
+			birth: $("#birth").val(),
+			roadAddress: $("#sample4_roadAddress").val(),
+			detailAddress: $("#sample4_detailAddress").val(),
+			phoneNum: $("#phoneNum").val(),
+		};
+		$.ajax({
+			//회원정보 수정 요청
+			type: "PUT",
+			url: "/api/modify",
+			data: JSON.stringify(data),		//http body 데이터
+			contentType: "application/json; charset=utf-8",	//body 데이터가 어떤 타입인지(MIME)
+
+			//응답 결과가 정상일 때
+		}).done(function(resp){
+			alert("회원수정이 완료되었습니다.");
+			//console.log(resp);
+			location.href="/mypage/member/get";
+			//실패일 때
+		}).fail(function(error){
+		    console.log(error);
+			alert(JSON.stringify(error));
+		});
+
+	}
+
+}
+index.init();
+$(document).ready(function(){
+for (var i = 1; i <= 12; i++) {
+  var mm = i > 9 ? i : "0" + i;
+  $(".month").append('<option value="' + mm + '">' + mm + "</option>");
+}
+
+for (var j = 2021; j >= 1922; j--) {
+  var yy = j > 9 ? j : "0" + j;
+  $(".year").append('<option value="' + yy + '">' + yy + "</option>");
+}
+
+for (var k = 1; k <= 31; k++) {
+  var dd = k > 9 ? k : "0" + k;
+  $(".day").append('<option value="' + dd + '">' + dd + "</option>");
+}
+var formObj = $("form[role='form']");
+        console.log(formObj);
+        $(".btn-cancle").on("click", function () {
+            self.location = "/mypage/member/get";
+        });
 });
+
+
+
+
+
+

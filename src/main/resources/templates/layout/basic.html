@@ -155,7 +155,6 @@
                         </button>
                     </div>
                     <div sec:authorize="isAuthenticated()">
-                        <div th:if="${session.member == null}">
                             <button class="navbar-btn nav-button wow fadeInRight"
                                     onclick=" window.open('#', '_self')"
                                     data-wow-delay="0.48s"
@@ -165,18 +164,6 @@
                                     onclick=" window.open('/member/logout', '_self')"
                                     data-wow-delay="0.45s">로그아웃
                             </button>
-                        </div>
-                        <div th:if="${session.member != null}">
-                            <button class="navbar-btn nav-button wow fadeInRight"
-                                    onclick=" window.open('#', '_self')"
-                                    data-wow-delay="0.48s"
-                                    th:text="${session.member.nickname}">
-                            </button>
-                            <button class="navbar-btn nav-button wow bounceInRight login"
-                                    onclick=" window.open('/member/logout', '_self')"
-                                    data-wow-delay="0.45s">로그아웃
-                            </button>
-                        </div>
                     </div>
 
                 </div>
@@ -239,7 +226,7 @@
                                     관리</a></li>
                         </ul>
                     <li sec:authorize="isAuthenticated()" class="profile">
-                        <th:block th:if="${session.member == null}">
+
                             <th:block th:if="${#authentication.principal.member.fileName == null || #authentication.principal.member.fileName == ''}">
                                 <img style="border-radius:50%;" alt=""
                                      th:src="@{/assets/img/defaultProfile.jpeg}"
@@ -257,13 +244,8 @@
                                          width="40px" height="40px"/>
                                 </th:block>
                             </th:block>
-                        </th:block>
-                        <th:block th:if="${session.member != null}">
-                            <img style="border-radius:50%;" alt=""
-                                 th:src="|${session.member.fileName}|"
-                                 width="40px" height="40px"/>
-                        </th:block>
-                    </li>
+
+
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
@@ -368,11 +350,9 @@
                     <div class="pull-left">
                         <span> (C) <a href="http://www.KimaroTec.com">인프</a> , All rights reserved 2022  </span>
                         <div sec:authorize="isAuthenticated()">
-                            <th:block th:if="${session.member != null}">
                                 <p th:text="${#authentication.principal}"></p>
                                 <p th:text="${#authentication.principal.member}"></p>
                                 <p th:text="${#authentication.principal.member.id}"></p>
-                            </th:block>
                         </div>
                     </div>
                     <div class="bottom-menu pull-right">

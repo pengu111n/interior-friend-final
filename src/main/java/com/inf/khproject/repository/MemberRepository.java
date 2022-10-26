@@ -38,4 +38,8 @@ public interface MemberRepository extends JpaRepository<Member, String> {
 
     Optional<Member> findByEmail(@Param("email") String email);
 
+    Optional<Member> findByEmailAndIsSocial(@Param("email")String email, @Param("isSocial")boolean isSocial);
+
+    Optional<Member> findById(@Param("id")Long id);
+
 }

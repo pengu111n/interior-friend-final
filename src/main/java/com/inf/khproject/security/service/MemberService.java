@@ -5,6 +5,7 @@ import com.inf.khproject.dto.MemberDTO;
 import com.inf.khproject.entity.Member;
 import com.inf.khproject.entity.MemberRole;
 import com.inf.khproject.repository.MemberRepository;
+import javassist.bytecode.DuplicateMemberException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.mail.MailException;
@@ -16,6 +17,7 @@ import javax.mail.Message.RecipientType;
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.transaction.Transactional;
 import java.io.UnsupportedEncodingException;
 import java.util.Optional;
 import java.util.Random;
@@ -33,11 +35,15 @@ public class MemberService {
 
     public Member register(MemberDTO dto) throws Exception {
         dto.setPw(passwordEncoder.encode(dto.getPw()));
+
         MemberRole role = dto.getRole();
         String auth = sendSimpleMessage(dto.getEmail());
         dto.setAuth(auth);
         log.info(dto);
-        Member member = dto.dtoToEntity(dto);
+        Member member = repository.findByEmailAndIsSocial(dto.getEmail(), true)
+                .map(entity -> entity.dtoToEntity(dto))
+                .orElse(dto.dtoToEntity(dto));
+
         repository.save(member);
         return member;
     }
@@ -73,6 +79,19 @@ public class MemberService {
         }
     }
 
+    @Transactional
+    public Member modify(Member member)throws Exception{
+        member.setPw(passwordEncoder.encode(member.getPw()));
+        Member member1 = repository.findById(member.getId())
+                .orElseThrow();
+        member1.setPw(member.getPw());
+        member1.setNickname(member.getNickname());
+        member1.setCompanyNo(member.getCompanyNo());
+        member1.setRoadAddress(member.getRoadAddress());
+        member1.setDetailAddress(member.getDetailAddress());
+        member1.setPhoneNum(member.getPhoneNum());
+        return member1;
+    }
 
     private String CODE; // 인증번호
 

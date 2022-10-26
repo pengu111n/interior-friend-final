@@ -1,11 +1,17 @@
 package com.inf.khproject.controller;
 
+import com.inf.khproject.dto.MemberDTO;
 import com.inf.khproject.entity.Member;
+import com.inf.khproject.security.dto.OAuth2Userimpl;
 import com.inf.khproject.security.service.CustomMemberDetails;
 import com.inf.khproject.security.service.MemberService;
 import com.inf.khproject.security.service.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,31 +34,19 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class MypageMemberController {
 
-
-
+    private final MemberService service;
+    private final AuthenticationManager authenticationManager;
     @GetMapping(value = "/get")
-    public String get(Model model, @AuthenticationPrincipal DefaultOAuth2User defaultOAuth2User) throws Exception {
+    public String get(Model model, @AuthenticationPrincipal OAuth2Userimpl oAuth2Userimpl, @AuthenticationPrincipal CustomMemberDetails customMemberDetails) throws Exception {
 
-//        Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
-//
-//        Object principal = loggedInUser.getPrincipal();
-//
-//        log.info("member2........." + principal);
-//
-//        OAuth2User oAuth2User = null;
-//        if (principal instanceof OAuth2AuthenticationToken) {
-//            OAuth2AuthenticationToken oAuth2AuthenticationToken = (OAuth2AuthenticationToken) principal;
-//            //By default its DefaultOAuth2User.
-//            oAuth2User = oAuth2AuthenticationToken.getPrincipal();
-//        }
-//
-//        Map<String, Object> attributes = oAuth2User.getAttributes();
-//
-//        log.info("attribute...." + attributes);
-
-        log.info("attribute..." + defaultOAuth2User.getAttributes());
-
-        model.addAttribute("login", defaultOAuth2User.getAttributes());
+        Member member = null;
+        if(oAuth2Userimpl != null) {
+            member = oAuth2Userimpl.getMember();
+            log.info("attribute..." + member);
+        }else{
+            member = customMemberDetails.getMember();
+        }
+        model.addAttribute("login", member);
 
 
         return "/mypage/member/get";
@@ -68,24 +62,36 @@ public class MypageMemberController {
 //        return "redirect:/";
 //    }
 //
-//    @RequestMapping(value = "/modify", method = RequestMethod.GET)
-//    public void modifyGET(int memNo, Model model) throws Exception {
+    @GetMapping(value = "/modify")
+    public void modifyGET(@AuthenticationPrincipal OAuth2Userimpl oAuth2Userimpl, @AuthenticationPrincipal CustomMemberDetails customMemberDetails, Model model) throws Exception {
+
+
+
+    }
+
+//    @PostMapping(value = "/mypage/member/modify")
+//    public ResponseEntity<String> modifyPOST(@RequestBody MemberDTO dto, RedirectAttributes rttr, HttpServletRequest request, @AuthenticationPrincipal OAuth2Userimpl oAuth2Userimpl, @AuthenticationPrincipal CustomMemberDetails customMemberDetails, @RequestParam("rank1")String rank) throws Exception {
 //
-//        model.addAttribute(service.get(memNo));
+//        Member member = null;
+//        if(oAuth2Userimpl != null) {
+//            member = oAuth2Userimpl.getMember();
 //
-//    }
+//        }else{
+//            member = customMemberDetails.getMember();
+//        }
+//        if(rank == "개인"){
+//            dto.setRank(1);
+//        }else if(rank == "기업"){
+//            dto.setRank(2);
+//        }else if(rank == "관리자") {
+//            dto.setRank(3);
+//        }
+//        service.modify(member, dto);
 //
-//    @RequestMapping(value = "/modify", method = RequestMethod.POST)
-//    public String modifyPOST(MemberVO member, RedirectAttributes rttr, HttpServletRequest request) throws Exception {
+//        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(dto.getUsername(), dto.getPw()));
+//        SecurityContextHolder.getContext().setAuthentication(authentication);
 //
-//        logger.info("modify: " + member);
 //
-//        service.modify(member);
-//        MemberVO vo = service.get(member.getMemNo());
-//
-//        rttr.addFlashAttribute("result", "success");
-//        HttpSession session = request.getSession();
-//        session.setAttribute("login", vo);
-//        return "redirect:/mypage/member/get?memNo="+Integer.toString(member.getMemNo());
+//        return new ResponseEntity<>("success", HttpStatus.OK);
 //    }
 }

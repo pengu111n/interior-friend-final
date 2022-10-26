@@ -25,7 +25,7 @@
             <div class="box-for overflow">
                 <div class="col-md-12 col-xs-12 register-blocks">
                     <h2>새 계정 :</h2>
-                    <form id="registerForm" name="insForm" action="register" method="post" onsubmit="return fnSubmit(); SUMaddress();" content>
+                    <form id="registerForm" name="insForm" action="register" enctype="multipart/form-data" method="post" onsubmit="return fnSubmit(); SUMaddress();" content>
                         <div class="form-group">
                         	<label for="rank">회원분류</label>
                         		<select id="rank" name ="rank" class="selectpicker show-tick form-control" onchange="changeRank()">
@@ -75,28 +75,28 @@
                             <span class="empty emptyName">필수 정보입니다.</span>
                         </div>
                         <div class="form-group">
-                            <label for="birth">생년월일</label>
+                            <label for="birth2">생년월일</label>
                             <!-- <input type="text" class="form-control" id="birth" name="birth" onkeydown="return checkNumber(event);" placeholder="생년월일"> -->
-                            <span id="birth">
-                            <input type="number" class="form-control" name="yy" id="yy" placeholder="생년월일" maxlength="4" onblur="emptyBirth()">
-                            <select name="mm" id="mm" class="month form-control"></select>
-                            <input type="number" maxlength="2" name="dd" id="dd" class="form-control" onblur="emptyDay()">
+                            <span id="birth2">
+                                <select name="yy" id="yy" class="year form-control">
+                                    <option value="2022" selected>2022</option>
+                                </select>
+                                <select name="mm" id="mm" class="month form-control"></select>
+                                <select name="dd" id="dd" class="day form-control"></select>
                             </span>
+                                <input type="hidden" id="birth" name="birth">
                             <span class="empty emptyBirth">필수 정보입니다.</span>
                             <span class="lengthCK">태어난 년도 4자리를 정확하게 입력하세요.</span>
                         </div>
                         <div class="form-group">
                             <label for="address">주소</label>
-                            <input type="hidden" class="form-control" id="address" name="address" placeholder="주소">
-                            <span class="half">
+                            <span class="half" id="address">
                             <input type="text" id="sample4_postcode" class="form-control address_40%" placeholder="우편번호" readonly>
                             <input type="button" onclick="sample4_execDaumPostcode()" class="form-control address_40%" value="우편번호 찾기">
                             </span>
-                            <input type="text" id="sample4_roadAddress" class="form-control address_40%" placeholder="도로명주소" readonly>
-                            <input type="text" id="sample4_jibunAddress" class="form-control address_40%" placeholder="지번주소" readonly>
+                            <input type="text" id="sample4_roadAddress" class="form-control address_40%" placeholder="도로명주소" name="roadAddress" readonly>
                             <span id="guide" style="color:#999;display:none"></span>
-                            <input type="text" id="sample4_detailAddress" placeholder="상세주소" class="form-control address_40%" onchange="SUMaddress()">
-                            <input type="text" id="sample4_extraAddress" class="form-control address_40%" placeholder="참고항목" readonly>
+                            <input type="text" id="sample4_detailAddress" placeholder="상세주소" class="form-control address_40%" name="detailAddress" onchange="SUMaddress()">
                         </div>
                         <div class="form-group">
                             <label for="phoneNum">전화번호</label>
@@ -123,18 +123,19 @@
                                 <p class="success">✅</p>
                             </span>
                         </div>
-                        <div class="form-group">
-                          <div class="fileDrop">
-                            <input type="file" class="hidden" name="fileName" id="clickInput">
-                            <br/>
-                            <br/>
-                            <br/>
-                            <br/>
-                            <p class="text-center"><i class="fa fa-paperclip"></i> 파일을 선택해 주세요</p>
-                          </div>
-                          <ul class="mailbox-attachments clearfix uploadedList">
-                          </ul>
+                        <div class="form-group file-form">
+                            <label for="profileimg">프로필 사진</label>
+                            <div id="profileimg" class="filebox bs3-primary preview-image">
+
+                                <div class="divide">
+                                <input class="upload-name" value="파일명" disabled="disabled">
+                                    <label for="input_file">업로드</label>
+                                    <input type="file" id="input_file" class="upload-hidden">
+                                    <input type="hidden" name="fileName" id="fileName">
+                                </div>
+                            </div>
                         </div>
+
                         <div class="text-center">
                             <button type="submit" class="btn btn-default">회원가입</button>
                         </div>
@@ -151,25 +152,24 @@
         height: 200px;
         border: 2px dotted #0b58a2;
     }
+    .tab-content {
+        margin: auto;
+        width: 80%;
+    }
+
 </style>
 
 <script type="text/javascript" th:src="@{//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js}"></script>
 <script type="text/javascript" th:src="@{/js/address.js}"></script>
-
+<script type="text/javascript" th:src="@{/js/fileupload.js}"></script>
 <script type="text/javascript" th:src="@{/js/memberUpload.js}"></script>
 <!--<script type="text/javascript" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js}"></script>-->
 
 
 <!-- End page header -->
-<script th:inline="javascript">
-$(function(){
-for (var i = 1; i <= 12; i++) {
-  var mm = i > 9 ? i : "0" + i;
-  $(".month").append('<option value="' + mm + '">' + mm + "월</option>");
-}
-});
-</script>
+
 <script type="text/javascript" th:src="@{/js/member.js}"></script>
+<link rel="stylesheet" th:href="@{/css/upload.css}">
 
     </th:block>
 </th:block>
