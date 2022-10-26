@@ -384,6 +384,18 @@
                 chatBoxIndividual = false;
                 var senderid = 0;
                 var receiver = 0;
+
+                var id = [[${dto.id}]];
+                var loginId = [[${#authentication.principal.member.id}]];
+                var loginRole = [[${#authentication.principal.member.role}]];
+                
+                if(id != loginId) {
+                    $(".answer").hide();
+                    if(loginRole =="ROLE_INDIVIDUAL"){
+                        $(".addChat").hide();
+                    }
+                }
+
                 $(".chatbox-company").hide();
                 $(".chatbox-individual").hide();
 
