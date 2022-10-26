@@ -39,16 +39,41 @@ public class QNAServiceImpl implements QNAService {
     }
 
     @Override
-    public PageResultDTO<QNADTO, Object[]> getList(PageRequestDTO pageRequestDTO) {
+    public PageResultDTO<QNADTO, Object[]> getList(PageRequestDTO pageRequestDTO, Long id) {
 
         log.info(pageRequestDTO);
 
         Function<Object[], QNADTO> fn = (en -> entityToDTO((QNA) en[0], (Member) en[1]));
 
-        Page<Object[]> result = qnaRepository.getQNAWithReply2(pageRequestDTO.getPageable(Sort.by("qnaNo").descending()));
+        Page<Object[]> result = qnaRepository.getQNAWithReply2(pageRequestDTO.getPageable(Sort.by("qnaNo").descending()), id);
 
         return new PageResultDTO<>(result, fn);
 
+    }
+
+    @Override
+    public PageResultDTO<QNADTO, Object[]> getListAll(PageRequestDTO pageRequestDTO) {
+
+        log.info(pageRequestDTO);
+
+        Function<Object[], QNADTO> fn = (en -> entityToDTO((QNA) en[0], (Member) en[1]));
+
+        Page<Object[]> result = qnaRepository.getQNAWithReply3(pageRequestDTO.getPageable(Sort.by("qnaNo").descending()));
+
+        return new PageResultDTO<>(result, fn);
+
+    }
+
+    @Override
+    public int getCount(Long id) {
+        int qnaCount = qnaRepository.getQNACount(id);
+        return qnaCount;
+    }
+
+    @Override
+    public int getAllCount(Long id) {
+        int qnaCount = qnaRepository.getAllQNACount(id);
+        return qnaCount;
     }
 
     @Transactional

@@ -10,7 +10,13 @@ public interface QNAService {
 
     Long register(QNADTO dto);
 
-    PageResultDTO<QNADTO, Object[]> getList(PageRequestDTO pageRequestDTO);
+    PageResultDTO<QNADTO, Object[]> getList(PageRequestDTO pageRequestDTO, Long id);
+
+    PageResultDTO<QNADTO, Object[]> getListAll(PageRequestDTO pageRequestDTO);
+
+    int getCount(Long id);
+
+    int getAllCount(Long id);
 
     QNADTO get(Long qnaNo);
 

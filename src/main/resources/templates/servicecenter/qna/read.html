@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <link rel="stylesheet" th:href="@{/assets/css/infoBoard.css}">
 <link rel="stylesheet" th:href="@{/assets/css/FAQ.css}">
@@ -59,11 +59,18 @@
 
                 <button type="button" class="btn btn-primary removeBtn">삭제</button>
 
-                <a th:href="@{/servicecenter/qna/list(page=${requestDTO.page})}">
-                    <button type="button" class="btn btn-primary">목록</button></a>
+                <button sec:authorize="hasAnyRole('ROLE_INDIVIDUAL', 'ROLE_COMPANY')"
+                        th:onclick="|location.href='@{/servicecenter/qna/list(id=${#authentication.principal.member.id}, page=${requestDTO.page})}'|"
+                        type="button" class="btn btn-primary">목록</button>
+                <button sec:authorize="hasRole('ROLE_ADMIN')"
+                        th:onclick="|location.href='@{/servicecenter/qna/listAll(id=${#authentication.principal.member.id})}'|"
+                        type="button" class="btn btn-primary">목록</button>
 
-                <button th:if="${dto.status != 0}" type="button" class="btn btn-primary answerBtn">답변확인</button>
-                <button th:if="${dto.status == 0}" type="button" class="btn btn-primary addReply">답변작성</button>
+                <button th:if="${dto.status != 0}"
+                        type="button" class="btn btn-primary answerBtn">답변확인</button>
+                <button sec:authorize="hasRole('ROLE_ADMIN')"
+                        th:if="${dto.status == 0}"
+                        type="button" class="btn btn-primary addReply">답변작성</button>
             </div>
 
             <div class="modal" tabindex="-1" role="dialog">
@@ -102,7 +109,6 @@
             var actionForm = $("form");
 
             $(".removeBtn").click(function () {
-                alert("Remove");
                 if (!confirm("삭제하시겠습니까?")) {
                     return;
                 }
@@ -117,7 +123,7 @@
             $(document).ready(function () {
 
                 var qnaNo = [[${dto.qnaNo}]];
-                var page = [[${result.page}]]
+                var page = [[${result.page}]];
 
                 //댓글 추가될 영역
                 var listGroup = $(".replyList");
@@ -161,10 +167,6 @@
                 }
 
                 $(".answerBtn").click(function () {
-
-                    // $.getJSON('/replies/qna/' + qnaNo, function (arr) {
-                    //     console.log(arr);
-                    // });
 
                     loadJSONData();
 

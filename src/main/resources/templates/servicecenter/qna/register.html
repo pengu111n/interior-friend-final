@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <link rel="stylesheet" th:href="@{/assets/css/infoBoard.css}">
 <link rel="stylesheet" th:href="@{/assets/css/FAQ.css}">
@@ -51,7 +51,7 @@
                             <span class="right"><textarea class="form-control" rows="10" name="content"
                                                           placeholder="내용을 입력하세요."></textarea></span>
                         </div>
-                        <input type="hidden" name="writerMemNo" th:value="1">
+                        <input type="hidden" name="writerMemNo" th:value="${#authentication.principal.member.id}">
                         <div class="qnaform__submit">
                             <button class="navbar-btn nav-button wow fadeInRight registerBtn" data-wow-delay="0.48s"
                                     type="submit">등록

@@ -1,7 +1,5 @@
 package com.inf.khproject.controller;
 
-import ch.qos.logback.core.pattern.color.RedCompositeConverter;
-import com.inf.khproject.dto.NoticeDTO;
 import com.inf.khproject.dto.PageRequestDTO;
 import com.inf.khproject.dto.QNADTO;
 import com.inf.khproject.service.QNAService;
@@ -23,20 +21,21 @@ public class QNAController {
 
     private final QNAService qnaService;
 
-    @GetMapping("/")
-    public String index() {
+    @GetMapping("/list")
+    public void list(Long id, PageRequestDTO pageRequestDTO, Model model) {
 
-        return "redirect:/servicecenter/qna/list";
+        log.info("list......" + pageRequestDTO);
+        log.info("count......" + qnaService.getCount(id));
+
+        model.addAttribute("count", qnaService.getCount(id));
+        model.addAttribute("result", qnaService.getList(pageRequestDTO, id));
 
     }
 
-    @GetMapping("/list")
-    public void list(PageRequestDTO pageRequestDTO, Model model) {
-
-        log.info("list......" + pageRequestDTO);
-
-        model.addAttribute("result", qnaService.getList(pageRequestDTO));
-
+    @GetMapping("/listAll")
+    public void listAll(Long id, PageRequestDTO pageRequestDTO, Model model) {
+        model.addAttribute("count", qnaService.getAllCount(id));
+        model.addAttribute("result", qnaService.getListAll(pageRequestDTO));
     }
 
     @GetMapping("/register")
@@ -55,12 +54,12 @@ public class QNAController {
 
         redirectAttributes.addFlashAttribute("msg", qnaNo);
 
-        return "redirect:/servicecenter/qna/list";
+        return "redirect:/servicecenter/qna/list?id="+dto.getWriterMemNo();
 
     }
 
     @GetMapping({"/read", "/modify"})
-    public void read(@ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO, Long qnaNo, Model model) {
+    public void read(@ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO, Long qnaNo, Long id, Model model) {
 
         log.info("qnaNo: " + qnaNo);
 
@@ -69,7 +68,7 @@ public class QNAController {
         log.info(qnaDTO);
 
         model.addAttribute("dto", qnaDTO);
-        model.addAttribute("result", qnaService.getList(pageRequestDTO));
+        model.addAttribute("result", qnaService.getList(pageRequestDTO, id));
 
     }
 
@@ -93,11 +92,13 @@ public class QNAController {
 
         log.info("qnaNo: " + qnaNo);
 
+        QNADTO dto = qnaService.get(qnaNo);
+
         qnaService.removeWithReplies(qnaNo);
 
         redirectAttributes.addFlashAttribute("msg", qnaNo);
 
-        return "redirect:/servicecenter/qna/list";
+        return "redirect:/servicecenter/qna/list?id="+dto.getWriterMemNo();
 
     }
 

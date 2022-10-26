@@ -37,8 +37,6 @@ public class MemberService {
         dto.setPw(passwordEncoder.encode(dto.getPw()));
 
         MemberRole role = dto.getRole();
-        String auth = sendSimpleMessage(dto.getEmail());
-        dto.setAuth(auth);
         log.info(dto);
         Member member = repository.findByEmailAndIsSocial(dto.getEmail(), true)
                 .map(entity -> entity.dtoToEntity(dto))
