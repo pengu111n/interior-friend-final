@@ -111,11 +111,20 @@ public class FileController {
             File file = new File(uploadPath +File.separator+ srcFileName);
             boolean result = file.delete();
 
-            File thumbnail = new File(file.getParent(), "s_" + file.getName());
+            String originalname = file.getName().substring(2);
 
+            log.info(file.getParent());
+            File original = new File(file.getParent(), originalname);
+            File thumbnail = new File(file.getParent(), file.getName());
+
+            log.info("original******" +  original);
+            log.info("thumbnail******" +  thumbnail);
+
+            original.delete();
             result = thumbnail.delete();
+            log.info("result****" + result);
 
-            return new ResponseEntity<>(result, HttpStatus.OK);
+            return new ResponseEntity<>(true, HttpStatus.OK);
 
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();

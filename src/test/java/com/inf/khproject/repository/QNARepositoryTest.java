@@ -80,22 +80,22 @@ public class QNARepositoryTest {
         
     }
 
-    @Test
-    public void testGetQNAWithReply2() {
-
-        Pageable pageable = PageRequest.of(0, 10, Sort.by("qnaNo").descending());
-
-        Page<Object[]> result = qnaRepository.getQNAWithReply2(pageable);
-
-        result.get().forEach(row -> {
-
-            Object[] arr = row;
-
-            System.out.println("Arrays.toString(arr) = " + Arrays.toString(arr));
-
-        });
-
-    }
+//    @Test
+//    public void testGetQNAWithReply2() {
+//
+//        Pageable pageable = PageRequest.of(0, 10, Sort.by("qnaNo").descending());
+//
+//        Page<Object[]> result = qnaRepository.getQNAWithReply2(pageable);
+//
+//        result.get().forEach(row -> {
+//
+//            Object[] arr = row;
+//
+//            System.out.println("Arrays.toString(arr) = " + Arrays.toString(arr));
+//
+//        });
+//
+//    }
 
     @Test
     public void testRead2() {

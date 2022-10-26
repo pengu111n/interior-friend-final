@@ -29,18 +29,18 @@ public class QNAServiceTest {
 
     }
 
-    @Test
-    public void testList() {
-
-        PageRequestDTO pageRequestDTO = new PageRequestDTO();
-
-        PageResultDTO<QNADTO, Object[]> result = qnaService.getList(pageRequestDTO);
-
-        for (QNADTO qnaDTO : result.getDtoList()) {
-            System.out.println("qnaDTO = " + qnaDTO);
-        }
-
-    }
+//    @Test
+//    public void testList() {
+//
+//        PageRequestDTO pageRequestDTO = new PageRequestDTO();
+//
+//        PageResultDTO<QNADTO, Object[]> result = qnaService.getList(pageRequestDTO);
+//
+//        for (QNADTO qnaDTO : result.getDtoList()) {
+//            System.out.println("qnaDTO = " + qnaDTO);
+//        }
+//
+//    }
 
     @Test
     public void testGet() {

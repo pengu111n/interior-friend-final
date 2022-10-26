@@ -71,7 +71,7 @@
 .filebox .upload-thumb-wrap {
   display: inline-block;
   width: 200px;
-  padding: 2px;
+  height: 200px;
   vertical-align: middle;
   border: 1px solid #ddd;
   border-radius: 50%;
@@ -81,9 +81,8 @@
 
 .filebox .upload-display img {
   display: block;
-  max-width: 100%;
-  width: 100%;
-  height: auto;
+  width: inherit;
+  height: inherit;
   border-radius: 50%;
 }
 
@@ -101,8 +100,7 @@
 }
 
 #x-mark{
-    font-size: 24px;
-    color: red;
     position: absolute;
     right: 0;
+    background-color: initial;
 }

@@ -1,13 +1,10 @@
 
-
-
-
-$(document).ready(function () {
-var imgTarget = $('.preview-image .upload-hidden');
+var imgTarget = $('.upload-hidden');
 
     imgTarget.on("change", function () {
-        var parent = $(this).parent();
-        parent.children('.upload-display').remove();
+        var parent = $(".filebox");
+
+
 
 
         var file = $("#input_file")[0].files[0]; //선택한 파일리스트를 가져온다.
@@ -31,7 +28,7 @@ var imgTarget = $('.preview-image .upload-hidden');
                 $("#fileName").val(data);
                 $(".upload-name").val(data);
                 var src = data;
-                $('.preview-image').prepend('<div class="upload-display"><div class="upload-thumb-wrap"><i id="x-mark" class="fa fa-remove"></i><img src=/displayImg?fileName='+src+' class="upload-thumb"></div></div>');
+                $('.filebox').prepend('<div class="upload-display"><div class="upload-thumb-wrap"><button type="button" data-file="' + src + '" id="x-mark">❌</button><img src=/displayImg?fileName='+src+' class="upload-thumb"></div></div>');
 
 
             },
@@ -39,9 +36,10 @@ var imgTarget = $('.preview-image .upload-hidden');
                 alert("failed!")
                 console.log(err)
             }
+
+
         });
-    });
-});
+
 function checkExtension(fileName, fileSize){
 
                if(fileSize >= maxSize){
@@ -52,5 +50,44 @@ function checkExtension(fileName, fileSize){
 
                return true;
            }
+
+});
+
+var xmark = $("#x-mark");
+
+$(document).on("click", "#x-mark" ,function(){
+        var targetFile = $("#x-mark").data("file");
+        const imgbox = document.querySelector(".upload-display");
+        imgbox.remove();
+
+        $.ajax({
+            url: '/removeImg',
+            data: {fileName: targetFile},
+            dataType:'text',
+            type: 'POST',
+            success: function(result){
+                alert("삭제되었습니다");
+                console.log(result);
+                $(".upload-name").val("파일명");
+            },
+        }) //$.ajax
+
+ })
+
+ function changeFile(){
+    var targetFile = $("#x-mark").data("file");
+
+    $.ajax({
+        url: '/removeImg',
+        data: {fileName: targetFile},
+        dataType:'text',
+        type: 'POST',
+        success: function(result){
+            alert("삭제되었습니다");
+            console.log(result);
+            $(".upload-name").val("파일명");
+        },
+    }) //$.ajax
+ }
 
 

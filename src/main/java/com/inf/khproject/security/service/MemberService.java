@@ -19,6 +19,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.transaction.Transactional;
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.Optional;
 import java.util.Random;
 
@@ -35,7 +36,7 @@ public class MemberService {
 
     public Member register(MemberDTO dto) throws Exception {
         dto.setPw(passwordEncoder.encode(dto.getPw()));
-
+        dto.setFileName(URLDecoder.decode(dto.getFileName(), "UTF-8"));
         MemberRole role = dto.getRole();
         log.info(dto);
         Member member = repository.findByEmailAndIsSocial(dto.getEmail(), true)
