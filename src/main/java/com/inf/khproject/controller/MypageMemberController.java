@@ -52,15 +52,20 @@ public class MypageMemberController {
         return "/mypage/member/get";
     }
 
-//    @RequestMapping(value = "/remove", method = RequestMethod.POST)
-//    public String remove(@RequestParam("memno") int memno, RedirectAttributes rttr) throws Exception {
-//
-//        service.remove(memno);
-//
-//        rttr.addFlashAttribute("result", "success");
-//
-//        return "redirect:/";
-//    }
+    @GetMapping("/remove")
+    public void remove()throws Exception{
+
+    };
+
+    @PostMapping(value = "/remove")
+    public String remove(Long id) throws Exception {
+
+            service.deleteMember(id);
+
+        SecurityContextHolder.clearContext();
+
+        return "redirect:/";
+    }
 //
     @GetMapping(value = "/modify")
     public void modifyGET(@AuthenticationPrincipal OAuth2Userimpl oAuth2Userimpl, @AuthenticationPrincipal CustomMemberDetails customMemberDetails, Model model) throws Exception {

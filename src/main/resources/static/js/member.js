@@ -382,6 +382,7 @@ let index = {
 			roadAddress: $("#sample4_roadAddress").val(),
 			detailAddress: $("#sample4_detailAddress").val(),
 			phoneNum: $("#phoneNum").val(),
+			fileName: $("#fileName").val()
 		};
 		$.ajax({
 			//회원정보 수정 요청

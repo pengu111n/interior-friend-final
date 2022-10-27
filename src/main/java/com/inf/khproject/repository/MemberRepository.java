@@ -42,4 +42,9 @@ public interface MemberRepository extends JpaRepository<Member, String> {
 
     Optional<Member> findById(@Param("id")Long id);
 
+    @Transactional
+    @Modifying
+    @Query("delete from Member m where m.id = :id")
+    void deleteById(@Param("id")Long id);
+
 }

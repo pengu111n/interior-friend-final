@@ -4,7 +4,8 @@
 
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
     <th:block th:fragment="content">
-
+        <link rel="stylesheet" th:href="@{/css/member.css}">
+        <link rel="stylesheet" th:href="@{/css/upload.css}">
         <div class="register-area" style="background-color: rgb(249, 249, 249);">
             <div class="container">
                 <div class="col-md-6">
@@ -84,6 +85,23 @@
                                     <input type="text" class="form-control" id="email" name="email"
                                            th:value="${#authentication.principal.member.email}" readonly>
                                 </div>
+                                <div class="form-group file-form">
+                                    <label for="profileimg">프로필 사진</label>
+                                    <div id="profileimg" class="filebox bs3-primary preview-image">
+                                        <div class="upload-display">
+                                            <div class="upload-thumb-wrap">
+                                                <button type="button" data-file="" id="x-mark">❌</button>
+                                                <img src="" class="upload-thumb">
+                                            </div>
+                                        </div>
+                                        <div class="divide">
+                                            <input class="upload-name" value="파일명" readonly>
+                                            <label for="input_file">업로드</label>
+                                            <input type="file" id="input_file" class="upload-hidden" accept="image/*">
+                                            <input type="hidden" name="fileName" id="fileName" value="">
+                                        </div>
+                                    </div>
+                                </div>
                             </form>
                             <div class="text-center">
                                 <button type="button" class="btn btn-warning btn-save" style="float: left;">저장</button>
@@ -99,6 +117,17 @@
         <script type="text/javascript" th:src="@{/js/member.js}"></script>
         <script type="text/javascript" th:src="@{/js/address.js}"></script>
         <script type="text/javascript" th:src="@{//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js}"></script>
+        <script type="text/javascript" th:src="@{/js/fileupload.js}"></script>
+        <script type="text/javascript" th:src="@{/js/memberUpload.js}"></script>
+        <script th:inline="javascript">
+            let fileName = [[${#authentication.principal.member.fileName}]];
+            let decodeName = decodeURI(fileName);
+            $(".upload-thumb").attr("src", "/displayImg?fileName=" + decodeName);
+            $("#fileName").attr("value", decodeName);
+            $("#x-mark").attr("data-file", decodeName);
+
+        </script>
+
 
     </th:block>
 </th:block>

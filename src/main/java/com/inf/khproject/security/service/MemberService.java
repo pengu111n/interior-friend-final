@@ -5,7 +5,6 @@ import com.inf.khproject.dto.MemberDTO;
 import com.inf.khproject.entity.Member;
 import com.inf.khproject.entity.MemberRole;
 import com.inf.khproject.repository.MemberRepository;
-import javassist.bytecode.DuplicateMemberException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.mail.MailException;
@@ -20,7 +19,6 @@ import javax.mail.internet.MimeMessage;
 import javax.transaction.Transactional;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.util.Optional;
 import java.util.Random;
 
 
@@ -81,6 +79,7 @@ public class MemberService {
     @Transactional
     public Member modify(Member member)throws Exception{
         member.setPw(passwordEncoder.encode(member.getPw()));
+        member.setFileName(URLDecoder.decode(member.getFileName(), "UTF-8"));
         Member member1 = repository.findById(member.getId())
                 .orElseThrow();
         member1.setPw(member.getPw());
@@ -89,7 +88,12 @@ public class MemberService {
         member1.setRoadAddress(member.getRoadAddress());
         member1.setDetailAddress(member.getDetailAddress());
         member1.setPhoneNum(member.getPhoneNum());
+        member1.setFileName(member.getFileName());
         return member1;
+    }
+
+    public void deleteMember(Long id)throws Exception{
+        repository.deleteById(id);
     }
 
     private String CODE; // 인증번호

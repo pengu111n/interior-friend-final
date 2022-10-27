@@ -355,7 +355,7 @@ $(document).ready(function() {
             formObj.attr("method", "get");
             formObj.submit();
         });
-        $(".btn-leave").on("click", function() {
+        $(".btn-yes").on("click", function() {
             formObj.attr("action", "/mypage/member/remove");
             formObj.submit();
         });
