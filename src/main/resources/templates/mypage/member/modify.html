@@ -4,6 +4,7 @@
 
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
     <th:block th:fragment="content">
+        <th:block th:replace="/layout/myPageHeader :: mypage-header"></th:block>
         <link rel="stylesheet" th:href="@{/css/member.css}">
         <link rel="stylesheet" th:href="@{/css/upload.css}">
         <div class="register-area" style="background-color: rgb(249, 249, 249);">
@@ -122,7 +123,13 @@
         <script th:inline="javascript">
             let fileName = [[${#authentication.principal.member.fileName}]];
             let decodeName = decodeURI(fileName);
-            $(".upload-thumb").attr("src", "/displayImg?fileName=" + decodeName);
+            if(fileName == null || fileName == ""){
+                $(".upload-thumb").attr("src", "/assets/img/defaultProfile.jpeg");
+            }else if(!fileName.startsWith("http")){
+                $(".upload-thumb").attr("src", "/displayImg?fileName=" + decodeName);
+            }else if(fileName.startsWith("http")){
+                $(".upload-thumb").attr("src", fileName);
+            }
             $("#fileName").attr("value", decodeName);
             $("#x-mark").attr("data-file", decodeName);
 

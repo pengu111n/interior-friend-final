@@ -4,6 +4,7 @@
 
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
     <th:block th:fragment="content">
+        <th:block th:replace="/layout/myPageHeader :: mypage-header"></th:block>
         <link rel="stylesheet" th:href="@{/css/member.css}">
         <link rel="stylesheet" th:href="@{/css/upload.css}">
         <link rel="stylesheet" th:href="@{/css/modal.css}">

@@ -18,7 +18,7 @@ public interface QNARepository extends JpaRepository<QNA, Long> {
     List<Object[]> getQNAWithReply(@Param("qnaNo") Long qnaNo);
 
     @Query(value = "select q, w from QNA q left join q.writer w left join QNAReply r on r.qna = q group by q having w.id =:id")
-    Page<Object[]> getQNAWithReply2(Pageable pageable, Long id);
+    Page<Object[]> getQNAWithReply2(Pageable pageable, @Param("id") Long id);
 
     @Query(value = "select q, w from QNA q left join q.writer w left join QNAReply r on r.qna = q group by q")
     Page<Object[]> getQNAWithReply3(Pageable pageable);
@@ -27,7 +27,7 @@ public interface QNARepository extends JpaRepository<QNA, Long> {
     Object getQNAByQnaNo(@Param("qnaNo") Long qnaNo);
 
     @Query("select count(q.qnaNo) from QNA q where q.writer.id =:id")
-    int getQNACount(Long id);
+    int getQNACount(@Param("id") Long id);
 
     @Query("select count(q.qnaNo) from QNA q")
     int getAllQNACount(Long id);
