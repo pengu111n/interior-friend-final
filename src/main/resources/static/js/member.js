@@ -55,22 +55,52 @@ $(".uploadedList").on("click", ".delbtn", function (event) {
 });
 var auth;
 $("#confirmEmailBtn").click(function (event) {
+
   event.preventDefault();
+
+  var email = $("#email").val();
+
   $.ajax({
-    type: "POST",
-    url: "/member/confirmMail",
-    data: { email : $("#email").val() },
+
+    url: "/member/emailCheck",
+    type: "post",
+    dataType: "json",
+    data: { email: email },
+
     success: function (data) {
-      $(".invalidEmail").hide()
-      $(".sendMail").show();
-      console.log(data);
-      auth = data;
-      $("#confirmEmailBtn").attr("disabled", true);
-      return false;
+
+      console.log("data: " + data);
+
+      if (data == 1) {
+
+        alert("이미 등록된 이메일입니다.");
+        return false;
+
+      } else {
+
+        $.ajax({
+
+          type: "POST",
+          url: "/member/confirmMail",
+          data: { email : $("#email").val() },
+
+          success: function (data) {
+
+            $(".invalidEmail").hide()
+            $(".sendMail").show();
+            console.log(data);
+            auth = data;
+            $("#confirmEmailBtn").attr("disabled", true);
+            return false;
+
+          },
+          error: function(){
+            $(".invalidEmail").show()
+          }
+        });
+
+      }
     },
-    error: function(){
-        $(".invalidEmail").show()
-    }
   });
 });
 
@@ -175,6 +205,31 @@ function nicknameCheck() {
       } else {
         $(".nicknameCK").hide();
         $(".emptynickname").hide();
+      }
+    },
+  });
+}
+
+function emailCheck() {
+  var email = $("#email").val();
+  $.ajax({
+    url: "/member/emailCheck",
+    type: "post",
+    dataType: "json",
+    data: { email: email },
+    success: function (data) {
+      console.log("data: " + data);
+      if (data == 1) {
+        alert("이미 등록된 이메일입니다.")
+        // $(".nicknameCK").show();
+        $(".emptyMail").hide();
+        return false;
+      } else if (nickname == "") {
+        $(".emptyMail").show();
+        // $(".nicknameCK").hide();
+      } else {
+        // $(".nicknameCK").hide();
+        $(".emptyMail").hide();
       }
     },
   });

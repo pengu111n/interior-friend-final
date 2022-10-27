@@ -18,6 +18,9 @@ public interface MemberRepository extends JpaRepository<Member, String> {
     @Query("select count(m) from Member m where m.nickname = :nickname")
     int nicknameCheck(@Param("nickname") String nickname) throws Exception;
 
+    @Query("select count(m) from Member m where m.email = :email")
+    int emailCheck(@Param("email") String email) throws Exception;
+
 
     @EntityGraph(attributePaths = {"roleSet"}, type = EntityGraph.EntityGraphType.LOAD)
     @Query("select m from Member m where m.isSocial = :isSocial and m.username = :username")

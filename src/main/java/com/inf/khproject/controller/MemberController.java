@@ -67,6 +67,13 @@ public String regist(MemberDTO dto, HttpServletResponse res, HttpServletRequest 
         return result;
     }
 
+    @PostMapping("/emailCheck")
+    @ResponseBody
+    public int emailCheck(String email) throws Exception{
+        int result = service.emailCheck(email);
+        return result;
+    }
+
     @GetMapping("/login")
     public void login(Model model) throws Exception{
         log.info("login");

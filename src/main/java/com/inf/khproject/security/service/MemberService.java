@@ -57,6 +57,11 @@ public class MemberService {
         return existNickname;
     }
 
+    public int emailCheck(String email) throws Exception {
+        int existEmail = repository.emailCheck(email);
+        return existEmail;
+    }
+
 
     public String findUsername(String name, String phoneNum)throws Exception{
         String username = repository.findUsernameByNameAndPhoneNum(name, phoneNum);
