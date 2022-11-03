@@ -349,3 +349,19 @@ for (var i = 1; i <= 12; i++) {
   $(".month").append('<option value="' + mm + '">' + mm + "월</option>");
 }
 
+
+$(document).ready(function() {
+        var formObj = $("form[role='form']");
+        console.log(formObj);
+        $(".btn-modify").on("click", function() {
+            formObj.attr("action", "/mypage/member/modify");
+            formObj.attr("method", "get");
+            formObj.submit();
+        });
+        $(".btn-yes").on("click", function() {
+            formObj.attr("action", "/mypage/member/remove/${#authentication.principal.member.phoneNum}");
+            formObj.attr("method", "delete");
+            formObj.submit();
+        });
+    });
+
